@@ -81,6 +81,25 @@ Endpoint:
 WS /ws/rooms/{roomId}
 ```
 
+## Flujo Implementado en Godot
+
+El cliente Godot ya implementa el primer flujo de lobby:
+
+1. El jugador ingresa nombre en la Home.
+2. Presiona `START ROOM`.
+3. Godot llama `POST /api/rooms`.
+4. El backend crea una sala y devuelve `room.id`.
+5. Godot conecta a `WS /ws/rooms/{roomId}`.
+6. Godot envia `join_room` con `playerName`.
+7. El backend responde `room_state`.
+8. Godot muestra la cantidad de jugadores conectados.
+
+Estado esperado en UI:
+
+```text
+Lobby conectado: 1 jugador(es).
+```
+
 ## Client -> Server
 
 ### `join_room`

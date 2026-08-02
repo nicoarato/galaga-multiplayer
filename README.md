@@ -59,6 +59,9 @@ Actualmente incluye:
 - Spec inicial del producto y arquitectura.
 - Estructura monorepo preparada para cliente, backend y contratos compartidos.
 - Backend base con HTTP, WebSocket, lint, typecheck, tests y coverage 100% para logica testeable.
+- Home screen de Godot con estilo arcade retro.
+- Creacion de sala desde Godot via `POST /api/rooms`.
+- Join inicial al lobby desde Godot via `WS /ws/rooms/{roomId}` y mensaje `join_room`.
 
 ## Desarrollo Local
 
@@ -87,6 +90,18 @@ Levantar backend local:
 npm run dev --workspace backend
 ```
 
+Abrir Godot:
+
+```bash
+godot --editor --path game
+```
+
+Ejecutar el proyecto Godot:
+
+```bash
+godot --path game
+```
+
 Endpoints iniciales:
 
 ```text
@@ -94,6 +109,12 @@ GET  /health
 POST /api/rooms
 GET  /api/rooms/{roomId}
 WS   /ws/rooms/{roomId}
+```
+
+Flujo local implementado:
+
+```text
+START ROOM -> POST /api/rooms -> WS /ws/rooms/{roomId} -> join_room -> room_state
 ```
 
 ## Roadmap Inicial
