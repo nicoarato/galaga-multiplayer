@@ -68,4 +68,5 @@ Actualmente incluye:
 
 ## Documentacion
 
-Ver [docs/spec.md](docs/spec.md).
+- [Spec inicial](docs/spec.md)
+- [Principios de ingenieria](docs/engineering-principles.md)
