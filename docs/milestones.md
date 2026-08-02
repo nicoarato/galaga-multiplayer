@@ -43,15 +43,13 @@ Criterios de aceptacion:
 - [x] El Lobby muestra cantidad/estado de jugadores.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
-### Corte Actual - Join Manual por Room ID
+### Join Manual por Room ID
 
 - [x] Usar el campo de codigo de sala de Home.
 - [x] Conectar a `WS /ws/rooms/{roomId}` sin crear sala nueva.
 - [x] Enviar `join_room`.
 - [x] Cambiar de Home a Lobby cuando llegue `room_state`.
 - [x] Mostrar ambos jugadores en los clientes conectados.
-- [ ] Manejar error `room_not_found`.
-- [ ] Manejar error `room_full`.
 - [x] Mantener `BACK` cerrando la conexion y volviendo a Home.
 - [x] Mostrar room id en un campo copiable.
 - [x] Agregar boton `COPY` para copiar room id al clipboard.
@@ -70,8 +68,22 @@ Criterios de aceptacion:
 - [x] Un cliente crea sala.
 - [x] Otro cliente entra usando el room id.
 - [x] Ambos clientes ven la misma lista de jugadores.
-- [ ] Si un cliente se desconecta, el otro ve la lista actualizada.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Corte Actual - Errores y Desconexion de Lobby
+
+- [ ] Manejar error `room_not_found`.
+- [ ] Manejar error `room_full`.
+- [ ] Mostrar errores de join en Home sin cambiar a Lobby.
+- [ ] Si un cliente se desconecta, el otro ve la lista actualizada.
+- [ ] `BACK` no debe mostrar error de desconexion despues de volver a Home.
+
+Criterios de aceptacion:
+
+- [ ] Intentar unirse a una sala inexistente muestra error claro.
+- [ ] Intentar unirse a una sala llena muestra error claro.
+- [ ] Al cerrar/salir un cliente, el resto ve la lista actualizada.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ### Siguiente Corte - Ready / Start
 
