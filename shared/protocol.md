@@ -201,6 +201,12 @@ Reglas:
 }
 ```
 
+Regla cliente:
+
+- Si el error ocurre antes de recibir `room_state`, Godot debe permanecer en Home.
+- Si el error ocurre dentro de Lobby, Godot debe mostrar el error en el estado del lobby.
+- El cliente debe mapear `reason` a un mensaje legible de UI.
+
 Errores iniciales:
 
 - `room_not_found`

@@ -72,11 +72,14 @@ Criterios de aceptacion:
 
 ### Corte Actual - Errores y Desconexion de Lobby
 
+Spec: [Lobby Error Handling Spec](lobby-error-handling-spec.md)
+
 - [ ] Manejar error `room_not_found`.
 - [ ] Manejar error `room_full`.
 - [ ] Mostrar errores de join en Home sin cambiar a Lobby.
 - [ ] Si un cliente se desconecta, el otro ve la lista actualizada.
 - [ ] `BACK` no debe mostrar error de desconexion despues de volver a Home.
+- [ ] `BACK` debe notificar salida al backend.
 
 Criterios de aceptacion:
 
