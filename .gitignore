@@ -6,8 +6,11 @@
 dist/
 build/
 exports/
+coverage/
+**/coverage/
 
 # Backend dependencies
 node_modules/
 .env
 .env.*
+!.env.example

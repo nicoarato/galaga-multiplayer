@@ -1,0 +1,151 @@
+export const CLIENT_MESSAGE_TYPES = [
+  "join_room",
+  "leave_room",
+  "set_ready",
+  "start_game",
+  "ping"
+] as const;
+
+export type ClientMessageType = (typeof CLIENT_MESSAGE_TYPES)[number];
+
+export type JoinRoomMessage = {
+  type: "join_room";
+  playerName: string;
+};
+
+export type LeaveRoomMessage = {
+  type: "leave_room";
+};
+
+export type SetReadyMessage = {
+  type: "set_ready";
+  ready: boolean;
+};
+
+export type StartGameMessage = {
+  type: "start_game";
+};
+
+export type PingMessage = {
+  type: "ping";
+  timestamp: number;
+};
+
+export type ClientMessage =
+  | JoinRoomMessage
+  | LeaveRoomMessage
+  | SetReadyMessage
+  | StartGameMessage
+  | PingMessage;
+
+export type ProtocolError = {
+  message: string;
+};
+
+export type ParseClientMessageResult =
+  | {
+      ok: true;
+      message: ClientMessage;
+    }
+  | {
+      ok: false;
+      error: ProtocolError;
+    };
+
+export function parseClientMessage(raw: string): ParseClientMessageResult {
+  let parsed: unknown;
+
+  try {
+    parsed = JSON.parse(raw) as unknown;
+  } catch {
+    return invalid("Message must be valid JSON");
+  }
+
+  if (!isRecord(parsed)) {
+    return invalid("Message must be an object");
+  }
+
+  if (typeof parsed.type !== "string") {
+    return invalid("Message type is required");
+  }
+
+  switch (parsed.type) {
+    case "join_room":
+      return parseJoinRoomMessage(parsed);
+    case "leave_room":
+      return { ok: true, message: { type: "leave_room" } };
+    case "set_ready":
+      return parseSetReadyMessage(parsed);
+    case "start_game":
+      return { ok: true, message: { type: "start_game" } };
+    case "ping":
+      return parsePingMessage(parsed);
+    default:
+      return invalid(`Unsupported message type: ${parsed.type}`);
+  }
+}
+
+function parseJoinRoomMessage(value: Record<string, unknown>): ParseClientMessageResult {
+  if (typeof value.playerName !== "string") {
+    return invalid("playerName is required");
+  }
+
+  const playerName = value.playerName.trim();
+
+  if (playerName.length === 0) {
+    return invalid("playerName cannot be empty");
+  }
+
+  if (playerName.length > 24) {
+    return invalid("playerName cannot exceed 24 characters");
+  }
+
+  return {
+    ok: true,
+    message: {
+      type: "join_room",
+      playerName
+    }
+  };
+}
+
+function parseSetReadyMessage(value: Record<string, unknown>): ParseClientMessageResult {
+  if (typeof value.ready !== "boolean") {
+    return invalid("ready must be a boolean");
+  }
+
+  return {
+    ok: true,
+    message: {
+      type: "set_ready",
+      ready: value.ready
+    }
+  };
+}
+
+function parsePingMessage(value: Record<string, unknown>): ParseClientMessageResult {
+  if (typeof value.timestamp !== "number" || !Number.isFinite(value.timestamp)) {
+    return invalid("timestamp must be a finite number");
+  }
+
+  return {
+    ok: true,
+    message: {
+      type: "ping",
+      timestamp: value.timestamp
+    }
+  };
+}
+
+function invalid(message: string): ParseClientMessageResult {
+  return {
+    ok: false,
+    error: {
+      message
+    }
+  };
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}

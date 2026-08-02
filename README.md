@@ -56,6 +56,43 @@ Actualmente incluye:
 - Proyecto base de Godot.
 - Spec inicial del producto y arquitectura.
 - Estructura monorepo preparada para cliente, backend y contratos compartidos.
+- Backend base con HTTP, WebSocket, lint, typecheck, tests y coverage 100% para logica testeable.
+
+## Desarrollo Local
+
+Requisitos:
+
+- Node.js 24+
+- npm 11+
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Ejecutar checks:
+
+```bash
+npm run lint
+npm run typecheck
+npm run coverage
+```
+
+Levantar backend local:
+
+```bash
+npm run dev --workspace backend
+```
+
+Endpoints iniciales:
+
+```text
+GET  /health
+POST /api/rooms
+GET  /api/rooms/{roomId}
+WS   /ws/rooms/{roomId}
+```
 
 ## Roadmap Inicial
 
@@ -70,3 +107,4 @@ Actualmente incluye:
 
 - [Spec inicial](docs/spec.md)
 - [Principios de ingenieria](docs/engineering-principles.md)
+- [Protocolo multiplayer](shared/protocol.md)

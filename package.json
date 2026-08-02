@@ -1,0 +1,18 @@
+{
+  "name": "galaga-multiplayer",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "backend"
+  ],
+  "scripts": {
+    "lint": "npm run lint --workspace backend",
+    "typecheck": "npm run typecheck --workspace backend",
+    "test": "npm run test --workspace backend",
+    "coverage": "npm run coverage --workspace backend"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=11.0.0"
+  }
+}
