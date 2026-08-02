@@ -1,6 +1,6 @@
 extends Control
 
-@onready var home_screen: HomeScreen = %HomeScreen
+@onready var home_screen = %HomeScreen
 
 
 func _ready() -> void:
