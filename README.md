@@ -129,6 +129,7 @@ START ROOM -> POST /api/rooms -> WS /ws/rooms/{roomId} -> join_room -> room_stat
 ## Documentacion
 
 - [Spec inicial](docs/spec.md)
+- [Milestones](docs/milestones.md)
 - [Principios de ingenieria](docs/engineering-principles.md)
 - [Pipeline de arte](docs/art-pipeline.md)
 - [Protocolo multiplayer](shared/protocol.md)
