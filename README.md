@@ -2,6 +2,8 @@
 
 Galaga Multiplayer es un experimento de videojuego arcade para navegador: una partida cooperativa inspirada en los shooters clasicos de naves, donde un jugador crea una sala y comparte un link para que otras personas se sumen al instante.
 
+![Invasion '26 cover](game/assets/cover/invasion_26_cover.png)
+
 La idea central es que jugar sea tan simple como abrir una URL:
 
 ```text
@@ -107,4 +109,5 @@ WS   /ws/rooms/{roomId}
 
 - [Spec inicial](docs/spec.md)
 - [Principios de ingenieria](docs/engineering-principles.md)
+- [Pipeline de arte](docs/art-pipeline.md)
 - [Protocolo multiplayer](shared/protocol.md)
