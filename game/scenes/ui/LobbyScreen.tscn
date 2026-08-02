@@ -1,0 +1,194 @@
+[gd_scene format=3 uid="uid://bn337pco6hmxh"]
+
+[ext_resource type="Script" path="res://scripts/ui/lobby_screen.gd" id="1_lobby"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0196078, 0.0156863, 0.0745098, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.145098, 0.831373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.105882, 0.921569, 0.133333, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.917647, 1, 0.945098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(1, 0.898039, 0.0470588, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+
+[node name="LobbyScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+script = ExtResource("1_lobby")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 56
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 56
+theme_override_constants/margin_bottom = 32
+
+[node name="Content" type="VBoxContainer" parent="RootMargin"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Title" type="Label" parent="RootMargin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
+theme_override_colors/font_outline_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.145098, 0.831373, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 64
+text = "LOBBY"
+horizontal_alignment = 1
+
+[node name="MainRows" type="HBoxContainer" parent="RootMargin/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 28
+
+[node name="PlayersPanel" type="PanelContainer" parent="RootMargin/Content/MainRows"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="PlayersMargin" type="MarginContainer" parent="RootMargin/Content/MainRows/PlayersPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="PlayersContent" type="VBoxContainer" parent="RootMargin/Content/MainRows/PlayersPanel/PlayersMargin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayersHeader" type="HBoxContainer" parent="RootMargin/Content/MainRows/PlayersPanel/PlayersMargin/PlayersContent"]
+layout_mode = 2
+
+[node name="PlayersTitle" type="Label" parent="RootMargin/Content/MainRows/PlayersPanel/PlayersMargin/PlayersContent/PlayersHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
+theme_override_font_sizes/font_size = 34
+text = "PLAYERS"
+
+[node name="PlayersLabel" type="Label" parent="RootMargin/Content/MainRows/PlayersPanel/PlayersMargin/PlayersContent/PlayersHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0862745, 0.941176, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "0 PLAYER(S)"
+
+[node name="PlayersList" type="VBoxContainer" parent="RootMargin/Content/MainRows/PlayersPanel/PlayersMargin/PlayersContent"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="SidePanel" type="PanelContainer" parent="RootMargin/Content/MainRows"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="SideMargin" type="MarginContainer" parent="RootMargin/Content/MainRows/SidePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="SideContent" type="VBoxContainer" parent="RootMargin/Content/MainRows/SidePanel/SideMargin"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="RoomIdLabel" type="Label" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
+theme_override_font_sizes/font_size = 26
+text = "ROOM -"
+autowrap_mode = 3
+
+[node name="ConnectionLabel" type="Label" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0862745, 0.941176, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Connecting..."
+autowrap_mode = 3
+
+[node name="Spacer" type="Control" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ReadyButton" type="Button" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+text = "READY"
+
+[node name="StartGameButton" type="Button" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+disabled = true
+theme_override_colors/font_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+text = "START GAME"
+
+[node name="BackButton" type="Button" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+text = "BACK"

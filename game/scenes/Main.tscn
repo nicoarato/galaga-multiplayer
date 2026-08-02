@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7pdm3a4r107x"]
+[gd_scene load_steps=6 format=3 uid="uid://b7pdm3a4r107x"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
 [ext_resource type="PackedScene" path="res://scenes/ui/HomeScreen.tscn" id="2_home"]
 [ext_resource type="Script" path="res://scripts/net/api_client.gd" id="3_api"]
 [ext_resource type="Script" path="res://scripts/net/room_socket.gd" id="4_socket"]
+[ext_resource type="PackedScene" path="res://scenes/ui/LobbyScreen.tscn" id="5_lobby"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -15,6 +16,10 @@ grow_vertical = 2
 script = ExtResource("1_main")
 
 [node name="HomeScreen" parent="." instance=ExtResource("2_home")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="LobbyScreen" parent="." instance=ExtResource("5_lobby")]
 unique_name_in_owner = true
 layout_mode = 1
 

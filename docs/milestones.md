@@ -21,27 +21,27 @@ Crear sala -> entrar al lobby -> ver jugadores -> unirse desde otro cliente
 - [x] Recibir `room_state`.
 - [x] Mostrar estado basico de lobby en la UI.
 
-### Proximo Corte - Lobby Screen
+### Lobby Screen
 
-- [ ] Crear `game/scenes/ui/LobbyScreen.tscn`.
-- [ ] Crear `game/scripts/ui/lobby_screen.gd`.
-- [ ] Mostrar `roomId`.
-- [ ] Mostrar lista de jugadores.
-- [ ] Mostrar estado de conexion.
-- [ ] Mostrar boton `READY`.
-- [ ] Mostrar boton `START GAME` como placeholder.
-- [ ] Mostrar boton `BACK`.
-- [ ] Cambiar de Home a Lobby cuando llegue `room_state`.
-- [ ] Mantener WebSocket abierto al entrar al lobby.
+- [x] Crear `game/scenes/ui/LobbyScreen.tscn`.
+- [x] Crear `game/scripts/ui/lobby_screen.gd`.
+- [x] Mostrar `roomId`.
+- [x] Mostrar lista de jugadores.
+- [x] Mostrar estado de conexion.
+- [x] Mostrar boton `READY`.
+- [x] Mostrar boton `START GAME` como placeholder.
+- [x] Mostrar boton `BACK`.
+- [x] Cambiar de Home a Lobby cuando llegue `room_state`.
+- [x] Mantener WebSocket abierto al entrar al lobby.
 
 Criterios de aceptacion:
 
-- [ ] Desde Home puedo crear una sala.
-- [ ] Despues de crear sala, la UI cambia a Lobby.
-- [ ] El Lobby muestra el room id.
-- [ ] El Lobby muestra mi jugador en la lista.
-- [ ] El Lobby muestra cantidad/estado de jugadores.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Desde Home puedo crear una sala.
+- [x] Despues de crear sala, la UI cambia a Lobby.
+- [x] El Lobby muestra el room id.
+- [x] El Lobby muestra mi jugador en la lista.
+- [x] El Lobby muestra cantidad/estado de jugadores.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ### Siguiente Corte - Join Manual por Room ID
 
