@@ -43,14 +43,25 @@ Criterios de aceptacion:
 - [x] El Lobby muestra cantidad/estado de jugadores.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
-### Siguiente Corte - Join Manual por Room ID
+### Corte Actual - Join Manual por Room ID
 
 - [ ] Usar el campo de codigo de sala de Home.
 - [ ] Conectar a `WS /ws/rooms/{roomId}` sin crear sala nueva.
 - [ ] Enviar `join_room`.
+- [ ] Cambiar de Home a Lobby cuando llegue `room_state`.
 - [ ] Mostrar ambos jugadores en los clientes conectados.
 - [ ] Manejar error `room_not_found`.
 - [ ] Manejar error `room_full`.
+- [ ] Mantener `BACK` cerrando la conexion y volviendo a Home.
+
+Checklist de implementacion:
+
+- [ ] Reutilizar `RoomSocket.connect_to_room(roomId, playerName)`.
+- [ ] Guardar `playerName` al usar el boton `JOIN`.
+- [ ] Mostrar estado `Conectando a sala...` en Home.
+- [ ] Reutilizar `LobbyScreen.set_room(room)` para salas creadas y salas existentes.
+- [ ] No crear endpoints nuevos en backend.
+- [ ] No introducir pantalla nueva para este corte.
 
 Criterios de aceptacion:
 
@@ -58,6 +69,7 @@ Criterios de aceptacion:
 - [ ] Otro cliente entra usando el room id.
 - [ ] Ambos clientes ven la misma lista de jugadores.
 - [ ] Si un cliente se desconecta, el otro ve la lista actualizada.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ### Siguiente Corte - Ready / Start
 
