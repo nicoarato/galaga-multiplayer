@@ -14,6 +14,7 @@ var _player_name := ""
 
 func connect_to_room(room_id: String, player_name: String) -> void:
 	close()
+	_socket = WebSocketPeer.new()
 	_player_name = player_name
 
 	var error := _socket.connect_to_url(AppConfig.ws_url("/ws/rooms/%s" % room_id))

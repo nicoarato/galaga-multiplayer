@@ -45,31 +45,33 @@ Criterios de aceptacion:
 
 ### Corte Actual - Join Manual por Room ID
 
-- [ ] Usar el campo de codigo de sala de Home.
-- [ ] Conectar a `WS /ws/rooms/{roomId}` sin crear sala nueva.
-- [ ] Enviar `join_room`.
-- [ ] Cambiar de Home a Lobby cuando llegue `room_state`.
-- [ ] Mostrar ambos jugadores en los clientes conectados.
+- [x] Usar el campo de codigo de sala de Home.
+- [x] Conectar a `WS /ws/rooms/{roomId}` sin crear sala nueva.
+- [x] Enviar `join_room`.
+- [x] Cambiar de Home a Lobby cuando llegue `room_state`.
+- [x] Mostrar ambos jugadores en los clientes conectados.
 - [ ] Manejar error `room_not_found`.
 - [ ] Manejar error `room_full`.
-- [ ] Mantener `BACK` cerrando la conexion y volviendo a Home.
+- [x] Mantener `BACK` cerrando la conexion y volviendo a Home.
+- [x] Mostrar room id en un campo copiable.
+- [x] Agregar boton `COPY` para copiar room id al clipboard.
 
 Checklist de implementacion:
 
-- [ ] Reutilizar `RoomSocket.connect_to_room(roomId, playerName)`.
-- [ ] Guardar `playerName` al usar el boton `JOIN`.
-- [ ] Mostrar estado `Conectando a sala...` en Home.
-- [ ] Reutilizar `LobbyScreen.set_room(room)` para salas creadas y salas existentes.
-- [ ] No crear endpoints nuevos en backend.
-- [ ] No introducir pantalla nueva para este corte.
+- [x] Reutilizar `RoomSocket.connect_to_room(roomId, playerName)`.
+- [x] Guardar `playerName` al usar el boton `JOIN`.
+- [x] Mostrar estado `Conectando a sala...` en Home.
+- [x] Reutilizar `LobbyScreen.set_room(room)` para salas creadas y salas existentes.
+- [x] No crear endpoints nuevos en backend.
+- [x] No introducir pantalla nueva para este corte.
 
 Criterios de aceptacion:
 
-- [ ] Un cliente crea sala.
-- [ ] Otro cliente entra usando el room id.
-- [ ] Ambos clientes ven la misma lista de jugadores.
+- [x] Un cliente crea sala.
+- [x] Otro cliente entra usando el room id.
+- [x] Ambos clientes ven la misma lista de jugadores.
 - [ ] Si un cliente se desconecta, el otro ve la lista actualizada.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ### Siguiente Corte - Ready / Start
 

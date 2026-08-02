@@ -30,7 +30,9 @@ func _on_create_room_requested(player_name: String) -> void:
 
 
 func _on_join_room_requested(player_name: String, room_id: String) -> void:
-	home_screen.set_status("Proximo paso: %s se une a %s." % [player_name, room_id])
+	_current_player_name = player_name
+	home_screen.set_status("Conectando a sala %s..." % room_id)
+	room_socket.connect_to_room(room_id, player_name)
 
 
 func _on_room_created(room: Dictionary) -> void:

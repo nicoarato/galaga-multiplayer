@@ -139,13 +139,32 @@ theme_override_constants/margin_bottom = 30
 layout_mode = 2
 theme_override_constants/separation = 18
 
-[node name="RoomIdLabel" type="Label" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
-unique_name_in_owner = true
+[node name="RoomLabel" type="Label" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
 theme_override_font_sizes/font_size = 26
-text = "ROOM -"
-autowrap_mode = 3
+text = "ROOM ID"
+
+[node name="RoomIdInput" type="LineEdit" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+editable = false
+selecting_enabled = true
+theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
+theme_override_font_sizes/font_size = 18
+text = "-"
+
+[node name="CopyRoomButton" type="Button" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+text = "COPY"
 
 [node name="ConnectionLabel" type="Label" parent="RootMargin/Content/MainRows/SidePanel/SideMargin/SideContent"]
 unique_name_in_owner = true
