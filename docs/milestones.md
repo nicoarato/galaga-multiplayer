@@ -133,3 +133,27 @@ Criterios de aceptacion:
 - [x] Host presiona `START GAME`.
 - [x] Ambos clientes cambian a GameScreen.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Player Ship Local
+
+Spec: [Player Ship Local Spec](player-ship-local-spec.md)
+
+- [ ] Crear asset `player_ship_placeholder.png`.
+- [ ] Crear `PlayerShip.tscn`.
+- [ ] Crear `player_ship.gd`.
+- [ ] Instanciar una nave por jugador.
+- [ ] Marcar visualmente la nave local.
+- [ ] Mover solo la nave local.
+- [ ] Limitar movimiento al area de juego.
+- [ ] Mantener naves remotas estaticas.
+- [ ] No modificar backend.
+
+Criterios de aceptacion:
+
+- [ ] Host crea sala.
+- [ ] Guest entra y marca `READY`.
+- [ ] Host presiona `START GAME`.
+- [ ] Ambos clientes ven una nave por jugador.
+- [ ] Cada cliente puede mover su propia nave.
+- [ ] La nave no sale del area visible de juego.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
