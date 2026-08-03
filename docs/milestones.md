@@ -157,3 +157,24 @@ Criterios de aceptacion:
 - [x] Cada cliente puede mover su propia nave.
 - [x] La nave no sale del area visible de juego.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Player Movement Sync
+
+Spec: [Player Movement Sync Spec](player-movement-sync-spec.md)
+
+- [ ] Agregar mensaje `player_position`.
+- [ ] Validar payload de posicion.
+- [ ] Guardar posicion por jugador en backend.
+- [ ] Incluir posicion en `room_state`.
+- [ ] Enviar posicion local desde Godot.
+- [ ] Limitar envio a 10 updates por segundo.
+- [ ] Actualizar naves remotas al recibir estado.
+- [ ] Evitar duplicar naves en cada update.
+- [ ] Mantener coverage backend 100%.
+
+Criterios de aceptacion:
+
+- [ ] Al mover P1, P2 ve moverse la nave de P1.
+- [ ] Al mover P2, P1 ve moverse la nave de P2.
+- [ ] La nave local sigue respondiendo inmediatamente.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
