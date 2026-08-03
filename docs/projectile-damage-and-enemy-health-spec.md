@@ -37,13 +37,13 @@ El backend valida que `damage` sea un número finito positivo y lo retransmite j
 
 ## Criterios de aceptación
 
-- [ ] El backend valida y retransmite el daño del disparo.
-- [ ] P1 y P2 generan proyectiles con el daño de su clase.
-- [ ] Un impacto reduce la vida del enemigo sin destruirlo prematuramente.
-- [ ] El enemigo desaparece al llegar a cero vida.
-- [ ] Ambos clientes muestran la misma eliminación de enemigos.
-- [ ] Se mantienen lint, typecheck y 100% de coverage del backend.
-- [ ] Godot carga sin errores en modo headless.
+- [x] El backend valida y retransmite el daño del disparo.
+- [x] P1 y P2 generan proyectiles con el daño de su clase.
+- [x] Un impacto reduce la vida del enemigo sin destruirlo prematuramente.
+- [x] El enemigo desaparece al llegar a cero vida.
+- [x] Ambos clientes muestran la misma eliminación de enemigos.
+- [x] Se mantienen lint, typecheck y 100% de coverage del backend.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 

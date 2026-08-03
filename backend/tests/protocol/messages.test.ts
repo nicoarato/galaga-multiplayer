@@ -156,13 +156,14 @@ describe("parseClientMessage", () => {
   });
 
   it("parses player_shot", () => {
-    expect(parseClientMessage(JSON.stringify({ type: "player_shot", shot: { x: 120, y: 240 } }))).toEqual({
+    expect(parseClientMessage(JSON.stringify({ type: "player_shot", shot: { x: 120, y: 240, damage: 24 } }))).toEqual({
       ok: true,
       message: {
         type: "player_shot",
         shot: {
           x: 120,
-          y: 240
+          y: 240,
+          damage: 24
         }
       }
     });
@@ -187,6 +188,20 @@ describe("parseClientMessage", () => {
       ok: false,
       error: {
         message: "shot.y must be a finite number"
+      }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "player_shot", shot: { x: 0, y: 10 } }))).toEqual({
+      ok: false,
+      error: {
+        message: "shot.damage must be a positive finite number"
+      }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "player_shot", shot: { x: 0, y: 10, damage: 0 } }))).toEqual({
+      ok: false,
+      error: {
+        message: "shot.damage must be a positive finite number"
       }
     });
   });

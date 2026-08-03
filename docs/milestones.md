@@ -355,32 +355,32 @@ Spec: [Player Health UI and Regen Spec](player-health-ui-and-regen-spec.md)
 
 - [x] Mostrar energia/vida de jugadores en la parte superior.
 - [x] Definir tipos de nave con stats distintos.
-- [ ] Hacer que el daño de proyectiles dependa del tipo de nave.
-- [ ] Agregar vida a los enemigos y destruirlos al llegar a cero.
+- [x] Hacer que el daño de proyectiles dependa del tipo de nave.
+- [x] Agregar vida a los enemigos y destruirlos al llegar a cero.
 - [x] Agregar regeneracion despues de `4 segundos` sin disparar.
 - [x] Cortar regeneracion al disparar.
 - [ ] Definir si recibir daño tambien corta regeneracion.
 - [ ] Mantener backend como autoridad final para vida y daño en multiplayer.
 
-### Siguiente Corte - Projectile Damage and Enemy Health
+### Corte Completado - Projectile Damage and Enemy Health
 
 Spec: [Projectile Damage and Enemy Health Spec](projectile-damage-and-enemy-health-spec.md)
 
-- [ ] Agregar `damage` al mensaje `player_shot`.
-- [ ] Validar `damage` en el backend.
-- [ ] Replicar el daño a los clientes remotos.
-- [ ] Aplicar daño según la clase de nave.
-- [ ] Agregar vida máxima y actual a los enemigos.
-- [ ] Destruir enemigos únicamente al llegar a cero.
-- [ ] Mantener sincronización de `enemy_destroyed`.
-- [ ] Mantener lint, typecheck y 100% de coverage backend.
+- [x] Agregar `damage` al mensaje `player_shot`.
+- [x] Validar `damage` en el backend.
+- [x] Replicar el daño a los clientes remotos.
+- [x] Aplicar daño según la clase de nave.
+- [x] Agregar vida máxima y actual a los enemigos.
+- [x] Destruir enemigos únicamente al llegar a cero.
+- [x] Mantener sincronización de `enemy_destroyed`.
+- [x] Mantener lint, typecheck y 100% de coverage backend.
 
 Criterios de aceptación:
 
-- [ ] Un proyectil no destruye automáticamente un enemigo con vida restante.
-- [ ] P1 y P2 aplican daños distintos según su clase.
-- [ ] Ambos clientes ven la misma eliminación de enemigos.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Un proyectil no destruye automáticamente un enemigo con vida restante.
+- [x] P1 y P2 aplican daños distintos según su clase.
+- [x] Ambos clientes ven la misma eliminación de enemigos.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ### Enemy Variety
 

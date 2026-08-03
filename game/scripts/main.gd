@@ -113,15 +113,15 @@ func _on_local_player_position_changed(position: Vector2) -> void:
 	room_socket.send_player_position(position)
 
 
-func _on_local_player_shot(shot_position: Vector2) -> void:
-	room_socket.send_player_shot(shot_position)
+func _on_local_player_shot(shot_position: Vector2, damage: float) -> void:
+	room_socket.send_player_shot(shot_position, damage)
 
 
-func _on_player_shot_received(player_id: String, shot_position: Vector2) -> void:
+func _on_player_shot_received(player_id: String, shot_position: Vector2, damage: float) -> void:
 	if _flow_state != "game":
 		return
 
-	game_screen.spawn_remote_projectile(player_id, shot_position)
+	game_screen.spawn_remote_projectile(player_id, shot_position, damage)
 
 
 func _on_local_enemy_destroyed(enemy_id: String) -> void:

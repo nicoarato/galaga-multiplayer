@@ -12,10 +12,27 @@ const ENEMY_COLORS := [
 @onready var core: Polygon2D = %Core
 
 var enemy_id := ""
+var max_health := 48.0
+var health := 48.0
 
 
 func set_enemy_id(next_enemy_id: String) -> void:
 	enemy_id = next_enemy_id
+
+
+func set_enemy_health(next_max_health: float) -> void:
+	max_health = max(next_max_health, 1.0)
+	health = max_health
+
+
+func apply_damage(amount: float) -> bool:
+	health = max(health - max(amount, 0.0), 0.0)
+
+	if health <= 0.0:
+		destroy()
+		return true
+
+	return false
 
 
 func set_enemy_index(enemy_index: int) -> void:

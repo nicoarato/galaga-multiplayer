@@ -2,7 +2,7 @@ extends Control
 class_name GameScreen
 
 signal local_player_position_changed(position: Vector2)
-signal local_player_shot(shot_position: Vector2)
+signal local_player_shot(shot_position: Vector2, damage: float)
 signal local_enemy_destroyed(enemy_id: String)
 
 const POSITION_SEND_INTERVAL := 0.05
@@ -242,22 +242,24 @@ func _on_local_ship_position_changed(position: Vector2) -> void:
 
 func _on_local_ship_shoot_requested(spawn_position: Vector2) -> void:
 	_reset_local_regeneration_timer()
-	_spawn_projectile(spawn_position)
-	local_player_shot.emit(spawn_position)
+	var damage := _local_player_damage()
+	_spawn_projectile(spawn_position, damage)
+	local_player_shot.emit(spawn_position, damage)
 
 
-func spawn_remote_projectile(player_id: String, shot_position: Vector2) -> void:
+func spawn_remote_projectile(player_id: String, shot_position: Vector2, damage: float) -> void:
 	if player_id == _local_player_id:
 		return
 
-	_spawn_projectile(shot_position)
+	_spawn_projectile(shot_position, damage)
 
 
-func _spawn_projectile(spawn_position: Vector2) -> void:
+func _spawn_projectile(spawn_position: Vector2, damage: float) -> void:
 	var projectile := projectile_scene.instantiate() as Projectile
 	projectiles_layer.add_child(projectile)
 	projectile.position = spawn_position
 	projectile.set_play_area(_play_area())
+	projectile.set_damage(damage)
 	projectile.enemy_hit.connect(_on_projectile_enemy_hit)
 
 
@@ -304,14 +306,24 @@ func _spawn_enemy_wave() -> void:
 				start_y + float(row) * ENEMY_SPACING.y
 			)
 			enemy.set_enemy_index(enemy_index)
+			enemy.set_enemy_health(48.0)
 
 
-func _on_projectile_enemy_hit(enemy_id: String) -> void:
-	if enemy_id.is_empty():
+func _on_projectile_enemy_hit(enemy_id: String, destroyed: bool) -> void:
+	if enemy_id.is_empty() or not destroyed:
 		return
 
 	_enemies_by_id.erase(enemy_id)
 	local_enemy_destroyed.emit(enemy_id)
+
+
+func _local_player_damage() -> float:
+	var state: Variant = _health_by_player_id.get(_local_player_id)
+
+	if typeof(state) == TYPE_DICTIONARY:
+		return float((state as Dictionary).get("damage", 24.0))
+
+	return 24.0
 
 
 func _process_enemy_wave(delta: float) -> void:
