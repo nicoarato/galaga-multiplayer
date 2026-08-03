@@ -322,6 +322,29 @@ Criterios de aceptacion:
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
 - [x] Backend mantiene lint, typecheck y coverage 100%.
 
+### Siguiente Corte - Playfield Layout Balance
+
+Spec: [Playfield Layout Balance Spec](playfield-layout-balance-spec.md)
+
+- [ ] Reducir altura visual del header de partida.
+- [ ] Remover placeholder de implementacion del HUD.
+- [ ] Aumentar alto minimo del playfield.
+- [ ] Definir margen superior/inferior proporcional del area jugable.
+- [ ] Reposicionar naves locales/remotas mas abajo.
+- [ ] Reposicionar oleada mas arriba.
+- [ ] Mantener clamp de movimiento visible.
+- [ ] Mantener rebote lateral de la oleada.
+- [ ] No modificar backend.
+
+Criterios de aceptacion:
+
+- [ ] La distancia entre oleada y naves es claramente mayor que en el corte anterior.
+- [ ] En ventana ancha/baja, la nave no aparece pegada a la oleada.
+- [ ] La oleada sigue apareciendo completa dentro del area visible.
+- [ ] Las naves siguen moviendose sin salir del plano.
+- [ ] Disparos, colisiones y destruccion sincronizada siguen funcionando.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+
 ## Gameplay Systems Pendientes
 
 ### Player Health and Ship Stats
