@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cqmsd2e774ols"]
+[gd_scene load_steps=10 format=3 uid="uid://cqmsd2e774ols"]
 
 [ext_resource type="Script" path="res://scripts/game/game_screen.gd" id="1_game"]
 [ext_resource type="Texture2D" path="res://assets/backgrounds/game_space_bg_1280x720.png" id="2_bg"]
 [ext_resource type="PackedScene" path="res://scenes/game/PlayerShip.tscn" id="3_ship"]
 [ext_resource type="PackedScene" path="res://scenes/game/Projectile.tscn" id="4_projectile"]
 [ext_resource type="PackedScene" path="res://scenes/game/Enemy.tscn" id="5_enemy"]
+[ext_resource type="PackedScene" path="res://scenes/game/EnemyProjectile.tscn" id="6_enemy_projectile"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.00784314, 0.00392157, 0.027451, 0.84)
@@ -50,6 +51,7 @@ script = ExtResource("1_game")
 player_ship_scene = ExtResource("3_ship")
 projectile_scene = ExtResource("4_projectile")
 enemy_scene = ExtResource("5_enemy")
+enemy_projectile_scene = ExtResource("6_enemy_projectile")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -156,6 +158,9 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="ProjectilesLayer" type="Node2D" parent="RootMargin/Content/Playfield"]
+unique_name_in_owner = true
+
+[node name="EnemyProjectilesLayer" type="Node2D" parent="RootMargin/Content/Playfield"]
 unique_name_in_owner = true
 
 [node name="BottomRow" type="HBoxContainer" parent="RootMargin/Content"]

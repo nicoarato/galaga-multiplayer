@@ -13,6 +13,13 @@ export type Player = {
   position?: PlayerPosition;
 };
 
+export type PlayerHealth = {
+  playerId: string;
+  health: number;
+  maxHealth: number;
+  defeated: boolean;
+};
+
 export type Room = {
   id: string;
   status: RoomStatus;

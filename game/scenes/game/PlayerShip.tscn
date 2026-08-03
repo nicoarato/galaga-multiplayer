@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bve87r845w4dw"]
+[gd_scene load_steps=3 format=3 uid="uid://bve87r845w4dw"]
 
 [ext_resource type="Script" path="res://scripts/game/player_ship.gd" id="1_ship"]
 [ext_resource type="Texture2D" path="res://assets/ships/player_ship_placeholder.png" id="2_ship"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hitbox"]
+radius = 34.0
 
 [node name="PlayerShip" type="Node2D"]
 script = ExtResource("1_ship")
@@ -56,3 +59,10 @@ theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 18
 text = "YOU"
 horizontal_alignment = 1
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_hitbox")

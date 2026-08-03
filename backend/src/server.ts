@@ -14,6 +14,12 @@ const roomStore = new RoomStore({
   now: () => new Date()
 });
 const roomSockets = new Map<string, Set<ClientConnection>>();
+const healthInterval = setInterval(() => {
+  for (const update of roomStore.regeneratePlayers(new Date())) {
+    broadcastRoom(update.roomId, "player_health", update.health);
+  }
+}, 250);
+healthInterval.unref();
 
 type ClientConnection = {
   socket: WebSocket;
@@ -154,6 +160,13 @@ function handleSocketMessage(connection: ClientConnection, rawMessage: string): 
       }
 
       broadcastRoom(connection.roomId, "game_started", { room: result.room });
+      for (const player of result.room.players) {
+        const health = roomStore.getPlayerHealth(connection.roomId, player.id);
+
+        if (health !== null) {
+          broadcastRoom(connection.roomId, "player_health", health);
+        }
+      }
       return;
     }
     case "player_position": {
@@ -190,10 +203,35 @@ function handleSocketMessage(connection: ClientConnection, rawMessage: string): 
         return;
       }
 
+      if (!roomStore.markPlayerShot(connection.roomId, connection.playerId)) {
+        sendSocket(connection.socket, "error", { reason: "player_defeated" });
+        return;
+      }
+
       broadcastRoom(connection.roomId, "player_shot", {
         playerId: connection.playerId,
         shot: parsed.message.shot
       });
+      return;
+    }
+    case "enemy_hit_player": {
+      if (connection.playerId === null) {
+        sendSocket(connection.socket, "error", { reason: "player_not_joined" });
+        return;
+      }
+
+      const health = roomStore.applyPlayerDamage(
+        connection.roomId,
+        parsed.message.playerId,
+        parsed.message.damage
+      );
+
+      if (health === null) {
+        sendSocket(connection.socket, "error", { reason: "player_damage_rejected" });
+        return;
+      }
+
+      broadcastRoom(connection.roomId, "player_health", health);
       return;
     }
     case "enemy_destroyed": {

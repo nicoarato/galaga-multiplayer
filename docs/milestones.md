@@ -359,33 +359,33 @@ Spec: [Player Health UI and Regen Spec](player-health-ui-and-regen-spec.md)
 - [x] Agregar vida a los enemigos y destruirlos al llegar a cero.
 - [x] Agregar regeneracion despues de `4 segundos` sin disparar.
 - [x] Cortar regeneracion al disparar.
-- [ ] Definir si recibir daño tambien corta regeneracion.
-- [ ] Mantener backend como autoridad final para vida y daño en multiplayer.
+- [x] Definir si recibir daño tambien corta regeneracion.
+- [x] Mantener backend como autoridad final para vida y daño en multiplayer.
 
-### Siguiente Corte - Player Damage and Server Health
+### Corte Completado - Player Damage and Server Health
 
 Spec: [Player Damage and Server Health Spec](player-damage-and-server-health-spec.md)
 
-- [ ] Agregar mensaje `enemy_hit_player`.
-- [ ] Validar daño y jugador objetivo en el backend.
-- [ ] Mantener vida y estado derrotado en `RoomStore`.
-- [ ] Agregar mensaje `player_health`.
-- [ ] Replicar cambios de vida a todos los clientes.
-- [ ] Generar proyectiles enemigos periódicos.
-- [ ] Detectar impactos contra naves de jugadores.
-- [ ] Aplicar daño recibido en el backend.
-- [ ] Mover regeneración y sus reglas al backend.
-- [ ] Actualizar HUD con el estado autoritativo.
-- [ ] Bloquear disparos de jugadores derrotados.
-- [ ] Mantener lint, typecheck y 100% de coverage backend.
+- [x] Agregar mensaje `enemy_hit_player`.
+- [x] Validar daño y jugador objetivo en el backend.
+- [x] Mantener vida y estado derrotado en `RoomStore`.
+- [x] Agregar mensaje `player_health`.
+- [x] Replicar cambios de vida a todos los clientes.
+- [x] Generar proyectiles enemigos periódicos.
+- [x] Detectar impactos contra naves de jugadores.
+- [x] Aplicar daño recibido en el backend.
+- [x] Mover regeneración y sus reglas al backend.
+- [x] Actualizar HUD con el estado autoritativo.
+- [x] Bloquear disparos de jugadores derrotados.
+- [x] Mantener lint, typecheck y 100% de coverage backend.
 
 Criterios de aceptación:
 
-- [ ] Un impacto enemigo reduce la vida en ambas pantallas.
-- [ ] La regeneración respeta el retraso de 4 segundos.
-- [ ] La vida nunca sale del rango `0..maxHealth`.
-- [ ] Un jugador derrotado no puede disparar.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Un impacto enemigo reduce la vida en ambas pantallas.
+- [x] La regeneración respeta el retraso de 4 segundos.
+- [x] La vida nunca sale del rango `0..maxHealth`.
+- [x] Un jugador derrotado no puede disparar.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
 ### Corte Completado - Projectile Damage and Enemy Health
 

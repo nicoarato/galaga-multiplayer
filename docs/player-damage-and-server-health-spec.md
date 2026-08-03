@@ -81,14 +81,14 @@ El backend debe rechazar daños no finitos, no positivos, dirigidos a jugadores 
 
 ## Criterios de aceptación
 
-- [ ] El backend valida el mensaje `enemy_hit_player`.
-- [ ] El backend mantiene vida y estado derrotado por jugador.
-- [ ] El backend replica `player_health` a todos los clientes.
-- [ ] Los proyectiles enemigos se generan periódicamente.
-- [ ] Un impacto reduce la vida del jugador en ambas pantallas.
-- [ ] La regeneración comienza después de 4 segundos sin disparar ni recibir daño.
-- [ ] Disparar o recibir daño reinicia el temporizador de regeneración.
-- [ ] La vida se mantiene entre cero y el máximo.
-- [ ] Un jugador con cero de vida deja de disparar.
-- [ ] Se mantienen lint, typecheck y 100% de coverage del backend.
-- [ ] Godot carga sin errores en modo headless.
+- [x] El backend valida el mensaje `enemy_hit_player`.
+- [x] El backend mantiene vida y estado derrotado por jugador.
+- [x] El backend replica `player_health` a todos los clientes.
+- [x] Los proyectiles enemigos se generan periódicamente.
+- [x] Un impacto reduce la vida del jugador en ambas pantallas.
+- [x] La regeneración comienza después de 4 segundos sin disparar ni recibir daño.
+- [x] Disparar o recibir daño reinicia el temporizador de regeneración.
+- [x] La vida se mantiene entre cero y el máximo.
+- [x] Un jugador con cero de vida deja de disparar.
+- [x] Se mantienen lint, typecheck y 100% de coverage del backend.
+- [x] Godot carga sin errores en modo headless con `gl_compatibility`.

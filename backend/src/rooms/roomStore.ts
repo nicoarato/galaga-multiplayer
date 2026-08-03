@@ -3,6 +3,7 @@ import type {
   JoinRoomResult,
   LeaveRoomResult,
   Player,
+  PlayerHealth,
   PlayerPosition,
   Room,
   SetPlayerPositionResult,
@@ -18,6 +19,7 @@ export type RoomStoreOptions = {
 
 export class RoomStore {
   private readonly rooms = new Map<string, Room>();
+  private readonly playerHealth = new Map<string, Map<string, PlayerHealthState>>();
   private readonly maxPlayers: number;
   private readonly createId: () => string;
   private readonly now: () => Date;
@@ -87,6 +89,9 @@ export class RoomStore {
 
     room.players.push(player);
     room.hostPlayerId ??= player.id;
+    const healthByPlayer = this.playerHealth.get(roomId) ?? new Map<string, PlayerHealthState>();
+    healthByPlayer.set(player.id, createPlayerHealth(player.id, room.players.length - 1, this.now()));
+    this.playerHealth.set(roomId, healthByPlayer);
 
     return {
       ok: true,
@@ -115,9 +120,11 @@ export class RoomStore {
     }
 
     room.players.splice(playerIndex, 1);
+    this.playerHealth.get(roomId)?.delete(playerId);
 
     if (room.players.length === 0) {
       this.rooms.delete(roomId);
+      this.playerHealth.delete(roomId);
 
       return {
         ok: true,
@@ -258,6 +265,78 @@ export class RoomStore {
     };
   }
 
+  public getPlayerHealth(roomId: string, playerId: string): PlayerHealth | null {
+    return clonePlayerHealth(this.playerHealth.get(roomId)?.get(playerId));
+  }
+
+  public markPlayerShot(roomId: string, playerId: string, now = this.now()): boolean {
+    const room = this.rooms.get(roomId);
+    const state = this.playerHealth.get(roomId)?.get(playerId);
+
+    if (room?.status !== "in_game" || state === undefined || state.defeated) {
+      return false;
+    }
+
+    state.lastCombatAt = now.getTime();
+    return true;
+  }
+
+  public applyPlayerDamage(
+    roomId: string,
+    playerId: string,
+    damage: number,
+    now = this.now()
+  ): PlayerHealth | null {
+    const room = this.rooms.get(roomId);
+    const state = this.playerHealth.get(roomId)?.get(playerId);
+
+    if (room?.status !== "in_game" || state === undefined || state.defeated) {
+      return null;
+    }
+
+    state.health = Math.max(state.health - damage, 0);
+    state.defeated = state.health === 0;
+    state.lastCombatAt = now.getTime();
+    state.lastRegenAt = now.getTime();
+    return clonePlayerHealth(state);
+  }
+
+  public regeneratePlayers(now = this.now()): Array<{ roomId: string; health: PlayerHealth }> {
+    const currentTime = now.getTime();
+    const regenerated: Array<{ roomId: string; health: PlayerHealth }> = [];
+
+    for (const [roomId, room] of this.rooms) {
+      if (room.status !== "in_game") {
+        continue;
+      }
+
+      const healthByPlayer = this.playerHealth.get(roomId) as Map<string, PlayerHealthState>;
+
+      for (const state of healthByPlayer.values()) {
+        if (state.defeated || state.health >= state.maxHealth) {
+          state.lastRegenAt = currentTime;
+          continue;
+        }
+
+        if (currentTime - state.lastCombatAt < REGEN_DELAY_MS) {
+          state.lastRegenAt = currentTime;
+          continue;
+        }
+
+        const elapsedSeconds = (currentTime - state.lastRegenAt) / 1000;
+        const nextHealth = Math.min(state.health + state.regenRate * elapsedSeconds, state.maxHealth);
+
+        if (nextHealth > state.health) {
+          state.health = nextHealth;
+          state.lastRegenAt = currentTime;
+          regenerated.push({ roomId, health: clonePlayerHealth(state) as PlayerHealth });
+        }
+      }
+    }
+
+    return regenerated;
+  }
+
   private createUniqueId(): string {
     let id = this.createId();
 
@@ -280,5 +359,44 @@ function clonePlayer(player: Player): Player {
   return {
     ...player,
     position: player.position === undefined ? undefined : { ...player.position }
+  };
+}
+
+type PlayerHealthState = PlayerHealth & {
+  lastCombatAt: number;
+  lastRegenAt: number;
+  regenRate: number;
+};
+
+const REGEN_DELAY_MS = 4000;
+const SHIP_MAX_HEALTH: [number, number, number, number] = [80, 100, 140, 90];
+const SHIP_REGEN_RATE: [number, number, number, number] = [18, 14, 9, 12];
+
+function createPlayerHealth(playerId: string, playerIndex: number, now: Date): PlayerHealthState {
+  const index = playerIndex % SHIP_MAX_HEALTH.length;
+  const maxHealth = SHIP_MAX_HEALTH[index];
+  const timestamp = now.getTime();
+
+  return {
+    playerId,
+    health: maxHealth,
+    maxHealth,
+    defeated: false,
+    lastCombatAt: timestamp,
+    lastRegenAt: timestamp,
+    regenRate: SHIP_REGEN_RATE[index]
+  };
+}
+
+function clonePlayerHealth(state: PlayerHealthState | undefined): PlayerHealth | null {
+  if (state === undefined) {
+    return null;
+  }
+
+  return {
+    playerId: state.playerId,
+    health: state.health,
+    maxHealth: state.maxHealth,
+    defeated: state.defeated
   };
 }

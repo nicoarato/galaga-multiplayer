@@ -206,6 +206,39 @@ describe("parseClientMessage", () => {
     });
   });
 
+  it("parses enemy_hit_player and trims playerId", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_hit_player", playerId: " player-2 ", damage: 12 }))).toEqual({
+      ok: true,
+      message: {
+        type: "enemy_hit_player",
+        playerId: "player-2",
+        damage: 12
+      }
+    });
+  });
+
+  it("validates enemy_hit_player", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_hit_player", damage: 12 }))).toEqual({
+      ok: false,
+      error: { message: "playerId is required" }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_hit_player", playerId: "   ", damage: 12 }))).toEqual({
+      ok: false,
+      error: { message: "playerId is required" }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_hit_player", playerId: "player-1", damage: 0 }))).toEqual({
+      ok: false,
+      error: { message: "damage must be a positive finite number" }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_hit_player", playerId: "player-1", damage: Number.NaN }))).toEqual({
+      ok: false,
+      error: { message: "damage must be a positive finite number" }
+    });
+  });
+
   it("parses enemy_destroyed and trims enemyId", () => {
     expect(parseClientMessage(JSON.stringify({ type: "enemy_destroyed", enemyId: " enemy-1 " }))).toEqual({
       ok: true,

@@ -4,47 +4,46 @@ class_name GameScreen
 signal local_player_position_changed(position: Vector2)
 signal local_player_shot(shot_position: Vector2, damage: float)
 signal local_enemy_destroyed(enemy_id: String)
+signal local_player_hit(player_id: String, damage: float)
 
 const POSITION_SEND_INTERVAL := 0.05
 const ENEMY_COLUMNS := 6
 const ENEMY_ROWS := 2
 const ENEMY_SPACING := Vector2(108, 62)
 const ENEMY_SPEED := 64.0
+const ENEMY_SHOT_INTERVAL := 2.5
+const ENEMY_PROJECTILE_DAMAGE := 12.0
 const PLAY_AREA_HORIZONTAL_MARGIN := 96.0
 const PLAY_AREA_TOP_MARGIN := 32.0
 const PLAY_AREA_BOTTOM_MARGIN := 56.0
 const SHIP_BOTTOM_OFFSET := 32.0
-const REGEN_DELAY := 4.0
 const SHIP_CLASSES := [
 	{
 		"name": "Scout",
 		"max_health": 80.0,
 		"damage": 18.0,
-		"regen_rate": 18.0,
 	},
 	{
 		"name": "Fighter",
 		"max_health": 100.0,
 		"damage": 24.0,
-		"regen_rate": 14.0,
 	},
 	{
 		"name": "Tank",
 		"max_health": 140.0,
 		"damage": 16.0,
-		"regen_rate": 9.0,
 	},
 	{
 		"name": "Striker",
 		"max_health": 90.0,
 		"damage": 32.0,
-		"regen_rate": 12.0,
 	},
 ]
 
 @export var player_ship_scene: PackedScene
 @export var projectile_scene: PackedScene
 @export var enemy_scene: PackedScene
+@export var enemy_projectile_scene: PackedScene
 
 @onready var room_id_label: Label = %RoomIdLabel
 @onready var status_label: Label = %StatusLabel
@@ -54,6 +53,7 @@ const SHIP_CLASSES := [
 @onready var ships_layer: Node2D = %ShipsLayer
 @onready var enemies_layer: Node2D = %EnemiesLayer
 @onready var projectiles_layer: Node2D = %ProjectilesLayer
+@onready var enemy_projectiles_layer: Node2D = %EnemyProjectilesLayer
 
 var _local_player_id := ""
 var _current_players: Array = []
@@ -67,11 +67,13 @@ var _enemies_by_id := {}
 var _health_by_player_id := {}
 var _health_rows_by_player_id := {}
 var _health_hud_signature := ""
+var _enemy_shot_elapsed := 0.0
+var _enemy_shot_index := 0
 
 
 func _process(delta: float) -> void:
 	_process_enemy_wave(delta)
-	_process_health_regeneration(delta)
+	_process_enemy_attacks(delta)
 
 	if not _has_pending_local_position:
 		return
@@ -155,8 +157,10 @@ func _sync_player_ship(player: Dictionary, index: int, player_count: int, play_a
 
 	ship.set_play_area(play_area)
 	ship.set_player_name(player_name)
+	ship.set_player_id(player_id)
 	ship.set_player_index(index)
 	ship.set_local_player(player_id == _local_player_id)
+	ship.set_defeated(bool(player.get("defeated", false)))
 
 	if player_id != _local_player_id:
 		var position: Variant = _player_position(player)
@@ -175,6 +179,7 @@ func _player_ship(player: Dictionary, index: int, player_count: int, play_area: 
 	ship.set_play_area(play_area)
 	ship.set_start_position(start_position)
 	ship.set_player_name(player_name)
+	ship.set_player_id(player_id)
 	ship.set_player_index(index)
 	ship.set_local_player(player_id == _local_player_id)
 
@@ -241,7 +246,6 @@ func _on_local_ship_position_changed(position: Vector2) -> void:
 
 
 func _on_local_ship_shoot_requested(spawn_position: Vector2) -> void:
-	_reset_local_regeneration_timer()
 	var damage := _local_player_damage()
 	_spawn_projectile(spawn_position, damage)
 	local_player_shot.emit(spawn_position, damage)
@@ -307,6 +311,40 @@ func _spawn_enemy_wave() -> void:
 			)
 			enemy.set_enemy_index(enemy_index)
 			enemy.set_enemy_health(48.0)
+
+
+func _process_enemy_attacks(delta: float) -> void:
+	if not _enemy_wave_spawned or enemy_projectile_scene == null:
+		return
+
+	_enemy_shot_elapsed += delta
+	if _enemy_shot_elapsed < ENEMY_SHOT_INTERVAL:
+		return
+
+	_enemy_shot_elapsed = 0.0
+	var enemy_ids := _enemies_by_id.keys()
+	if enemy_ids.is_empty():
+		return
+
+	var enemy_id: String = str(enemy_ids[_enemy_shot_index % enemy_ids.size()])
+	_enemy_shot_index += 1
+	var enemy := _enemies_by_id.get(enemy_id) as Enemy
+	if enemy == null or not is_instance_valid(enemy):
+		return
+
+	var projectile = enemy_projectile_scene.instantiate()
+	enemy_projectiles_layer.add_child(projectile)
+	projectile.position = enemies_layer.position + enemy.position
+	projectile.set_play_area(_play_area())
+	projectile.set_damage(ENEMY_PROJECTILE_DAMAGE)
+	projectile.player_hit.connect(_on_enemy_projectile_player_hit)
+
+
+func _on_enemy_projectile_player_hit(ship: PlayerShip, damage: float) -> void:
+	if ship == null or ship.player_id != _local_player_id:
+		return
+
+	local_player_hit.emit(ship.player_id, damage)
 
 
 func _on_projectile_enemy_hit(enemy_id: String, destroyed: bool) -> void:
@@ -397,7 +435,6 @@ func _ensure_player_health(player_id: String, player_index: int) -> void:
 		state["class_name"] = str(ship_class.get("name", "Fighter"))
 		state["max_health"] = max_health
 		state["damage"] = float(ship_class.get("damage", 24.0))
-		state["regen_rate"] = float(ship_class.get("regen_rate", 14.0))
 		state["health"] = min(float(state.get("health", max_health)), max_health)
 		return
 
@@ -406,9 +443,22 @@ func _ensure_player_health(player_id: String, player_index: int) -> void:
 		"health": max_health,
 		"max_health": max_health,
 		"damage": float(ship_class.get("damage", 24.0)),
-		"regen_rate": float(ship_class.get("regen_rate", 14.0)),
-		"seconds_since_shot": REGEN_DELAY,
 	}
+
+
+func apply_player_health(player_id: String, health: float, max_health: float, defeated: bool) -> void:
+	var state := _health_by_player_id.get(player_id) as Dictionary
+	if state == null:
+		return
+
+	state["health"] = clamp(health, 0.0, max_health)
+	state["max_health"] = max_health
+	state["defeated"] = defeated
+	_update_health_row(player_id)
+
+	var ship := _ships_by_player_id.get(player_id) as PlayerShip
+	if ship != null and is_instance_valid(ship):
+		ship.set_defeated(defeated)
 
 
 func _ship_class_for_index(player_index: int) -> Dictionary:
@@ -546,33 +596,6 @@ func _update_health_row(player_id: String) -> void:
 			str(roundi(percent)),
 			str(roundi(float(state.get("damage", 24.0))))
 		]
-
-
-func _process_health_regeneration(delta: float) -> void:
-	for player_id in _health_by_player_id.keys():
-		var state := _health_by_player_id[player_id] as Dictionary
-		var max_health := float(state.get("max_health", 100.0))
-		var health := float(state.get("health", max_health))
-		var seconds_since_shot := float(state.get("seconds_since_shot", REGEN_DELAY))
-
-		seconds_since_shot += delta
-		state["seconds_since_shot"] = seconds_since_shot
-
-		if seconds_since_shot < REGEN_DELAY or health >= max_health:
-			continue
-
-		var regen_rate := float(state.get("regen_rate", 0.0))
-		state["health"] = min(health + regen_rate * delta, max_health)
-		_update_health_row(player_id)
-
-
-func _reset_local_regeneration_timer() -> void:
-	var state := _health_by_player_id.get(_local_player_id) as Dictionary
-
-	if state == null:
-		return
-
-	state["seconds_since_shot"] = 0.0
 
 
 func _panel_style(color: Color) -> StyleBoxFlat:

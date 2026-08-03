@@ -308,6 +308,55 @@ describe("RoomStore", () => {
     });
   });
 
+  it("tracks player health, damage, defeat, and server regeneration", () => {
+    const store = createStore(["room-1", "host"]);
+    store.createRoom();
+    store.joinRoom("room-1", "Host");
+
+    expect(store.getPlayerHealth("missing", "host")).toBeNull();
+    expect(store.regeneratePlayers(new Date("2026-08-02T00:00:05.000Z"))).toEqual([]);
+    expect(store.markPlayerShot("room-1", "host")).toBe(false);
+    expect(store.applyPlayerDamage("room-1", "host", 12)).toBeNull();
+
+    store.startGame("room-1", "host");
+    expect(store.getPlayerHealth("room-1", "host")).toEqual({
+      playerId: "host",
+      health: 80,
+      maxHealth: 80,
+      defeated: false
+    });
+    expect(store.markPlayerShot("room-1", "host")).toBe(true);
+    expect(store.applyPlayerDamage("room-1", "missing", 12)).toBeNull();
+    expect(store.applyPlayerDamage("room-1", "host", 12, new Date("2026-08-02T00:00:00.000Z"))).toEqual({
+      playerId: "host",
+      health: 68,
+      maxHealth: 80,
+      defeated: false
+    });
+
+    expect(store.regeneratePlayers(new Date("2026-08-02T00:00:03.000Z"))).toEqual([]);
+    expect(store.regeneratePlayers(new Date("2026-08-02T00:00:05.000Z"))).toEqual([
+      {
+        roomId: "room-1",
+        health: {
+          playerId: "host",
+          health: 80,
+          maxHealth: 80,
+          defeated: false
+        }
+      }
+    ]);
+
+    expect(store.applyPlayerDamage("room-1", "host", 80, new Date("2026-08-02T00:00:05.000Z"))).toEqual({
+      playerId: "host",
+      health: 0,
+      maxHealth: 80,
+      defeated: true
+    });
+    expect(store.markPlayerShot("room-1", "host")).toBe(false);
+    expect(store.regeneratePlayers(new Date("2026-08-02T00:00:20.000Z"))).toEqual([]);
+  });
+
   it("retries generated room ids when an id already exists", () => {
     const store = createStore(["same-id", "same-id", "room-2"]);
 

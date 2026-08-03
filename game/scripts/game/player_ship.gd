@@ -21,6 +21,8 @@ const PLAYER_COLORS := [
 @onready var local_marker: Label = %LocalMarker
 
 var _is_local_player := false
+var player_id := ""
+var _is_defeated := false
 var _player_name := "Player"
 var _player_label := "P1"
 var _play_area := Rect2(Vector2.ZERO, Vector2(1280, 720))
@@ -56,6 +58,15 @@ func _process(delta: float) -> void:
 
 func set_player_name(player_name: String) -> void:
 	_player_name = player_name
+	_apply_visual_state()
+
+
+func set_player_id(next_player_id: String) -> void:
+	player_id = next_player_id
+
+
+func set_defeated(defeated: bool) -> void:
+	_is_defeated = defeated
 	_apply_visual_state()
 
 
@@ -121,6 +132,9 @@ func _process_remote_movement(delta: float) -> void:
 
 
 func _process_shooting(delta: float) -> void:
+	if _is_defeated:
+		return
+
 	_shoot_cooldown_remaining = max(_shoot_cooldown_remaining - delta, 0.0)
 
 	if _shoot_cooldown_remaining > 0.0:
@@ -139,7 +153,7 @@ func _apply_visual_state() -> void:
 
 	team_halo.color = Color(_player_color.r, _player_color.g, _player_color.b, 0.72 if _is_local_player else 0.48)
 	sprite.modulate = _player_color
-	sprite.self_modulate.a = 1.0 if _is_local_player else 0.82
+	sprite.self_modulate.a = 0.28 if _is_defeated else (1.0 if _is_local_player else 0.82)
 	name_label.text = _player_name
 	name_label.add_theme_color_override("font_color", Color(1.0, 0.952941, 0.141176, 1.0) if _is_local_player else _player_color)
 	player_badge.text = _player_label

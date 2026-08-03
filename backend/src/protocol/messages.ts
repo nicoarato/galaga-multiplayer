@@ -5,6 +5,7 @@ export const CLIENT_MESSAGE_TYPES = [
   "start_game",
   "player_position",
   "player_shot",
+  "enemy_hit_player",
   "enemy_destroyed",
   "ping"
 ] as const;
@@ -50,6 +51,12 @@ export type PlayerShotMessage = {
   shot: PlayerShot;
 };
 
+export type EnemyHitPlayerMessage = {
+  type: "enemy_hit_player";
+  playerId: string;
+  damage: number;
+};
+
 export type EnemyDestroyedMessage = {
   type: "enemy_destroyed";
   enemyId: string;
@@ -67,6 +74,7 @@ export type ClientMessage =
   | StartGameMessage
   | PlayerPositionMessage
   | PlayerShotMessage
+  | EnemyHitPlayerMessage
   | EnemyDestroyedMessage
   | PingMessage;
 
@@ -114,6 +122,8 @@ export function parseClientMessage(raw: string): ParseClientMessageResult {
       return parsePlayerPositionMessage(parsed);
     case "player_shot":
       return parsePlayerShotMessage(parsed);
+    case "enemy_hit_player":
+      return parseEnemyHitPlayerMessage(parsed);
     case "enemy_destroyed":
       return parseEnemyDestroyedMessage(parsed);
     case "ping":
@@ -236,6 +246,25 @@ function parseEnemyDestroyedMessage(value: Record<string, unknown>): ParseClient
     message: {
       type: "enemy_destroyed",
       enemyId
+    }
+  };
+}
+
+function parseEnemyHitPlayerMessage(value: Record<string, unknown>): ParseClientMessageResult {
+  if (typeof value.playerId !== "string" || value.playerId.trim().length === 0) {
+    return invalid("playerId is required");
+  }
+
+  if (typeof value.damage !== "number" || !Number.isFinite(value.damage) || value.damage <= 0) {
+    return invalid("damage must be a positive finite number");
+  }
+
+  return {
+    ok: true,
+    message: {
+      type: "enemy_hit_player",
+      playerId: value.playerId.trim(),
+      damage: value.damage
     }
   };
 }

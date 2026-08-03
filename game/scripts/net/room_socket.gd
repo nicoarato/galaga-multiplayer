@@ -6,6 +6,7 @@ signal room_state_received(room: Dictionary)
 signal game_started(room: Dictionary)
 signal player_shot_received(player_id: String, shot_position: Vector2, damage: float)
 signal enemy_destroyed_received(enemy_id: String)
+signal player_health_received(player_id: String, health: float, max_health: float, defeated: bool)
 signal socket_failed(message: String)
 signal socket_error(reason: String)
 signal socket_closed()
@@ -103,6 +104,18 @@ func send_enemy_destroyed(enemy_id: String) -> void:
 	})
 
 
+func send_enemy_hit_player(player_id: String, damage: float) -> void:
+	if _socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		socket_error.emit("connection_failed")
+		return
+
+	_send_json({
+		"type": "enemy_hit_player",
+		"playerId": player_id,
+		"damage": damage
+	})
+
+
 func _process(_delta: float) -> void:
 	_socket.poll()
 
@@ -156,6 +169,8 @@ func _handle_message(body: String) -> void:
 			_emit_player_shot(message)
 		"enemy_destroyed":
 			_emit_enemy_destroyed(message)
+		"player_health":
+			_emit_player_health(message)
 		"error":
 			socket_error.emit(str(message.get("reason", "unknown")))
 		"pong":
@@ -214,6 +229,27 @@ func _emit_enemy_destroyed(message: Dictionary) -> void:
 		return
 
 	enemy_destroyed_received.emit(enemy_id)
+
+
+func _emit_player_health(message: Dictionary) -> void:
+	var player_id := str(message.get("playerId", ""))
+	var health: Variant = message.get("health")
+	var max_health: Variant = message.get("maxHealth")
+	var defeated: Variant = message.get("defeated")
+
+	if player_id.is_empty():
+		socket_failed.emit("La vida no incluyo jugador.")
+		return
+
+	if (typeof(health) != TYPE_FLOAT and typeof(health) != TYPE_INT) or (typeof(max_health) != TYPE_FLOAT and typeof(max_health) != TYPE_INT):
+		socket_failed.emit("La vida incluyo valores invalidos.")
+		return
+
+	if typeof(defeated) != TYPE_BOOL:
+		socket_failed.emit("La vida no incluyo estado derrotado.")
+		return
+
+	player_health_received.emit(player_id, float(health), float(max_health), defeated)
 
 
 func _send_json(message: Dictionary) -> void:
