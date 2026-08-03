@@ -480,3 +480,22 @@ Criterios de aceptación:
 - [x] Los enemigos tienen vida según su tipo.
 - [x] Los tipos se distinguen visualmente sin nuevos assets.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+
+### Siguiente Corte - Enemy Visual Variants
+
+Spec: [Enemy Visual Variants Spec](enemy-visual-variants-spec.md)
+
+- [ ] Crear sprite sheet propio de 10 OVNIs.
+- [ ] Mapear sprites por `enemyTypeId`.
+- [ ] Reemplazar polígonos placeholder en `Enemy`.
+- [ ] Mantener transparencia y filtrado pixel-art.
+- [ ] Mantener colisiones y escalas de gameplay.
+- [ ] Mantener oleada y destrucción sincronizada.
+- [ ] Validar carga headless de Godot.
+
+Criterios de aceptación:
+
+- [ ] Los 10 tipos tienen siluetas distinguibles en partida.
+- [ ] La referencia se usa solo como inspiración.
+- [ ] Los sistemas de combate existentes siguen funcionando.
+- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
