@@ -4,10 +4,12 @@ class_name Projectile
 signal enemy_hit(enemy_id: String, destroyed: bool)
 
 const SPEED := 720.0
+const MAX_RANGE := 520.0
 
 var _play_area := Rect2(Vector2.ZERO, Vector2(1280, 720))
 var _has_hit := false
 var _damage := 24.0
+var _distance_traveled := 0.0
 
 
 func _ready() -> void:
@@ -19,6 +21,11 @@ func _process(delta: float) -> void:
 		return
 
 	position.y -= SPEED * delta
+	_distance_traveled += SPEED * delta
+
+	if _distance_traveled >= MAX_RANGE:
+		queue_free()
+		return
 
 	if position.y < _play_area.position.y - 32.0:
 		queue_free()

@@ -4,10 +4,12 @@ class_name EnemyProjectile
 signal player_hit(ship: PlayerShip, damage: float)
 
 const SPEED := 220.0
+const MAX_RANGE := 360.0
 
 var _play_area := Rect2(Vector2.ZERO, Vector2(1280, 720))
 var _damage := 12.0
 var _has_hit := false
+var _distance_traveled := 0.0
 
 
 func _ready() -> void:
@@ -19,6 +21,12 @@ func _process(delta: float) -> void:
 		return
 
 	position.y += SPEED * delta
+	_distance_traveled += SPEED * delta
+
+	if _distance_traveled >= MAX_RANGE:
+		queue_free()
+		return
+
 	if position.y > _play_area.end.y + 32.0:
 		queue_free()
 

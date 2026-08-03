@@ -387,23 +387,23 @@ Criterios de aceptación:
 - [x] Un jugador derrotado no puede disparar.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
-### Siguiente Corte - Projectile Range
+### Corte Completado - Projectile Range
 
 Spec: [Projectile Range Spec](projectile-range-spec.md)
 
-- [ ] Agregar alcance máximo a proyectiles de jugador.
-- [ ] Agregar alcance máximo a proyectiles enemigos.
-- [ ] Medir distancia desde el punto de spawn.
-- [ ] Destruir proyectiles al alcanzar el límite.
-- [ ] Mantener colisiones y salida del área existentes.
-- [ ] Validar carga headless de Godot.
+- [x] Agregar alcance máximo a proyectiles de jugador.
+- [x] Agregar alcance máximo a proyectiles enemigos.
+- [x] Medir distancia desde el punto de spawn.
+- [x] Destruir proyectiles al alcanzar el límite.
+- [x] Mantener colisiones y salida del área existentes.
+- [x] Validar carga headless de Godot.
 
 Criterios de aceptación:
 
-- [ ] Los proyectiles de jugador no cruzan todo el escenario.
-- [ ] Los proyectiles enemigos no alcanzan a las naves desde cualquier posición.
-- [ ] Los impactos siguen funcionando.
-- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+- [x] Los proyectiles de jugador no cruzan todo el escenario.
+- [x] Los proyectiles enemigos no alcanzan a las naves desde cualquier posición.
+- [x] Los impactos siguen funcionando.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
 ### Corte Completado - Projectile Damage and Enemy Health
 

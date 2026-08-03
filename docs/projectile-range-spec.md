@@ -25,12 +25,12 @@ El alcance se mide por distancia y no por tiempo. La velocidad de proyectil solo
 
 ## Criterios de aceptación
 
-- [ ] Un proyectil de jugador desaparece tras recorrer 520 px si no impacta.
-- [ ] Un proyectil enemigo desaparece tras recorrer 360 px si no impacta.
-- [ ] Un impacto todavía elimina el proyectil inmediatamente.
-- [ ] Los proyectiles siguen desapareciendo al salir del área de juego.
-- [ ] El comportamiento es visualmente igual en ambos clientes.
-- [ ] Godot carga sin errores en modo headless.
+- [x] Un proyectil de jugador desaparece tras recorrer 520 px si no impacta.
+- [x] Un proyectil enemigo desaparece tras recorrer 360 px si no impacta.
+- [x] Un impacto todavía elimina el proyectil inmediatamente.
+- [x] Los proyectiles siguen desapareciendo al salir del área de juego.
+- [x] El comportamiento es visualmente igual en ambos clientes.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 
