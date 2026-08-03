@@ -133,7 +133,7 @@ func _on_socket_error(reason: String) -> void:
 func _on_game_started(room: Dictionary) -> void:
 	lobby_screen.set_room(room, _local_player_id)
 	lobby_screen.set_connection_status("Game starting...")
-	game_screen.set_room(room)
+	game_screen.set_room(room, _local_player_id)
 	_show_game()
 
 

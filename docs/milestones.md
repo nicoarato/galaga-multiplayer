@@ -138,22 +138,22 @@ Criterios de aceptacion:
 
 Spec: [Player Ship Local Spec](player-ship-local-spec.md)
 
-- [ ] Crear asset `player_ship_placeholder.png`.
-- [ ] Crear `PlayerShip.tscn`.
-- [ ] Crear `player_ship.gd`.
-- [ ] Instanciar una nave por jugador.
-- [ ] Marcar visualmente la nave local.
-- [ ] Mover solo la nave local.
-- [ ] Limitar movimiento al area de juego.
-- [ ] Mantener naves remotas estaticas.
-- [ ] No modificar backend.
+- [x] Crear asset `player_ship_placeholder.png`.
+- [x] Crear `PlayerShip.tscn`.
+- [x] Crear `player_ship.gd`.
+- [x] Instanciar una nave por jugador.
+- [x] Marcar visualmente la nave local.
+- [x] Mover solo la nave local.
+- [x] Limitar movimiento al area de juego.
+- [x] Mantener naves remotas estaticas.
+- [x] No modificar backend.
 
 Criterios de aceptacion:
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] Ambos clientes ven una nave por jugador.
-- [ ] Cada cliente puede mover su propia nave.
-- [ ] La nave no sale del area visible de juego.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] Ambos clientes ven una nave por jugador.
+- [x] Cada cliente puede mover su propia nave.
+- [x] La nave no sale del area visible de juego.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.

@@ -110,33 +110,33 @@ No se esperan cambios.
 
 ## Checklist
 
-- [ ] Crear spec `docs/player-ship-local-spec.md`.
-- [ ] Actualizar `docs/milestones.md`.
-- [ ] Crear asset `player_ship_placeholder.png`.
-- [ ] Importar asset en Godot.
-- [ ] Crear `PlayerShip.tscn`.
-- [ ] Crear `player_ship.gd`.
-- [ ] Instanciar naves desde `GameScreen`.
-- [ ] Mostrar una nave por jugador.
-- [ ] Marcar visualmente la nave local.
-- [ ] Mover solo la nave local.
-- [ ] Limitar movimiento al area de juego.
-- [ ] Mantener naves remotas estaticas.
-- [ ] No modificar backend.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] Crear spec `docs/player-ship-local-spec.md`.
+- [x] Actualizar `docs/milestones.md`.
+- [x] Crear asset `player_ship_placeholder.png`.
+- [x] Importar asset en Godot.
+- [x] Crear `PlayerShip.tscn`.
+- [x] Crear `player_ship.gd`.
+- [x] Instanciar naves desde `GameScreen`.
+- [x] Mostrar una nave por jugador.
+- [x] Marcar visualmente la nave local.
+- [x] Mover solo la nave local.
+- [x] Limitar movimiento al area de juego.
+- [x] Mantener naves remotas estaticas.
+- [x] No modificar backend.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] Ambos clientes cambian a `GameScreen`.
-- [ ] Ambos clientes ven una nave por jugador.
-- [ ] Cada cliente puede mover su propia nave.
-- [ ] La nave remota no se mueve localmente.
-- [ ] La nave no sale del area visible de juego.
-- [ ] `godot --headless --path game --quit` pasa.
-- [ ] `npm run lint` pasa.
-- [ ] `npm run typecheck` pasa.
-- [ ] `npm run coverage` pasa con 100%.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] Ambos clientes cambian a `GameScreen`.
+- [x] Ambos clientes ven una nave por jugador.
+- [x] Cada cliente puede mover su propia nave.
+- [x] La nave remota no se mueve localmente.
+- [x] La nave no sale del area visible de juego.
+- [x] `godot --headless --path game --quit` pasa.
+- [x] `npm run lint` pasa.
+- [x] `npm run typecheck` pasa.
+- [x] `npm run coverage` pasa con 100%.
