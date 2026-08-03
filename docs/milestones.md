@@ -222,3 +222,25 @@ Criterios de aceptacion:
 - [x] El proyectil se mueve hacia arriba.
 - [x] El proyectil desaparece al salir del area.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Shooting Sync
+
+Spec: [Shooting Sync Spec](shooting-sync-spec.md)
+
+- [ ] Agregar mensaje `player_shot`.
+- [ ] Validar payload `player_shot`.
+- [ ] Backend broadcast de disparo con `playerId`.
+- [ ] Agregar `RoomSocket.send_player_shot`.
+- [ ] Agregar senal `player_shot_received`.
+- [ ] Godot envia disparo local.
+- [ ] Godot recibe disparos remotos.
+- [ ] Godot ignora broadcast propio.
+- [ ] Godot instancia proyectil remoto.
+- [ ] Mantener coverage backend 100%.
+
+Criterios de aceptacion:
+
+- [ ] P1 dispara y P2 ve el proyectil.
+- [ ] P2 dispara y P1 ve el proyectil.
+- [ ] El cliente local no duplica su propio proyectil.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
