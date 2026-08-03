@@ -198,3 +198,27 @@ Criterios de aceptacion:
 - [x] Al mover P2, P1 ve movimiento remoto mas fluido.
 - [x] La nave local sigue respondiendo inmediatamente.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Local Shooting
+
+Spec: [Local Shooting Spec](local-shooting-spec.md)
+
+- [ ] Crear `Projectile.tscn`.
+- [ ] Crear `projectile.gd`.
+- [ ] Agregar layer de proyectiles en `GameScreen`.
+- [ ] Agregar `shoot_requested` en `PlayerShip`.
+- [ ] Detectar disparo con `Space` y `Enter`.
+- [ ] Aplicar cooldown simple.
+- [ ] Spawn de proyectil desde nave local.
+- [ ] Mover proyectil hacia arriba.
+- [ ] Destruir proyectil al salir del area.
+- [ ] No modificar backend.
+
+Criterios de aceptacion:
+
+- [ ] La nave local dispara con `Space`.
+- [ ] La nave local dispara con `Enter`.
+- [ ] El proyectil sale desde la nave local.
+- [ ] El proyectil se mueve hacia arriba.
+- [ ] El proyectil desaparece al salir del area.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
