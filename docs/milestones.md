@@ -335,3 +335,14 @@ Design: [Player Health and Ship Stats Design](player-health-and-ship-stats-desig
 - [ ] Cortar regeneracion al disparar.
 - [ ] Definir si recibir daño tambien corta regeneracion.
 - [ ] Mantener backend como autoridad final para vida y daño en multiplayer.
+
+### Enemy Variety
+
+Design: [Enemy Variety Design](enemy-variety-design.md)
+
+- [ ] Crear catalogo inicial de 10 tipos de OVNI.
+- [ ] Agregar `enemyTypeId` estable a enemigos.
+- [ ] Preparar stats por tipo: HP, puntaje, velocidad y patron.
+- [ ] Preparar assets/variantes visuales por tipo.
+- [ ] Permitir que nuevas variantes se agreguen sin reescribir oleadas.
+- [ ] Definir si los 10 tipos aparecen desde el inicio o progresivamente.

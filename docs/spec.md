@@ -113,14 +113,19 @@ Detalle de diseño: [Player Health and Ship Stats Design](player-health-and-ship
 
 - Enemigos entran desde la parte superior.
 - Formaciones simples por oleada.
+- El juego debe comenzar con 10 tipos distintos de OVNI.
+- La arquitectura de enemigos debe permitir agregar mas tipos en el futuro sin cambiar la logica central.
 - Patrones MVP:
   - Descenso lineal.
   - Zig-zag.
   - Ataque en picada hacia jugadores.
 - Cada enemigo tiene:
+  - Tipo estable (`enemyTypeId`).
   - HP.
   - Puntaje.
   - Patron de movimiento.
+
+Detalle de diseño: [Enemy Variety Design](enemy-variety-design.md).
 
 ### Disparos
 
