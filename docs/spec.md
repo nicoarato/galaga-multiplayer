@@ -94,9 +94,14 @@ Recomendacion pragmatica: empezar con WebSocket autoritativo para el MVP. Es mas
 - Cada nave tiene:
   - Movimiento horizontal.
   - Disparo principal.
-  - Vidas.
+  - Energia/vida.
   - Estado vivo/muerto.
+- Los tipos de nave pueden tener distinta vida maxima, daño por proyectil, cadencia, velocidad y regeneracion.
+- Si una nave no dispara durante `4 segundos`, debe empezar a regenerar energia hasta el `100%`.
+- Disparar reinicia el timer de regeneracion.
 - Los jugadores no se empujan entre si en MVP.
+
+Detalle de diseño: [Player Health and Ship Stats Design](player-health-and-ship-stats-design.md).
 
 ### Controles
 
@@ -121,6 +126,7 @@ Recomendacion pragmatica: empezar con WebSocket autoritativo para el MVP. Es mas
 
 - Balas de jugador viajan hacia arriba.
 - Balas enemigas viajan hacia abajo.
+- El daño de una bala de jugador debe depender del tipo de nave que la disparo.
 - Colisiones:
   - Bala jugador contra enemigo.
   - Bala enemiga contra jugador.

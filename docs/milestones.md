@@ -321,3 +321,17 @@ Criterios de aceptacion:
 - [x] Los disparos sincronizados siguen funcionando.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
 - [x] Backend mantiene lint, typecheck y coverage 100%.
+
+## Gameplay Systems Pendientes
+
+### Player Health and Ship Stats
+
+Design: [Player Health and Ship Stats Design](player-health-and-ship-stats-design.md)
+
+- [ ] Mostrar energia/vida de jugadores en la parte superior.
+- [ ] Definir tipos de nave con stats distintos.
+- [ ] Hacer que el daño de proyectiles dependa del tipo de nave.
+- [ ] Agregar regeneracion despues de `4 segundos` sin disparar.
+- [ ] Cortar regeneracion al disparar.
+- [ ] Definir si recibir daño tambien corta regeneracion.
+- [ ] Mantener backend como autoridad final para vida y daño en multiplayer.
