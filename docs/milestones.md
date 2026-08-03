@@ -519,3 +519,26 @@ Criterios de aceptación:
 - [x] La oleada rebota dentro del área visible.
 - [x] Ambos clientes ven el mismo movimiento.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+
+### Siguiente Corte - Wave Lifecycle
+
+Spec: [Wave Lifecycle Spec](wave-lifecycle-spec.md)
+
+- [ ] Mostrar número de oleada.
+- [ ] Detectar oleada sin enemigos.
+- [ ] Mostrar transición de 2 segundos.
+- [ ] Crear nueva oleada de 12 enemigos.
+- [ ] Usar IDs únicos por oleada.
+- [ ] Escalar HP por oleada.
+- [ ] Escalar velocidad de formación por oleada.
+- [ ] Rotar composición de tipos.
+- [ ] Mantener variantes, patrones y destrucción sincronizada.
+- [ ] Validar carga headless de Godot.
+
+Criterios de aceptación:
+
+- [ ] La partida continúa al limpiar una oleada.
+- [ ] Las oleadas siguientes son más difíciles.
+- [ ] Eventos retrasados no eliminan enemigos de una oleada nueva.
+- [ ] Ambos clientes ven la misma progresión.
+- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
