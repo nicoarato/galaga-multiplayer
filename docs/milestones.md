@@ -299,25 +299,25 @@ Criterios de aceptacion:
 
 Spec: [Enemy Destroy Sync Spec](enemy-destroy-sync-spec.md)
 
-- [ ] Agregar `enemyId` a `Enemy`.
-- [ ] Guardar enemigos por `enemyId` en `GameScreen`.
-- [ ] Emitir destruccion local desde `Projectile`.
-- [ ] Conectar destruccion local en `GameScreen`.
-- [ ] Agregar `enemy_destroyed` en `RoomSocket`.
-- [ ] Parsear `enemy_destroyed` en backend.
-- [ ] Validar que `enemyId` sea string no vacio.
-- [ ] Broadcast de `enemy_destroyed` desde backend.
-- [ ] Recibir `enemy_destroyed` en Godot.
-- [ ] Remover enemigo remoto por `enemyId`.
-- [ ] Ignorar eventos duplicados sin error visual.
-- [ ] Mantener coverage backend 100%.
+- [x] Agregar `enemyId` a `Enemy`.
+- [x] Guardar enemigos por `enemyId` en `GameScreen`.
+- [x] Emitir destruccion local desde `Projectile`.
+- [x] Conectar destruccion local en `GameScreen`.
+- [x] Agregar `enemy_destroyed` en `RoomSocket`.
+- [x] Parsear `enemy_destroyed` en backend.
+- [x] Validar que `enemyId` sea string no vacio.
+- [x] Broadcast de `enemy_destroyed` desde backend.
+- [x] Recibir `enemy_destroyed` en Godot.
+- [x] Remover enemigo remoto por `enemyId`.
+- [x] Ignorar eventos duplicados sin error visual.
+- [x] Mantener coverage backend 100%.
 
 Criterios de aceptacion:
 
-- [ ] P1 destruye un OVNI y desaparece en P1.
-- [ ] P1 destruye un OVNI y desaparece en P2.
-- [ ] P2 destruye un OVNI y desaparece en P1.
-- [ ] Un `enemy_destroyed` duplicado no rompe la partida.
-- [ ] Los disparos sincronizados siguen funcionando.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
-- [ ] Backend mantiene lint, typecheck y coverage 100%.
+- [x] P1 destruye un OVNI y desaparece en P1.
+- [x] P1 destruye un OVNI y desaparece en P2.
+- [x] P2 destruye un OVNI y desaparece en P1.
+- [x] Un `enemy_destroyed` duplicado no rompe la partida.
+- [x] Los disparos sincronizados siguen funcionando.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Backend mantiene lint, typecheck y coverage 100%.

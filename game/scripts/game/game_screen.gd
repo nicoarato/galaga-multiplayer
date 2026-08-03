@@ -3,6 +3,7 @@ class_name GameScreen
 
 signal local_player_position_changed(position: Vector2)
 signal local_player_shot(shot_position: Vector2)
+signal local_enemy_destroyed(enemy_id: String)
 
 const POSITION_SEND_INTERVAL := 0.05
 const ENEMY_COLUMNS := 6
@@ -30,6 +31,7 @@ var _has_pending_local_position := false
 var _position_send_elapsed := 0.0
 var _enemy_wave_spawned := false
 var _enemy_direction := 1.0
+var _enemies_by_id := {}
 
 
 func _process(delta: float) -> void:
@@ -213,6 +215,18 @@ func _spawn_projectile(spawn_position: Vector2) -> void:
 	projectiles_layer.add_child(projectile)
 	projectile.position = spawn_position
 	projectile.set_play_area(_play_area())
+	projectile.enemy_hit.connect(_on_projectile_enemy_hit)
+
+
+func destroy_enemy(enemy_id: String) -> void:
+	var enemy := _enemies_by_id.get(enemy_id) as Enemy
+
+	if enemy == null or not is_instance_valid(enemy):
+		_enemies_by_id.erase(enemy_id)
+		return
+
+	enemy.destroy()
+	_enemies_by_id.erase(enemy_id)
 
 
 func _schedule_spawn_enemy_wave() -> void:
@@ -238,12 +252,23 @@ func _spawn_enemy_wave() -> void:
 		for column in range(ENEMY_COLUMNS):
 			var enemy := enemy_scene.instantiate() as Enemy
 			var enemy_index := row * ENEMY_COLUMNS + column
+			var enemy_id := "enemy-%s" % str(enemy_index)
 			enemies_layer.add_child(enemy)
+			_enemies_by_id[enemy_id] = enemy
+			enemy.set_enemy_id(enemy_id)
 			enemy.position = Vector2(
 				start_x + float(column) * ENEMY_SPACING.x,
 				start_y + float(row) * ENEMY_SPACING.y
 			)
 			enemy.set_enemy_index(enemy_index)
+
+
+func _on_projectile_enemy_hit(enemy_id: String) -> void:
+	if enemy_id.is_empty():
+		return
+
+	_enemies_by_id.erase(enemy_id)
+	local_enemy_destroyed.emit(enemy_id)
 
 
 func _process_enemy_wave(delta: float) -> void:

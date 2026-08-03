@@ -5,6 +5,7 @@ signal connected()
 signal room_state_received(room: Dictionary)
 signal game_started(room: Dictionary)
 signal player_shot_received(player_id: String, shot_position: Vector2)
+signal enemy_destroyed_received(enemy_id: String)
 signal socket_failed(message: String)
 signal socket_error(reason: String)
 signal socket_closed()
@@ -90,6 +91,17 @@ func send_player_shot(shot_position: Vector2) -> void:
 	})
 
 
+func send_enemy_destroyed(enemy_id: String) -> void:
+	if _socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		socket_error.emit("connection_failed")
+		return
+
+	_send_json({
+		"type": "enemy_destroyed",
+		"enemyId": enemy_id
+	})
+
+
 func _process(_delta: float) -> void:
 	_socket.poll()
 
@@ -141,6 +153,8 @@ func _handle_message(body: String) -> void:
 			_emit_room_signal(message, game_started)
 		"player_shot":
 			_emit_player_shot(message)
+		"enemy_destroyed":
+			_emit_enemy_destroyed(message)
 		"error":
 			socket_error.emit(str(message.get("reason", "unknown")))
 		"pong":
@@ -184,6 +198,16 @@ func _emit_player_shot(message: Dictionary) -> void:
 		return
 
 	player_shot_received.emit(player_id, Vector2(float(x), float(y)))
+
+
+func _emit_enemy_destroyed(message: Dictionary) -> void:
+	var enemy_id := str(message.get("enemyId", ""))
+
+	if enemy_id.is_empty():
+		socket_failed.emit("La destruccion de enemigo no incluyo enemyId.")
+		return
+
+	enemy_destroyed_received.emit(enemy_id)
 
 
 func _send_json(message: Dictionary) -> void:

@@ -191,6 +191,32 @@ describe("parseClientMessage", () => {
     });
   });
 
+  it("parses enemy_destroyed and trims enemyId", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_destroyed", enemyId: " enemy-1 " }))).toEqual({
+      ok: true,
+      message: {
+        type: "enemy_destroyed",
+        enemyId: "enemy-1"
+      }
+    });
+  });
+
+  it("validates enemy_destroyed enemyId", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_destroyed" }))).toEqual({
+      ok: false,
+      error: {
+        message: "enemyId is required"
+      }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "enemy_destroyed", enemyId: "   " }))).toEqual({
+      ok: false,
+      error: {
+        message: "enemyId cannot be empty"
+      }
+    });
+  });
+
   it("validates ping timestamp", () => {
     expect(parseClientMessage(JSON.stringify({ type: "ping", timestamp: Number.NaN }))).toEqual({
       ok: false,

@@ -1,6 +1,8 @@
 extends Area2D
 class_name Projectile
 
+signal enemy_hit(enemy_id: String)
+
 const SPEED := 720.0
 
 var _play_area := Rect2(Vector2.ZERO, Vector2(1280, 720))
@@ -31,5 +33,6 @@ func _on_area_entered(area: Area2D) -> void:
 
 	_has_hit = true
 	var enemy := area as Enemy
+	enemy_hit.emit(enemy.enemy_id)
 	enemy.destroy()
 	queue_free()

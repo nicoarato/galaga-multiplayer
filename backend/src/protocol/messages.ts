@@ -5,6 +5,7 @@ export const CLIENT_MESSAGE_TYPES = [
   "start_game",
   "player_position",
   "player_shot",
+  "enemy_destroyed",
   "ping"
 ] as const;
 
@@ -48,6 +49,11 @@ export type PlayerShotMessage = {
   shot: PlayerShot;
 };
 
+export type EnemyDestroyedMessage = {
+  type: "enemy_destroyed";
+  enemyId: string;
+};
+
 export type PingMessage = {
   type: "ping";
   timestamp: number;
@@ -60,6 +66,7 @@ export type ClientMessage =
   | StartGameMessage
   | PlayerPositionMessage
   | PlayerShotMessage
+  | EnemyDestroyedMessage
   | PingMessage;
 
 export type ProtocolError = {
@@ -106,6 +113,8 @@ export function parseClientMessage(raw: string): ParseClientMessageResult {
       return parsePlayerPositionMessage(parsed);
     case "player_shot":
       return parsePlayerShotMessage(parsed);
+    case "enemy_destroyed":
+      return parseEnemyDestroyedMessage(parsed);
     case "ping":
       return parsePingMessage(parsed);
     default:
@@ -201,6 +210,26 @@ function parsePlayerShotMessage(value: Record<string, unknown>): ParseClientMess
         x,
         y
       }
+    }
+  };
+}
+
+function parseEnemyDestroyedMessage(value: Record<string, unknown>): ParseClientMessageResult {
+  if (typeof value.enemyId !== "string") {
+    return invalid("enemyId is required");
+  }
+
+  const enemyId = value.enemyId.trim();
+
+  if (enemyId.length === 0) {
+    return invalid("enemyId cannot be empty");
+  }
+
+  return {
+    ok: true,
+    message: {
+      type: "enemy_destroyed",
+      enemyId
     }
   };
 }

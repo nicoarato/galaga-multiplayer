@@ -11,6 +11,12 @@ const ENEMY_COLORS := [
 @onready var body: Polygon2D = %Body
 @onready var core: Polygon2D = %Core
 
+var enemy_id := ""
+
+
+func set_enemy_id(next_enemy_id: String) -> void:
+	enemy_id = next_enemy_id
+
 
 func set_enemy_index(enemy_index: int) -> void:
 	var color: Color = ENEMY_COLORS[enemy_index % ENEMY_COLORS.size()]
