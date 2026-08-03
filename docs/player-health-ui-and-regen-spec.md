@@ -39,24 +39,24 @@ Este corte prioriza feedback jugable local y prepara el camino para daño sincro
 
 ## Checklist
 
-- [ ] Crear catalogo de clases de nave.
-- [ ] Asignar clase por indice de jugador.
-- [ ] Guardar health/maxHealth por jugador en `GameScreen`.
-- [ ] Crear HUD superior de energia.
-- [ ] Mostrar nombre, clase y porcentaje de energia.
-- [ ] Actualizar HUD al cambiar jugadores.
-- [ ] Trackear disparo local como actividad ofensiva.
-- [ ] Regenerar despues de `4 segundos` sin disparar.
-- [ ] Reiniciar timer de regeneracion al disparar.
-- [ ] Mantener clamp de vida a `maxHealth`.
-- [ ] No modificar backend.
+- [x] Crear catalogo de clases de nave.
+- [x] Asignar clase por indice de jugador.
+- [x] Guardar health/maxHealth por jugador en `GameScreen`.
+- [x] Crear HUD superior de energia.
+- [x] Mostrar nombre, clase y porcentaje de energia.
+- [x] Actualizar HUD al cambiar jugadores.
+- [x] Trackear disparo local como actividad ofensiva.
+- [x] Regenerar despues de `4 segundos` sin disparar.
+- [x] Reiniciar timer de regeneracion al disparar.
+- [x] Mantener clamp de vida a `maxHealth`.
+- [x] No modificar backend.
 
 ## Criterios de Aceptacion
 
-- [ ] Cada jugador tiene una barra de energia visible arriba.
-- [ ] Cada barra muestra clase y porcentaje.
-- [ ] P1 y P2 pueden tener stats distintos por clase.
-- [ ] Disparar reinicia la espera de regeneracion.
-- [ ] La regeneracion no supera `100%`.
-- [ ] Movimiento, disparos y destruccion de enemigos siguen funcionando.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Cada jugador tiene una barra de energia visible arriba.
+- [x] Cada barra muestra clase y porcentaje.
+- [x] P1 y P2 pueden tener stats distintos por clase.
+- [x] Disparar reinicia la espera de regeneracion.
+- [x] La regeneracion no supera `100%`.
+- [x] Movimiento, disparos y destruccion de enemigos siguen funcionando.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.

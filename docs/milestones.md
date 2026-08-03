@@ -353,11 +353,11 @@ Design: [Player Health and Ship Stats Design](player-health-and-ship-stats-desig
 
 Spec: [Player Health UI and Regen Spec](player-health-ui-and-regen-spec.md)
 
-- [ ] Mostrar energia/vida de jugadores en la parte superior.
-- [ ] Definir tipos de nave con stats distintos.
+- [x] Mostrar energia/vida de jugadores en la parte superior.
+- [x] Definir tipos de nave con stats distintos.
 - [ ] Hacer que el daño de proyectiles dependa del tipo de nave.
-- [ ] Agregar regeneracion despues de `4 segundos` sin disparar.
-- [ ] Cortar regeneracion al disparar.
+- [x] Agregar regeneracion despues de `4 segundos` sin disparar.
+- [x] Cortar regeneracion al disparar.
 - [ ] Definir si recibir daño tambien corta regeneracion.
 - [ ] Mantener backend como autoridad final para vida y daño en multiplayer.
 
