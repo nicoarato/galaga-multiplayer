@@ -178,3 +178,23 @@ Criterios de aceptacion:
 - [x] Al mover P2, P1 ve moverse la nave de P2.
 - [x] La nave local sigue respondiendo inmediatamente.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Remote Movement Smoothing
+
+Spec: [Remote Movement Smoothing Spec](remote-movement-smoothing-spec.md)
+
+- [ ] Subir frecuencia de envio local a `20 updates por segundo`.
+- [ ] Agregar target remoto en `PlayerShip`.
+- [ ] Suavizar naves remotas con `lerp`.
+- [ ] Mantener control local inmediato.
+- [ ] Mantener remotas sin input local.
+- [ ] Mantener clamp al area de juego.
+- [ ] No modificar backend.
+- [ ] No modificar protocolo.
+
+Criterios de aceptacion:
+
+- [ ] Al mover P1, P2 ve movimiento remoto mas fluido.
+- [ ] Al mover P2, P1 ve movimiento remoto mas fluido.
+- [ ] La nave local sigue respondiendo inmediatamente.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
