@@ -560,3 +560,24 @@ Criterios de aceptación:
 - [ ] No hay saltos al repetir capas.
 - [ ] El gameplay sigue funcionando sin cambios.
 - [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+
+### Siguiente Corte - MVP 10 City Campaign
+
+Spec: [MVP 10 City Campaign Spec](mvp-10-city-campaign-spec.md)
+
+- [ ] Crear catálogo de 10 niveles-ciudad.
+- [ ] Mostrar ciudad, nivel y oleada actual.
+- [ ] Avanzar de ciudad cada tres oleadas.
+- [ ] Aplicar paleta por ciudad.
+- [ ] Aplicar velocidad de parallax por ciudad.
+- [ ] Finalizar la campaña después de 30 oleadas.
+- [ ] Mantener gameplay y sincronización existentes.
+- [ ] Validar carga headless de Godot.
+
+Criterios de aceptación:
+
+- [ ] La campaña progresa por las 10 ciudades.
+- [ ] Cada ciudad resulta identificable desde el HUD y paleta.
+- [ ] La oleada 30 muestra final de MVP en vez de crear otra oleada.
+- [ ] Ambos clientes ven la misma ciudad.
+- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
