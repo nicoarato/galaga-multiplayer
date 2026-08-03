@@ -5,25 +5,35 @@ signal connected()
 signal room_state_received(room: Dictionary)
 signal game_started(room: Dictionary)
 signal socket_failed(message: String)
+signal socket_error(reason: String)
 signal socket_closed()
 
 var _socket := WebSocketPeer.new()
 var _is_connected := false
+var _intentional_close := false
 var _player_name := ""
 
 
 func connect_to_room(room_id: String, player_name: String) -> void:
 	close()
 	_socket = WebSocketPeer.new()
+	_intentional_close = false
 	_player_name = player_name
 
 	var error := _socket.connect_to_url(AppConfig.ws_url("/ws/rooms/%s" % room_id))
 
 	if error != OK:
-		socket_failed.emit("No se pudo conectar al lobby.")
+		socket_error.emit("connection_failed")
 
 
-func close() -> void:
+func close(send_leave_room := false) -> void:
+	if send_leave_room and _socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		_send_json({
+			"type": "leave_room"
+		})
+
+	_intentional_close = true
+
 	if _socket.get_ready_state() != WebSocketPeer.STATE_CLOSED:
 		_socket.close()
 
@@ -46,7 +56,9 @@ func _process(_delta: float) -> void:
 
 	if state == WebSocketPeer.STATE_CLOSED and _is_connected:
 		_is_connected = false
-		socket_closed.emit()
+
+		if not _intentional_close:
+			socket_closed.emit()
 
 
 func _send_join_room() -> void:
@@ -78,7 +90,7 @@ func _handle_message(body: String) -> void:
 		"game_started":
 			_emit_room_signal(message, game_started)
 		"error":
-			socket_failed.emit("Error de lobby: %s" % str(message.get("reason", "unknown")))
+			socket_error.emit(str(message.get("reason", "unknown")))
 		"pong":
 			pass
 		_:

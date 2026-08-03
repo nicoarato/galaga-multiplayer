@@ -6,6 +6,7 @@ extends Control
 @onready var room_socket = %RoomSocket
 
 var _current_player_name := ""
+var _flow_state := "home"
 
 
 func _ready() -> void:
@@ -19,18 +20,21 @@ func _ready() -> void:
 	room_socket.connected.connect(_on_room_socket_connected)
 	room_socket.room_state_received.connect(_on_room_state_received)
 	room_socket.socket_failed.connect(_on_request_failed)
+	room_socket.socket_error.connect(_on_socket_error)
 	room_socket.socket_closed.connect(_on_room_socket_closed)
 	_show_home()
 
 
 func _on_create_room_requested(player_name: String) -> void:
 	_current_player_name = player_name
+	_flow_state = "connecting"
 	home_screen.set_status("Creando sala para %s..." % player_name)
 	api_client.create_room()
 
 
 func _on_join_room_requested(player_name: String, room_id: String) -> void:
 	_current_player_name = player_name
+	_flow_state = "connecting"
 	home_screen.set_status("Conectando a sala %s..." % room_id)
 	room_socket.connect_to_room(room_id, player_name)
 
@@ -63,18 +67,20 @@ func _on_room_state_received(room: Dictionary) -> void:
 	home_screen.set_status("Lobby conectado: %s jugador(es)." % str(players.size()))
 	lobby_screen.set_room(room)
 	lobby_screen.set_connection_status("Connected")
+	_flow_state = "lobby"
 	_show_lobby()
 
 
 func _on_room_socket_closed() -> void:
-	if lobby_screen.visible:
+	if _flow_state == "lobby":
 		lobby_screen.set_connection_status("Connection closed")
 	else:
 		home_screen.set_status("Conexion de lobby cerrada.")
 
 
 func _on_lobby_back_requested() -> void:
-	room_socket.close()
+	_flow_state = "home"
+	room_socket.close(true)
 	home_screen.set_status("Backend local: http://localhost:3000")
 	_show_home()
 
@@ -88,6 +94,7 @@ func _on_lobby_start_game_requested() -> void:
 
 
 func _show_home() -> void:
+	_flow_state = "home"
 	home_screen.visible = true
 	lobby_screen.visible = false
 
@@ -95,3 +102,36 @@ func _show_home() -> void:
 func _show_lobby() -> void:
 	home_screen.visible = false
 	lobby_screen.visible = true
+
+
+func _on_socket_error(reason: String) -> void:
+	var message := _lobby_error_message(reason)
+
+	if _flow_state == "lobby":
+		lobby_screen.set_connection_status(message)
+	else:
+		room_socket.close()
+		_flow_state = "home"
+		home_screen.set_status(message)
+
+
+func _lobby_error_message(reason: String) -> String:
+	match reason:
+		"room_not_found":
+			return "Sala no encontrada."
+		"room_full":
+			return "Sala llena."
+		"game_already_started", "already_started":
+			return "La partida ya empezo."
+		"player_not_joined":
+			return "Todavia no entraste a la sala."
+		"player_not_found":
+			return "Jugador no encontrado."
+		"not_host":
+			return "Solo el host puede hacer eso."
+		"players_not_ready":
+			return "Faltan jugadores listos."
+		"connection_failed":
+			return "No se pudo conectar al lobby."
+		_:
+			return "Error de lobby."

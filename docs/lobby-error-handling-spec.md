@@ -112,17 +112,17 @@ No se esperan endpoints nuevos.
 
 ## Checklist
 
-- [ ] `RoomSocket` distingue cierre intencional.
-- [ ] `RoomSocket` expone `reason` de errores del backend.
-- [ ] `Main` mapea errores a mensajes claros.
-- [ ] Join a sala inexistente queda en Home.
-- [ ] Join a sala llena queda en Home.
-- [ ] `BACK` vuelve a Home sin error visual.
-- [ ] `BACK` notifica salida al backend.
-- [ ] Otro cliente ve lista actualizada al salir un jugador.
-- [ ] No se agregan endpoints nuevos.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] `RoomSocket` distingue cierre intencional.
+- [x] `RoomSocket` expone `reason` de errores del backend.
+- [x] `Main` mapea errores a mensajes claros.
+- [x] Join a sala inexistente queda en Home.
+- [x] Join a sala llena queda en Home.
+- [x] `BACK` vuelve a Home sin error visual.
+- [x] `BACK` notifica salida al backend.
+- [x] Otro cliente ve lista actualizada al salir un jugador.
+- [x] No se agregan endpoints nuevos.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
@@ -135,3 +135,10 @@ No se esperan endpoints nuevos.
 - `npm run lint` pasa.
 - `npm run typecheck` pasa.
 - `npm run coverage` pasa con 100%.
+
+## Validaciones Realizadas
+
+- Join a sala inexistente validado manualmente en Godot.
+- `BACK` desde Lobby validado manualmente en Godot.
+- Desconexion de otro jugador validada con cliente WebSocket temporal de Node.
+- `room_full` validado con cliente WebSocket temporal de Node.

@@ -74,19 +74,19 @@ Criterios de aceptacion:
 
 Spec: [Lobby Error Handling Spec](lobby-error-handling-spec.md)
 
-- [ ] Manejar error `room_not_found`.
-- [ ] Manejar error `room_full`.
-- [ ] Mostrar errores de join en Home sin cambiar a Lobby.
-- [ ] Si un cliente se desconecta, el otro ve la lista actualizada.
-- [ ] `BACK` no debe mostrar error de desconexion despues de volver a Home.
-- [ ] `BACK` debe notificar salida al backend.
+- [x] Manejar error `room_not_found`.
+- [x] Manejar error `room_full`.
+- [x] Mostrar errores de join en Home sin cambiar a Lobby.
+- [x] Si un cliente se desconecta, el otro ve la lista actualizada.
+- [x] `BACK` no debe mostrar error de desconexion despues de volver a Home.
+- [x] `BACK` debe notificar salida al backend.
 
 Criterios de aceptacion:
 
-- [ ] Intentar unirse a una sala inexistente muestra error claro.
-- [ ] Intentar unirse a una sala llena muestra error claro.
-- [ ] Al cerrar/salir un cliente, el resto ve la lista actualizada.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Intentar unirse a una sala inexistente muestra error claro.
+- [x] Intentar unirse a una sala llena muestra error claro.
+- [x] Al cerrar/salir un cliente, el resto ve la lista actualizada.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ### Siguiente Corte - Ready / Start
 
