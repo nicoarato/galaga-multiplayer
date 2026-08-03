@@ -134,6 +134,12 @@ Reglas:
 }
 ```
 
+Reglas:
+
+- Solo se acepta despues de `join_room`.
+- Actualiza `player.ready`.
+- El backend responde con `room_state`.
+
 ### `start_game`
 
 ```json
@@ -141,6 +147,12 @@ Reglas:
   "type": "start_game"
 }
 ```
+
+Reglas:
+
+- Solo el host puede iniciar.
+- Si un invitado no esta ready, el backend responde `players_not_ready`.
+- Si inicia correctamente, el backend emite `game_started`.
 
 ### `ping`
 

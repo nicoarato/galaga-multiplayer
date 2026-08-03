@@ -88,19 +88,25 @@ Criterios de aceptacion:
 - [x] Al cerrar/salir un cliente, el resto ve la lista actualizada.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
-### Siguiente Corte - Ready / Start
+### Corte Actual - Ready / Start
+
+Spec: [Ready / Start Spec](ready-start-spec.md)
 
 - [ ] Implementar `set_ready` desde Godot.
 - [ ] Actualizar lista con estado ready.
 - [ ] Mostrar `START GAME` solo para host.
 - [ ] Enviar `start_game`.
 - [ ] Recibir `game_started`.
+- [ ] Mostrar host en el lobby.
+- [ ] Manejar error `players_not_ready`.
+- [ ] Manejar error `not_host`.
 
 Criterios de aceptacion:
 
 - [ ] Invitados pueden marcar ready.
 - [ ] Host puede iniciar cuando corresponde.
 - [ ] Todos los clientes reciben `game_started`.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ## Milestone 2 - Gameplay Basico Local
 

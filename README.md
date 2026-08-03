@@ -131,6 +131,7 @@ START ROOM -> POST /api/rooms -> WS /ws/rooms/{roomId} -> join_room -> room_stat
 - [Spec inicial](docs/spec.md)
 - [Milestones](docs/milestones.md)
 - [Spec de errores de lobby](docs/lobby-error-handling-spec.md)
+- [Spec Ready / Start](docs/ready-start-spec.md)
 - [Principios de ingenieria](docs/engineering-principles.md)
 - [Pipeline de arte](docs/art-pipeline.md)
 - [Protocolo multiplayer](shared/protocol.md)
