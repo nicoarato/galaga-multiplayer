@@ -2,9 +2,11 @@ extends Node2D
 class_name PlayerShip
 
 signal position_changed(position: Vector2)
+signal shoot_requested(spawn_position: Vector2)
 
 const MOVE_SPEED := 260.0
 const REMOTE_SMOOTH_SPEED := 14.0
+const SHOOT_COOLDOWN := 0.18
 const PLAYER_COLORS := [
 	Color(1.0, 1.0, 1.0, 1.0),
 	Color(1.0, 0.38, 0.82, 1.0),
@@ -26,6 +28,7 @@ var _player_color := PLAYER_COLORS[0]
 var _last_reported_position := Vector2.INF
 var _remote_target_position := Vector2.ZERO
 var _has_remote_target := false
+var _shoot_cooldown_remaining := 0.0
 
 
 func _ready() -> void:
@@ -36,6 +39,8 @@ func _process(delta: float) -> void:
 	if not _is_local_player:
 		_process_remote_movement(delta)
 		return
+
+	_process_shooting(delta)
 
 	var direction := _input_direction()
 
@@ -113,6 +118,19 @@ func _process_remote_movement(delta: float) -> void:
 
 	var weight: float = min(delta * REMOTE_SMOOTH_SPEED, 1.0)
 	position = position.lerp(_remote_target_position, weight).clamp(_play_area.position, _play_area.end)
+
+
+func _process_shooting(delta: float) -> void:
+	_shoot_cooldown_remaining = max(_shoot_cooldown_remaining - delta, 0.0)
+
+	if _shoot_cooldown_remaining > 0.0:
+		return
+
+	if not Input.is_key_pressed(KEY_SPACE) and not Input.is_key_pressed(KEY_ENTER):
+		return
+
+	_shoot_cooldown_remaining = SHOOT_COOLDOWN
+	shoot_requested.emit(position + Vector2(0, -54))
 
 
 func _apply_visual_state() -> void:

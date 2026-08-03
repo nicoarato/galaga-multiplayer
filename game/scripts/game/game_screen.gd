@@ -6,12 +6,14 @@ signal local_player_position_changed(position: Vector2)
 const POSITION_SEND_INTERVAL := 0.05
 
 @export var player_ship_scene: PackedScene
+@export var projectile_scene: PackedScene
 
 @onready var room_id_label: Label = %RoomIdLabel
 @onready var status_label: Label = %StatusLabel
 @onready var players_list: VBoxContainer = %PlayersList
 @onready var playfield: Control = %Playfield
 @onready var ships_layer: Node2D = %ShipsLayer
+@onready var projectiles_layer: Node2D = %ProjectilesLayer
 
 var _local_player_id := ""
 var _current_players: Array = []
@@ -126,6 +128,7 @@ func _player_ship(player: Dictionary, index: int, player_count: int, play_area: 
 
 	if player_id == _local_player_id:
 		ship.position_changed.connect(_on_local_ship_position_changed)
+		ship.shoot_requested.connect(_on_local_ship_shoot_requested)
 
 	return ship
 
@@ -179,3 +182,10 @@ func _player_position(player: Dictionary) -> Variant:
 func _on_local_ship_position_changed(position: Vector2) -> void:
 	_pending_local_position = position
 	_has_pending_local_position = true
+
+
+func _on_local_ship_shoot_requested(spawn_position: Vector2) -> void:
+	var projectile := projectile_scene.instantiate() as Projectile
+	projectiles_layer.add_child(projectile)
+	projectile.position = spawn_position
+	projectile.set_play_area(_play_area())

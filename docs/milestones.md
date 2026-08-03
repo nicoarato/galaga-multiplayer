@@ -203,22 +203,22 @@ Criterios de aceptacion:
 
 Spec: [Local Shooting Spec](local-shooting-spec.md)
 
-- [ ] Crear `Projectile.tscn`.
-- [ ] Crear `projectile.gd`.
-- [ ] Agregar layer de proyectiles en `GameScreen`.
-- [ ] Agregar `shoot_requested` en `PlayerShip`.
-- [ ] Detectar disparo con `Space` y `Enter`.
-- [ ] Aplicar cooldown simple.
-- [ ] Spawn de proyectil desde nave local.
-- [ ] Mover proyectil hacia arriba.
-- [ ] Destruir proyectil al salir del area.
-- [ ] No modificar backend.
+- [x] Crear `Projectile.tscn`.
+- [x] Crear `projectile.gd`.
+- [x] Agregar layer de proyectiles en `GameScreen`.
+- [x] Agregar `shoot_requested` en `PlayerShip`.
+- [x] Detectar disparo con `Space` y `Enter`.
+- [x] Aplicar cooldown simple.
+- [x] Spawn de proyectil desde nave local.
+- [x] Mover proyectil hacia arriba.
+- [x] Destruir proyectil al salir del area.
+- [x] No modificar backend.
 
 Criterios de aceptacion:
 
-- [ ] La nave local dispara con `Space`.
-- [ ] La nave local dispara con `Enter`.
-- [ ] El proyectil sale desde la nave local.
-- [ ] El proyectil se mueve hacia arriba.
-- [ ] El proyectil desaparece al salir del area.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] La nave local dispara con `Space`.
+- [x] La nave local dispara con `Enter`.
+- [x] El proyectil sale desde la nave local.
+- [x] El proyectil se mueve hacia arriba.
+- [x] El proyectil desaparece al salir del area.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.

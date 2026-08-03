@@ -100,34 +100,40 @@ No se esperan cambios.
 
 ## Checklist
 
-- [ ] Crear spec `docs/local-shooting-spec.md`.
-- [ ] Actualizar `docs/milestones.md`.
-- [ ] Crear `Projectile.tscn`.
-- [ ] Crear `projectile.gd`.
-- [ ] Agregar layer de proyectiles en `GameScreen`.
-- [ ] Agregar `shoot_requested` en `PlayerShip`.
-- [ ] Detectar disparo con `Space`.
-- [ ] Detectar disparo con `Enter`.
-- [ ] Aplicar cooldown simple.
-- [ ] Spawn de proyectil desde nave local.
-- [ ] Mover proyectil hacia arriba.
-- [ ] Destruir proyectil al salir del area.
-- [ ] No modificar backend.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] Crear spec `docs/local-shooting-spec.md`.
+- [x] Actualizar `docs/milestones.md`.
+- [x] Crear `Projectile.tscn`.
+- [x] Crear `projectile.gd`.
+- [x] Agregar layer de proyectiles en `GameScreen`.
+- [x] Agregar `shoot_requested` en `PlayerShip`.
+- [x] Detectar disparo con `Space`.
+- [x] Detectar disparo con `Enter`.
+- [x] Aplicar cooldown simple.
+- [x] Spawn de proyectil desde nave local.
+- [x] Mover proyectil hacia arriba.
+- [x] Destruir proyectil al salir del area.
+- [x] No modificar backend.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] La nave local dispara con `Space`.
-- [ ] La nave local dispara con `Enter`.
-- [ ] El proyectil sale desde la nave local.
-- [ ] El proyectil se mueve hacia arriba.
-- [ ] El proyectil desaparece al salir del area.
-- [ ] Las naves remotas no disparan por input local.
-- [ ] `godot --headless --path game --quit` pasa.
-- [ ] `npm run lint` pasa.
-- [ ] `npm run typecheck` pasa.
-- [ ] `npm run coverage` pasa con 100%.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] La nave local dispara con `Space`.
+- [x] La nave local dispara con `Enter`.
+- [x] El proyectil sale desde la nave local.
+- [x] El proyectil se mueve hacia arriba.
+- [x] El proyectil desaparece al salir del area.
+- [x] Las naves remotas no disparan por input local.
+- [x] `godot --headless --path game --quit` pasa.
+- [x] `npm run lint` pasa.
+- [x] `npm run typecheck` pasa.
+- [x] `npm run coverage` pasa con 100%.
+
+## Observaciones de Validacion
+
+- El disparo local funciona con `Space` y `Enter`.
+- Los proyectiles son locales y todavia no se sincronizan por red.
+- Colisiones, enemigos y score quedan fuera de este corte.
