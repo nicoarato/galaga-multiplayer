@@ -4,7 +4,7 @@ class_name RoomSocket
 signal connected()
 signal room_state_received(room: Dictionary)
 signal game_started(room: Dictionary)
-signal player_shot_received(player_id: String, shot_position: Vector2, damage: float)
+signal player_shot_received(player_id: String, shot_position: Vector2, damage: float, projectile_range: float)
 signal enemy_destroyed_received(enemy_id: String)
 signal player_health_received(player_id: String, health: float, max_health: float, defeated: bool)
 signal socket_failed(message: String)
@@ -78,7 +78,7 @@ func send_player_position(position: Vector2) -> void:
 	})
 
 
-func send_player_shot(shot_position: Vector2, damage: float) -> void:
+func send_player_shot(shot_position: Vector2, damage: float, projectile_range: float) -> void:
 	if _socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
 		socket_error.emit("connection_failed")
 		return
@@ -88,7 +88,8 @@ func send_player_shot(shot_position: Vector2, damage: float) -> void:
 		"shot": {
 			"x": shot_position.x,
 			"y": shot_position.y,
-			"damage": damage
+			"damage": damage,
+			"range": projectile_range
 		}
 	})
 
@@ -205,6 +206,7 @@ func _emit_player_shot(message: Dictionary) -> void:
 	var x: Variant = shot_data.get("x")
 	var y: Variant = shot_data.get("y")
 	var damage: Variant = shot_data.get("damage")
+	var projectile_range: Variant = shot_data.get("range")
 
 	if typeof(x) != TYPE_FLOAT and typeof(x) != TYPE_INT:
 		socket_failed.emit("El disparo incluyo x invalida.")
@@ -218,7 +220,11 @@ func _emit_player_shot(message: Dictionary) -> void:
 		socket_failed.emit("El disparo incluyo dano invalido.")
 		return
 
-	player_shot_received.emit(player_id, Vector2(float(x), float(y)), float(damage))
+	if (typeof(projectile_range) != TYPE_FLOAT and typeof(projectile_range) != TYPE_INT) or float(projectile_range) <= 0.0:
+		socket_failed.emit("El disparo incluyo alcance invalido.")
+		return
+
+	player_shot_received.emit(player_id, Vector2(float(x), float(y)), float(damage), float(projectile_range))
 
 
 func _emit_enemy_destroyed(message: Dictionary) -> void:

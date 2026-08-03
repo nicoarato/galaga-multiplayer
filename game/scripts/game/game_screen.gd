@@ -2,7 +2,7 @@ extends Control
 class_name GameScreen
 
 signal local_player_position_changed(position: Vector2)
-signal local_player_shot(shot_position: Vector2, damage: float)
+signal local_player_shot(shot_position: Vector2, damage: float, projectile_range: float)
 signal local_enemy_destroyed(enemy_id: String)
 signal local_player_hit(player_id: String, damage: float)
 
@@ -22,21 +22,25 @@ const SHIP_CLASSES := [
 		"name": "Scout",
 		"max_health": 80.0,
 		"damage": 18.0,
+		"projectile_range": 440.0,
 	},
 	{
 		"name": "Fighter",
 		"max_health": 100.0,
 		"damage": 24.0,
+		"projectile_range": 520.0,
 	},
 	{
 		"name": "Tank",
 		"max_health": 140.0,
 		"damage": 16.0,
+		"projectile_range": 680.0,
 	},
 	{
 		"name": "Striker",
 		"max_health": 90.0,
 		"damage": 32.0,
+		"projectile_range": 400.0,
 	},
 ]
 
@@ -247,23 +251,25 @@ func _on_local_ship_position_changed(position: Vector2) -> void:
 
 func _on_local_ship_shoot_requested(spawn_position: Vector2) -> void:
 	var damage := _local_player_damage()
-	_spawn_projectile(spawn_position, damage)
-	local_player_shot.emit(spawn_position, damage)
+	var projectile_range := _local_projectile_range()
+	_spawn_projectile(spawn_position, damage, projectile_range)
+	local_player_shot.emit(spawn_position, damage, projectile_range)
 
 
-func spawn_remote_projectile(player_id: String, shot_position: Vector2, damage: float) -> void:
+func spawn_remote_projectile(player_id: String, shot_position: Vector2, damage: float, projectile_range: float) -> void:
 	if player_id == _local_player_id:
 		return
 
-	_spawn_projectile(shot_position, damage)
+	_spawn_projectile(shot_position, damage, projectile_range)
 
 
-func _spawn_projectile(spawn_position: Vector2, damage: float) -> void:
+func _spawn_projectile(spawn_position: Vector2, damage: float, projectile_range: float) -> void:
 	var projectile := projectile_scene.instantiate() as Projectile
 	projectiles_layer.add_child(projectile)
 	projectile.position = spawn_position
 	projectile.set_play_area(_play_area())
 	projectile.set_damage(damage)
+	projectile.set_range(projectile_range)
 	projectile.enemy_hit.connect(_on_projectile_enemy_hit)
 
 
@@ -364,6 +370,15 @@ func _local_player_damage() -> float:
 	return 24.0
 
 
+func _local_projectile_range() -> float:
+	var state: Variant = _health_by_player_id.get(_local_player_id)
+
+	if typeof(state) == TYPE_DICTIONARY:
+		return float((state as Dictionary).get("projectile_range", 520.0))
+
+	return 520.0
+
+
 func _process_enemy_wave(delta: float) -> void:
 	if not _enemy_wave_spawned:
 		return
@@ -435,6 +450,7 @@ func _ensure_player_health(player_id: String, player_index: int) -> void:
 		state["class_name"] = str(ship_class.get("name", "Fighter"))
 		state["max_health"] = max_health
 		state["damage"] = float(ship_class.get("damage", 24.0))
+		state["projectile_range"] = float(ship_class.get("projectile_range", 520.0))
 		state["health"] = min(float(state.get("health", max_health)), max_health)
 		return
 
@@ -443,6 +459,7 @@ func _ensure_player_health(player_id: String, player_index: int) -> void:
 		"health": max_health,
 		"max_health": max_health,
 		"damage": float(ship_class.get("damage", 24.0)),
+		"projectile_range": float(ship_class.get("projectile_range", 520.0)),
 	}
 
 
@@ -591,10 +608,11 @@ func _update_health_row(player_id: String) -> void:
 		title.text = "%s  YOU" % title.text.replace("  YOU", "")
 
 	if details != null:
-		details.text = "%s  %s%%  DMG %s" % [
+		details.text = "%s  %s%%  PWR %s  RNG %s" % [
 			str(state.get("class_name", "Fighter")).to_upper(),
 			str(roundi(percent)),
-			str(roundi(float(state.get("damage", 24.0))))
+			str(roundi(float(state.get("damage", 24.0)))),
+			str(roundi(float(state.get("projectile_range", 520.0))))
 		]
 
 

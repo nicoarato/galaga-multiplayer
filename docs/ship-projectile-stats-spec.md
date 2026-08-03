@@ -36,14 +36,14 @@ El backend valida que `range` sea un número finito positivo y lo retransmite si
 
 ## Criterios de aceptación
 
-- [ ] Cada clase tiene `damage` y `projectile_range` explícitos.
-- [ ] El HUD muestra el power de cada jugador.
-- [ ] El backend valida `shot.range`.
-- [ ] P1 y P2 ven el mismo alcance para cada disparo remoto.
-- [ ] El Scout, Fighter, Tank y Striker usan sus rangos definidos.
-- [ ] Los proyectiles enemigos conservan 360 px de alcance.
-- [ ] Se mantienen lint, typecheck y 100% de coverage del backend.
-- [ ] Godot carga sin errores en modo headless.
+- [x] Cada clase tiene `damage` y `projectile_range` explícitos.
+- [x] El HUD muestra el power de cada jugador.
+- [x] El backend valida `shot.range`.
+- [x] P1 y P2 ven el mismo alcance para cada disparo remoto.
+- [x] El Scout, Fighter, Tank y Striker usan sus rangos definidos.
+- [x] Los proyectiles enemigos conservan 360 px de alcance.
+- [x] Se mantienen lint, typecheck y 100% de coverage del backend.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 

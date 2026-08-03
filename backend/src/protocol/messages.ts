@@ -44,6 +44,7 @@ export type PlayerShot = {
   x: number;
   y: number;
   damage: number;
+  range: number;
 };
 
 export type PlayerShotMessage = {
@@ -203,7 +204,7 @@ function parsePlayerShotMessage(value: Record<string, unknown>): ParseClientMess
     return invalid("shot is required");
   }
 
-  const { x, y, damage } = value.shot;
+  const { x, y, damage, range } = value.shot;
 
   if (typeof x !== "number" || !Number.isFinite(x)) {
     return invalid("shot.x must be a finite number");
@@ -217,6 +218,10 @@ function parsePlayerShotMessage(value: Record<string, unknown>): ParseClientMess
     return invalid("shot.damage must be a positive finite number");
   }
 
+  if (typeof range !== "number" || !Number.isFinite(range) || range <= 0) {
+    return invalid("shot.range must be a positive finite number");
+  }
+
   return {
     ok: true,
     message: {
@@ -224,7 +229,8 @@ function parsePlayerShotMessage(value: Record<string, unknown>): ParseClientMess
       shot: {
         x,
         y,
-        damage
+        damage,
+        range
       }
     }
   };

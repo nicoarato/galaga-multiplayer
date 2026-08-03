@@ -4,12 +4,13 @@ class_name Projectile
 signal enemy_hit(enemy_id: String, destroyed: bool)
 
 const SPEED := 720.0
-const MAX_RANGE := 520.0
+const DEFAULT_MAX_RANGE := 520.0
 
 var _play_area := Rect2(Vector2.ZERO, Vector2(1280, 720))
 var _has_hit := false
 var _damage := 24.0
 var _distance_traveled := 0.0
+var _max_range := DEFAULT_MAX_RANGE
 
 
 func _ready() -> void:
@@ -23,7 +24,7 @@ func _process(delta: float) -> void:
 	position.y -= SPEED * delta
 	_distance_traveled += SPEED * delta
 
-	if _distance_traveled >= MAX_RANGE:
+	if _distance_traveled >= _max_range:
 		queue_free()
 		return
 
@@ -37,6 +38,10 @@ func set_play_area(play_area: Rect2) -> void:
 
 func set_damage(damage: float) -> void:
 	_damage = max(damage, 0.0)
+
+
+func set_range(projectile_range: float) -> void:
+	_max_range = max(projectile_range, 0.0)
 
 
 func _on_area_entered(area: Area2D) -> void:
