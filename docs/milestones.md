@@ -462,21 +462,21 @@ Design: [Enemy Variety Design](enemy-variety-design.md)
 - [ ] Permitir que nuevas variantes se agreguen sin reescribir oleadas.
 - [ ] Definir si los 10 tipos aparecen desde el inicio o progresivamente.
 
-### Siguiente Corte - Enemy Type Catalog
+### Corte Completado - Enemy Type Catalog
 
 Spec: [Enemy Type Catalog Spec](enemy-type-catalog-spec.md)
 
-- [ ] Crear catálogo central de 10 tipos.
-- [ ] Agregar `enemy_type_id` a `Enemy`.
-- [ ] Asignar tipos deterministas a la primera oleada.
-- [ ] Aplicar HP según tipo.
-- [ ] Aplicar variantes visuales de color y escala.
-- [ ] Mantener IDs y destrucción sincronizada.
-- [ ] Validar carga headless de Godot.
+- [x] Crear catálogo central de 10 tipos.
+- [x] Agregar `enemy_type_id` a `Enemy`.
+- [x] Asignar tipos deterministas a la primera oleada.
+- [x] Aplicar HP según tipo.
+- [x] Aplicar variantes visuales de color y escala.
+- [x] Mantener IDs y destrucción sincronizada.
+- [x] Validar carga headless de Godot.
 
 Criterios de aceptación:
 
-- [ ] La oleada inicial contiene los 10 tipos propuestos.
-- [ ] Los enemigos tienen vida según su tipo.
-- [ ] Los tipos se distinguen visualmente sin nuevos assets.
-- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+- [x] La oleada inicial contiene los 10 tipos propuestos.
+- [x] Los enemigos tienen vida según su tipo.
+- [x] Los tipos se distinguen visualmente sin nuevos assets.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.

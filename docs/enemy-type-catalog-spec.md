@@ -33,13 +33,13 @@ La primera oleada usará los 10 tipos una vez y repetirá `drone` y `sprinter` p
 
 ## Criterios de aceptación
 
-- [ ] Existe un catálogo central con los 10 tipos.
-- [ ] Cada enemigo recibe `enemyTypeId` de forma determinista.
-- [ ] Los HP provienen del tipo y no de un valor fijo.
-- [ ] Los tipos muestran diferencias de color y escala.
-- [ ] La destrucción sincronizada por `enemyId` sigue funcionando.
-- [ ] Los proyectiles de jugadores aplican daño sin regresiones.
-- [ ] Godot carga sin errores en modo headless.
+- [x] Existe un catálogo central con los 10 tipos.
+- [x] Cada enemigo recibe `enemyTypeId` de forma determinista.
+- [x] Los HP provienen del tipo y no de un valor fijo.
+- [x] Los tipos muestran diferencias de color y escala.
+- [x] La destrucción sincronizada por `enemyId` sigue funcionando.
+- [x] Los proyectiles de jugadores aplican daño sin regresiones.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 
