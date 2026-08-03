@@ -133,12 +133,12 @@ El backend ya emite:
 
 ## Criterios de Aceptacion
 
-- [ ] Host crea sala.
-- [ ] Guest entra.
-- [ ] Guest marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] Host cambia a `GameScreen`.
-- [ ] Guest cambia a `GameScreen`.
+- [x] Host crea sala.
+- [x] Guest entra.
+- [x] Guest marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] Host cambia a `GameScreen`.
+- [x] Guest cambia a `GameScreen`.
 - [x] `GameScreen` muestra fondo.
 - [x] `GameScreen` muestra room id.
 - [x] `GameScreen` muestra jugadores.

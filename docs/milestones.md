@@ -128,8 +128,8 @@ Spec: [Game Scene Placeholder Spec](game-scene-placeholder-spec.md)
 
 Criterios de aceptacion:
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] Ambos clientes cambian a GameScreen.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] Ambos clientes cambian a GameScreen.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
