@@ -70,7 +70,7 @@ Criterios de aceptacion:
 - [x] Ambos clientes ven la misma lista de jugadores.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
-### Corte Actual - Errores y Desconexion de Lobby
+### Errores y Desconexion de Lobby
 
 Spec: [Lobby Error Handling Spec](lobby-error-handling-spec.md)
 
@@ -88,7 +88,7 @@ Criterios de aceptacion:
 - [x] Al cerrar/salir un cliente, el resto ve la lista actualizada.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
-### Corte Actual - Ready / Start
+### Ready / Start
 
 Spec: [Ready / Start Spec](ready-start-spec.md)
 
@@ -110,4 +110,26 @@ Criterios de aceptacion:
 
 ## Milestone 2 - Gameplay Basico Local
 
-Pendiente de detallar cuando Milestone 1 este completo.
+Objetivo: empezar la transicion desde lobby a partida y construir gameplay en cortes chicos.
+
+### Corte Actual - Game Scene Placeholder
+
+Spec: [Game Scene Placeholder Spec](game-scene-placeholder-spec.md)
+
+- [ ] Crear fondo `game_space_bg_1280x720.png`.
+- [ ] Crear `GameScreen.tscn`.
+- [ ] Crear `game_screen.gd`.
+- [ ] Mostrar fondo.
+- [ ] Mostrar `GAME STARTED`.
+- [ ] Mostrar room id.
+- [ ] Mostrar jugadores.
+- [ ] Cambiar de Lobby a GameScreen al recibir `game_started`.
+- [ ] Mantener WebSocket abierto.
+
+Criterios de aceptacion:
+
+- [ ] Host crea sala.
+- [ ] Guest entra y marca `READY`.
+- [ ] Host presiona `START GAME`.
+- [ ] Ambos clientes cambian a GameScreen.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
