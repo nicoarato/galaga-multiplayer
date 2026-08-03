@@ -561,23 +561,23 @@ Criterios de aceptación:
 - [x] El gameplay sigue funcionando sin cambios.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
-### Siguiente Corte - Parallax Visibility
+### Corte Completado - Parallax Visibility
 
 Spec: [Parallax Visibility Spec](parallax-visibility-spec.md)
 
-- [ ] Oscurecer fondo base.
-- [ ] Aumentar velocidad de capa lejana.
-- [ ] Aumentar velocidad de capa cercana.
-- [ ] Aumentar contraste de capas desplazables.
-- [ ] Mantener reciclado vertical.
-- [ ] Validar carga headless de Godot.
+- [x] Oscurecer fondo base.
+- [x] Aumentar velocidad de capa lejana.
+- [x] Aumentar velocidad de capa cercana.
+- [x] Aumentar contraste de capas desplazables.
+- [x] Mantener reciclado vertical.
+- [x] Validar carga headless de Godot.
 
 Criterios de aceptación:
 
-- [ ] El parallax se percibe dentro de los primeros 3 segundos.
-- [ ] Las capas se distinguen visualmente.
-- [ ] El gameplay mantiene legibilidad.
-- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+- [x] El parallax se percibe dentro de los primeros 3 segundos.
+- [x] Las capas se distinguen visualmente.
+- [x] El gameplay mantiene legibilidad.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
 ### Corte Completado - MVP 10 City Campaign
 

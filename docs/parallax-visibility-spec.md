@@ -20,8 +20,8 @@ Las capas aumentarán su opacidad para que las estrellas y nebulosas se distinga
 
 ## Criterios de aceptación
 
-- [ ] El movimiento se aprecia dentro de los primeros 3 segundos.
-- [ ] La capa cercana se mueve claramente más rápido que la lejana.
-- [ ] El HUD y enemigos se mantienen legibles.
-- [ ] No hay huecos al reciclar las capas.
-- [ ] Godot carga sin errores en modo headless.
+- [x] El movimiento se aprecia dentro de los primeros 3 segundos.
+- [x] La capa cercana se mueve claramente más rápido que la lejana.
+- [x] El HUD y enemigos se mantienen legibles.
+- [x] No hay huecos al reciclar las capas.
+- [x] Godot carga sin errores en modo headless.

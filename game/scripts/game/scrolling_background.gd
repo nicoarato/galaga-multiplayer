@@ -1,8 +1,8 @@
 extends Control
 class_name ScrollingBackground
 
-const FAR_SPEED := 8.0
-const NEAR_SPEED := 24.0
+const FAR_SPEED := 28.0
+const NEAR_SPEED := 96.0
 
 @onready var far_a: TextureRect = %FarA
 @onready var far_b: TextureRect = %FarB
@@ -29,10 +29,14 @@ func _process(delta: float) -> void:
 func set_city_style(far_color: Color, near_color: Color, speed_multiplier: float) -> void:
 	_far_speed = FAR_SPEED * speed_multiplier
 	_near_speed = NEAR_SPEED * speed_multiplier
-	far_a.modulate = far_color
-	far_b.modulate = far_color
-	near_a.modulate = near_color
-	near_b.modulate = near_color
+	var far_tint := far_color
+	var near_tint := near_color
+	far_tint.a = 0.42
+	near_tint.a = 0.3
+	far_a.modulate = far_tint
+	far_b.modulate = far_tint
+	near_a.modulate = near_tint
+	near_b.modulate = near_tint
 
 
 func _reset_layers() -> void:

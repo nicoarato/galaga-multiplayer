@@ -532,7 +532,8 @@ func _apply_city_for_wave() -> void:
 	var city_index := int(float(_wave_number - 1) / float(WAVES_PER_CITY))
 	var city: Dictionary = CITY_LEVELS[city_index]
 	city_label.text = "LEVEL %s // %s" % [str(city_index + 1).pad_zeros(2), str(city.get("name", "UNKNOWN"))]
-	background.modulate = city.get("base", Color.WHITE)
+	var base_color: Color = city.get("base", Color.WHITE)
+	background.modulate = base_color.darkened(0.45)
 	scrolling_background.call("set_city_style",
 		city.get("far", Color(0.45, 0.62, 0.86, 0.24)),
 		city.get("near", Color(0.9, 0.42, 0.85, 0.14)),
