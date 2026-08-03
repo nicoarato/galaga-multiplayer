@@ -414,6 +414,14 @@ Design: [Enemy Variety Design](enemy-variety-design.md)
 - [ ] Crear catalogo inicial de 10 tipos de OVNI.
 - [ ] Agregar `enemyTypeId` estable a enemigos.
 - [ ] Preparar stats por tipo: HP, puntaje, velocidad y patron.
+
+### Future Backlog - Power-ups and Ship Progression
+
+- [ ] Diseñar drops de items al destruir tipos específicos de enemigos.
+- [ ] Definir pickups para velocidad de proyectil, movimiento y regeneración de vida.
+- [ ] Definir niveles, duración y límites de cada mejora.
+- [ ] Sincronizar aparición, recolección y efectos a través del backend.
+- [ ] Agregar indicadores visuales de mejoras activas en el HUD.
 - [ ] Preparar assets/variantes visuales por tipo.
 - [ ] Permitir que nuevas variantes se agreguen sin reescribir oleadas.
 - [ ] Definir si los 10 tipos aparecen desde el inicio o progresivamente.
