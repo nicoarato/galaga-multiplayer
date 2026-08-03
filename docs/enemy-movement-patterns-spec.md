@@ -26,13 +26,13 @@ Los patrones se calculan con tiempo global y un desfase derivado de `enemyId`; p
 
 ## Criterios de aceptación
 
-- [ ] Zigzag y Sprinter se mueven lateralmente de forma distinguible.
-- [ ] Diver y Splitter tienen movimiento vertical visible sin abandonar la formación.
-- [ ] Los demás tipos mantienen formación estable.
-- [ ] La oleada completa continúa rebotando lateralmente.
-- [ ] Los enemigos siguen recibiendo impactos en sus posiciones visibles.
-- [ ] Ambos clientes ven la misma composición y movimiento.
-- [ ] Godot carga sin errores en modo headless.
+- [x] Zigzag y Sprinter se mueven lateralmente de forma distinguible.
+- [x] Diver y Splitter tienen movimiento vertical visible sin abandonar la formación.
+- [x] Los demás tipos mantienen formación estable.
+- [x] La oleada completa continúa rebotando lateralmente.
+- [x] Los enemigos siguen recibiendo impactos en sus posiciones visibles.
+- [x] Ambos clientes ven la misma composición y movimiento.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 

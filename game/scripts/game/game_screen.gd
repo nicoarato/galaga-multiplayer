@@ -99,10 +99,12 @@ var _health_rows_by_player_id := {}
 var _health_hud_signature := ""
 var _enemy_shot_elapsed := 0.0
 var _enemy_shot_index := 0
+var _enemy_wave_elapsed := 0.0
 
 
 func _process(delta: float) -> void:
 	_process_enemy_wave(delta)
+	_process_enemy_patterns(delta)
 	_process_enemy_attacks(delta)
 
 	if not _has_pending_local_position:
@@ -340,10 +342,10 @@ func _spawn_enemy_wave() -> void:
 			_enemies_by_id[enemy_id] = enemy
 			enemy.set_enemy_id(enemy_id)
 			enemy.set_enemy_type(enemy_type_id, enemy_type)
-			enemy.position = Vector2(
+			enemy.set_formation_position(Vector2(
 				start_x + float(column) * ENEMY_SPACING.x,
 				start_y + float(row) * ENEMY_SPACING.y
-			)
+			))
 
 
 func _process_enemy_attacks(delta: float) -> void:
@@ -371,6 +373,18 @@ func _process_enemy_attacks(delta: float) -> void:
 	projectile.set_play_area(_play_area())
 	projectile.set_damage(ENEMY_PROJECTILE_DAMAGE)
 	projectile.player_hit.connect(_on_enemy_projectile_player_hit)
+
+
+func _process_enemy_patterns(delta: float) -> void:
+	if not _enemy_wave_spawned:
+		return
+
+	_enemy_wave_elapsed += delta
+
+	for enemy_data in _enemies_by_id.values():
+		var enemy := enemy_data as Enemy
+		if enemy != null and is_instance_valid(enemy):
+			enemy.update_pattern(_enemy_wave_elapsed)
 
 
 func _on_enemy_projectile_player_hit(ship: PlayerShip, damage: float) -> void:

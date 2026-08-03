@@ -500,22 +500,22 @@ Criterios de aceptación:
 - [x] Los sistemas de combate existentes siguen funcionando.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
-### Siguiente Corte - Enemy Movement Patterns
+### Corte Completado - Enemy Movement Patterns
 
 Spec: [Enemy Movement Patterns Spec](enemy-movement-patterns-spec.md)
 
-- [ ] Mantener movimiento de formación actual.
-- [ ] Agregar patrón estable por tipo.
-- [ ] Agregar oscilación horizontal para Zigzag.
-- [ ] Agregar oscilación rápida para Sprinter.
-- [ ] Agregar oscilación vertical para Diver y Splitter.
-- [ ] Usar tiempo y `enemyId` para movimiento determinista.
-- [ ] Mantener colisiones y destrucción sincronizada.
-- [ ] Validar carga headless de Godot.
+- [x] Mantener movimiento de formación actual.
+- [x] Agregar patrón estable por tipo.
+- [x] Agregar oscilación horizontal para Zigzag.
+- [x] Agregar oscilación rápida para Sprinter.
+- [x] Agregar oscilación vertical para Diver y Splitter.
+- [x] Usar tiempo y `enemyId` para movimiento determinista.
+- [x] Mantener colisiones y destrucción sincronizada.
+- [x] Validar carga headless de Godot.
 
 Criterios de aceptación:
 
-- [ ] Los tipos con patrón se distinguen en movimiento.
-- [ ] La oleada rebota dentro del área visible.
-- [ ] Ambos clientes ven el mismo movimiento.
-- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+- [x] Los tipos con patrón se distinguen en movimiento.
+- [x] La oleada rebota dentro del área visible.
+- [x] Ambos clientes ven el mismo movimiento.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.

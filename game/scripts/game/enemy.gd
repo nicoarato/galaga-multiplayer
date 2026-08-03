@@ -27,6 +27,7 @@ var enemy_id := ""
 var enemy_type_id := "drone"
 var max_health := 48.0
 var health := 48.0
+var _formation_position := Vector2.ZERO
 
 
 func set_enemy_id(next_enemy_id: String) -> void:
@@ -51,6 +52,28 @@ func set_enemy_type(next_enemy_type_id: String, stats: Dictionary) -> void:
 	left_light.color = Color(1.0, color.g, color.b, 1.0)
 	right_light.color = Color(color.r, 0.2, 1.0, 1.0)
 	core.color = Color(0.00784314, 0.00392157, 0.027451, 1.0)
+
+
+func set_formation_position(next_position: Vector2) -> void:
+	_formation_position = next_position
+	position = next_position
+
+
+func update_pattern(wave_time: float) -> void:
+	var phase := float(enemy_id.trim_prefix("enemy-").to_int()) * 0.73
+	var offset := Vector2.ZERO
+
+	match enemy_type_id:
+		"zigzag":
+			offset.x = sin(wave_time * 3.2 + phase) * 16.0
+		"sprinter":
+			offset.x = sin(wave_time * 6.0 + phase) * 28.0
+		"diver":
+			offset.y = sin(wave_time * 2.5 + phase) * 18.0
+		"splitter":
+			offset.y = abs(sin(wave_time * 3.0 + phase)) * 12.0
+
+	position = _formation_position + offset
 
 
 func _apply_sprite(next_enemy_type_id: String) -> void:
