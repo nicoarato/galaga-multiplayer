@@ -28,22 +28,22 @@ Este corte mantiene la logica simple y local para validar sensacion de juego ant
 
 ## Checklist
 
-- [ ] Convertir `Projectile` en nodo con deteccion de area.
-- [ ] Agregar shape de colision al proyectil.
-- [ ] Convertir `Enemy` en nodo con deteccion de area.
-- [ ] Agregar shape de colision al enemigo.
-- [ ] Definir layers/masks simples para proyectiles y enemigos.
-- [ ] Detectar impacto desde el proyectil.
-- [ ] Remover enemigo impactado.
-- [ ] Remover proyectil que impacta.
-- [ ] Mantener proyectiles saliendo del area como hasta ahora.
-- [ ] No modificar backend.
+- [x] Convertir `Projectile` en nodo con deteccion de area.
+- [x] Agregar shape de colision al proyectil.
+- [x] Convertir `Enemy` en nodo con deteccion de area.
+- [x] Agregar shape de colision al enemigo.
+- [x] Definir layers/masks simples para proyectiles y enemigos.
+- [x] Detectar impacto desde el proyectil.
+- [x] Remover enemigo impactado.
+- [x] Remover proyectil que impacta.
+- [x] Mantener proyectiles saliendo del area como hasta ahora.
+- [x] No modificar backend.
 
 ## Criterios de Aceptacion
 
-- [ ] Al disparar contra un enemigo, el proyectil desaparece.
-- [ ] Al disparar contra un enemigo, el enemigo desaparece.
-- [ ] Disparar sin impactar sigue eliminando el proyectil al salir del area.
-- [ ] La oleada sigue moviendose lateralmente.
-- [ ] Los disparos sincronizados siguen visibles entre clientes.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Al disparar contra un enemigo, el proyectil desaparece.
+- [x] Al disparar contra un enemigo, el enemigo desaparece.
+- [x] Disparar sin impactar sigue eliminando el proyectil al salir del area.
+- [x] La oleada sigue moviendose lateralmente.
+- [x] Los disparos sincronizados siguen visibles entre clientes.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.

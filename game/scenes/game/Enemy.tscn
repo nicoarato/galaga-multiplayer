@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dixwvx8n2yd10"]
+[gd_scene load_steps=3 format=3 uid="uid://dixwvx8n2yd10"]
 
 [ext_resource type="Script" path="res://scripts/game/enemy.gd" id="1_enemy"]
 
-[node name="Enemy" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
+size = Vector2(62, 38)
+
+[node name="Enemy" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_enemy")
 
 [node name="Dome" type="Polygon2D" parent="."]
@@ -27,3 +32,7 @@ polygon = PackedVector2Array(-22, 0, -16, 0, -16, 5, -22, 5)
 [node name="RightLight" type="Polygon2D" parent="."]
 color = Color(1, 0.145098, 0.831373, 1)
 polygon = PackedVector2Array(16, 0, 22, 0, 22, 5, 16, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_enemy")

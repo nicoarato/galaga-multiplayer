@@ -1,4 +1,4 @@
-extends Node2D
+extends Area2D
 class_name Enemy
 
 const ENEMY_COLORS := [
@@ -17,3 +17,7 @@ func set_enemy_index(enemy_index: int) -> void:
 	dome.color = Color(color.r, color.g, color.b, 0.72)
 	body.color = color
 	core.color = Color(0.00784314, 0.00392157, 0.027451, 1.0)
+
+
+func destroy() -> void:
+	queue_free()
