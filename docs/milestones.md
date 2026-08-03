@@ -270,3 +270,27 @@ Criterios de aceptacion:
 - [x] La oleada rebota dentro del area visible.
 - [x] Los disparos siguen funcionando.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Projectile Enemy Collision
+
+Spec: [Projectile Enemy Collision Spec](projectile-enemy-collision-spec.md)
+
+- [ ] Convertir `Projectile` en nodo con deteccion de area.
+- [ ] Agregar shape de colision al proyectil.
+- [ ] Convertir `Enemy` en nodo con deteccion de area.
+- [ ] Agregar shape de colision al enemigo.
+- [ ] Definir layers/masks simples para proyectiles y enemigos.
+- [ ] Detectar impacto desde el proyectil.
+- [ ] Remover enemigo impactado.
+- [ ] Remover proyectil que impacta.
+- [ ] Mantener proyectiles saliendo del area como hasta ahora.
+- [ ] No modificar backend.
+
+Criterios de aceptacion:
+
+- [ ] Al disparar contra un enemigo, el proyectil desaparece.
+- [ ] Al disparar contra un enemigo, el enemigo desaparece.
+- [ ] Disparar sin impactar sigue eliminando el proyectil al salir del area.
+- [ ] La oleada sigue moviendose lateralmente.
+- [ ] Los disparos sincronizados siguen visibles entre clientes.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
