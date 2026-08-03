@@ -75,30 +75,36 @@ No se esperan cambios.
 
 ## Checklist
 
-- [ ] Crear spec `docs/remote-movement-smoothing-spec.md`.
-- [ ] Actualizar `docs/milestones.md`.
-- [ ] Subir frecuencia de envio local a `20 updates por segundo`.
-- [ ] Agregar target remoto en `PlayerShip`.
-- [ ] Suavizar naves remotas con `lerp`.
-- [ ] Mantener naves locales con input inmediato.
-- [ ] Mantener remotas sin input local.
-- [ ] Mantener clamp al area de juego.
-- [ ] No modificar backend.
-- [ ] No modificar protocolo.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] Crear spec `docs/remote-movement-smoothing-spec.md`.
+- [x] Actualizar `docs/milestones.md`.
+- [x] Subir frecuencia de envio local a `20 updates por segundo`.
+- [x] Agregar target remoto en `PlayerShip`.
+- [x] Suavizar naves remotas con `lerp`.
+- [x] Mantener naves locales con input inmediato.
+- [x] Mantener remotas sin input local.
+- [x] Mantener clamp al area de juego.
+- [x] No modificar backend.
+- [x] No modificar protocolo.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] Al mover P1, P2 ve movimiento remoto mas fluido.
-- [ ] Al mover P2, P1 ve movimiento remoto mas fluido.
-- [ ] La nave local sigue respondiendo inmediatamente.
-- [ ] No se duplican naves.
-- [ ] No hay saltos grandes visibles en movimiento remoto normal.
-- [ ] `godot --headless --path game --quit` pasa.
-- [ ] `npm run lint` pasa.
-- [ ] `npm run typecheck` pasa.
-- [ ] `npm run coverage` pasa con 100%.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] Al mover P1, P2 ve movimiento remoto mas fluido.
+- [x] Al mover P2, P1 ve movimiento remoto mas fluido.
+- [x] La nave local sigue respondiendo inmediatamente.
+- [x] No se duplican naves.
+- [x] No hay saltos grandes visibles en movimiento remoto normal.
+- [x] `godot --headless --path game --quit` pasa.
+- [x] `npm run lint` pasa.
+- [x] `npm run typecheck` pasa.
+- [x] `npm run coverage` pasa con 100%.
+
+## Observaciones de Validacion
+
+- El movimiento remoto se percibe mas fluido con envio a `20 updates por segundo`.
+- El control local sigue respondiendo inmediatamente.
+- No se modificaron backend ni protocolo en este corte.

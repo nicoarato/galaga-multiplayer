@@ -3,7 +3,7 @@ class_name GameScreen
 
 signal local_player_position_changed(position: Vector2)
 
-const POSITION_SEND_INTERVAL := 0.1
+const POSITION_SEND_INTERVAL := 0.05
 
 @export var player_ship_scene: PackedScene
 

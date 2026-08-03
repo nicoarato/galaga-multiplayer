@@ -183,18 +183,18 @@ Criterios de aceptacion:
 
 Spec: [Remote Movement Smoothing Spec](remote-movement-smoothing-spec.md)
 
-- [ ] Subir frecuencia de envio local a `20 updates por segundo`.
-- [ ] Agregar target remoto en `PlayerShip`.
-- [ ] Suavizar naves remotas con `lerp`.
-- [ ] Mantener control local inmediato.
-- [ ] Mantener remotas sin input local.
-- [ ] Mantener clamp al area de juego.
-- [ ] No modificar backend.
-- [ ] No modificar protocolo.
+- [x] Subir frecuencia de envio local a `20 updates por segundo`.
+- [x] Agregar target remoto en `PlayerShip`.
+- [x] Suavizar naves remotas con `lerp`.
+- [x] Mantener control local inmediato.
+- [x] Mantener remotas sin input local.
+- [x] Mantener clamp al area de juego.
+- [x] No modificar backend.
+- [x] No modificar protocolo.
 
 Criterios de aceptacion:
 
-- [ ] Al mover P1, P2 ve movimiento remoto mas fluido.
-- [ ] Al mover P2, P1 ve movimiento remoto mas fluido.
-- [ ] La nave local sigue respondiendo inmediatamente.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Al mover P1, P2 ve movimiento remoto mas fluido.
+- [x] Al mover P2, P1 ve movimiento remoto mas fluido.
+- [x] La nave local sigue respondiendo inmediatamente.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
