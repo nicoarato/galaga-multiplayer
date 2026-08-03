@@ -543,41 +543,41 @@ Criterios de aceptación:
 - [x] Ambos clientes ven la misma progresión.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
-### Siguiente Corte - Scrolling Background
+### Corte Completado - Scrolling Background
 
 Spec: [Scrolling Background Spec](scrolling-background-spec.md)
 
-- [ ] Crear capas de fondo desplazables.
-- [ ] Usar velocidades distintas para parallax.
-- [ ] Duplicar y reciclar texturas verticalmente.
-- [ ] Mantener fondo detrás del gameplay.
-- [ ] Mantener efecto fuera de la red.
-- [ ] Validar carga headless de Godot.
+- [x] Crear capas de fondo desplazables.
+- [x] Usar velocidades distintas para parallax.
+- [x] Duplicar y reciclar texturas verticalmente.
+- [x] Mantener fondo detrás del gameplay.
+- [x] Mantener efecto fuera de la red.
+- [x] Validar carga headless de Godot.
 
 Criterios de aceptación:
 
-- [ ] El fondo comunica avance continuo.
-- [ ] No hay saltos al repetir capas.
-- [ ] El gameplay sigue funcionando sin cambios.
-- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+- [x] El fondo comunica avance continuo.
+- [x] No hay saltos al repetir capas.
+- [x] El gameplay sigue funcionando sin cambios.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
-### Siguiente Corte - MVP 10 City Campaign
+### Corte Completado - MVP 10 City Campaign
 
 Spec: [MVP 10 City Campaign Spec](mvp-10-city-campaign-spec.md)
 
-- [ ] Crear catálogo de 10 niveles-ciudad.
-- [ ] Mostrar ciudad, nivel y oleada actual.
-- [ ] Avanzar de ciudad cada tres oleadas.
-- [ ] Aplicar paleta por ciudad.
-- [ ] Aplicar velocidad de parallax por ciudad.
-- [ ] Finalizar la campaña después de 30 oleadas.
-- [ ] Mantener gameplay y sincronización existentes.
-- [ ] Validar carga headless de Godot.
+- [x] Crear catálogo de 10 niveles-ciudad.
+- [x] Mostrar ciudad, nivel y oleada actual.
+- [x] Avanzar de ciudad cada tres oleadas.
+- [x] Aplicar paleta por ciudad.
+- [x] Aplicar velocidad de parallax por ciudad.
+- [x] Finalizar la campaña después de 30 oleadas.
+- [x] Mantener gameplay y sincronización existentes.
+- [x] Validar carga headless de Godot.
 
 Criterios de aceptación:
 
-- [ ] La campaña progresa por las 10 ciudades.
-- [ ] Cada ciudad resulta identificable desde el HUD y paleta.
-- [ ] La oleada 30 muestra final de MVP en vez de crear otra oleada.
-- [ ] Ambos clientes ven la misma ciudad.
-- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+- [x] La campaña progresa por las 10 ciudades.
+- [x] Cada ciudad resulta identificable desde el HUD y paleta.
+- [x] La oleada 30 muestra final de MVP en vez de crear otra oleada.
+- [x] Ambos clientes ven la misma ciudad.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.

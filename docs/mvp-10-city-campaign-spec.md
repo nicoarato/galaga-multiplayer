@@ -38,13 +38,13 @@ Convertir las oleadas en una campaña MVP de 10 niveles-ciudad. Cada ciudad dura
 
 ## Criterios de aceptación
 
-- [ ] El HUD muestra el nombre de ciudad, nivel y oleada.
-- [ ] La ciudad cambia cada tres oleadas.
-- [ ] Cada ciudad aplica su paleta y velocidad de parallax.
-- [ ] La campaña termina después de 30 oleadas.
-- [ ] El gameplay conserva oleadas, enemigos, patrones y sincronización.
-- [ ] Ambos clientes muestran la misma ciudad para una oleada dada.
-- [ ] Godot carga sin errores en modo headless.
+- [x] El HUD muestra el nombre de ciudad, nivel y oleada.
+- [x] La ciudad cambia cada tres oleadas.
+- [x] Cada ciudad aplica su paleta y velocidad de parallax.
+- [x] La campaña termina después de 30 oleadas.
+- [x] El gameplay conserva oleadas, enemigos, patrones y sincronización.
+- [x] Ambos clientes muestran la misma ciudad para una oleada dada.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 

@@ -16,6 +16,19 @@ const ENEMY_PROJECTILE_DAMAGE := 12.0
 const WAVE_TRANSITION_DURATION := 2.0
 const WAVE_HEALTH_STEP := 0.15
 const WAVE_SPEED_STEP := 0.10
+const WAVES_PER_CITY := 3
+const CITY_LEVELS := [
+	{"name": "BUENOS AIRES", "base": Color(0.76, 0.62, 1.0, 1.0), "far": Color(0.45, 0.62, 0.86, 0.24), "near": Color(0.9, 0.42, 0.85, 0.14), "scroll": 1.0},
+	{"name": "NEW YORK", "base": Color(0.48, 0.7, 1.0, 1.0), "far": Color(0.3, 0.55, 1.0, 0.26), "near": Color(1.0, 0.16, 0.72, 0.16), "scroll": 1.08},
+	{"name": "PARIS", "base": Color(0.78, 0.7, 1.0, 1.0), "far": Color(0.45, 0.34, 0.9, 0.24), "near": Color(1.0, 0.76, 0.3, 0.14), "scroll": 0.96},
+	{"name": "TOKYO", "base": Color(1.0, 0.5, 0.9, 1.0), "far": Color(0.2, 0.95, 0.9, 0.24), "near": Color(1.0, 0.2, 0.72, 0.18), "scroll": 1.16},
+	{"name": "MEXICO CITY", "base": Color(0.58, 0.94, 0.65, 1.0), "far": Color(0.2, 0.8, 0.52, 0.24), "near": Color(1.0, 0.68, 0.2, 0.15), "scroll": 1.04},
+	{"name": "RIO DE JANEIRO", "base": Color(0.42, 0.8, 0.95, 1.0), "far": Color(0.1, 0.55, 0.86, 0.25), "near": Color(0.25, 1.0, 0.58, 0.14), "scroll": 1.12},
+	{"name": "CAIRO", "base": Color(1.0, 0.72, 0.4, 1.0), "far": Color(0.68, 0.38, 0.88, 0.24), "near": Color(1.0, 0.78, 0.2, 0.16), "scroll": 0.92},
+	{"name": "ISTANBUL", "base": Color(0.48, 0.68, 1.0, 1.0), "far": Color(0.26, 0.42, 0.96, 0.25), "near": Color(0.82, 0.48, 0.24, 0.15), "scroll": 1.06},
+	{"name": "SEOUL", "base": Color(0.48, 0.94, 1.0, 1.0), "far": Color(0.14, 0.8, 0.95, 0.25), "near": Color(1.0, 0.18, 0.76, 0.17), "scroll": 1.18},
+	{"name": "LONDON", "base": Color(0.62, 0.7, 0.86, 1.0), "far": Color(0.26, 0.4, 0.68, 0.25), "near": Color(1.0, 0.22, 0.28, 0.14), "scroll": 1.1},
+]
 const ENEMY_TYPE_ORDER := [
 	"drone",
 	"zigzag",
@@ -80,7 +93,10 @@ const SHIP_CLASSES := [
 
 @onready var room_id_label: Label = %RoomIdLabel
 @onready var status_label: Label = %StatusLabel
+@onready var city_label: Label = %CityLabel
 @onready var wave_label: Label = %WaveLabel
+@onready var background: TextureRect = %Background
+@onready var scrolling_background: Control = %ScrollingBackground
 @onready var health_hud: HBoxContainer = %HealthHud
 @onready var players_list: VBoxContainer = %PlayersList
 @onready var playfield: Control = %Playfield
@@ -106,6 +122,7 @@ var _enemy_shot_index := 0
 var _enemy_wave_elapsed := 0.0
 var _wave_number := 0
 var _wave_transition_remaining := -1.0
+var _campaign_completed := false
 
 
 func _process(delta: float) -> void:
@@ -329,7 +346,7 @@ func _schedule_spawn_enemy_wave() -> void:
 
 
 func _spawn_enemy_wave() -> void:
-	if _enemy_wave_spawned:
+	if _enemy_wave_spawned or _campaign_completed:
 		return
 
 	_enemy_wave_spawned = true
@@ -340,6 +357,7 @@ func _spawn_enemy_wave() -> void:
 	_enemy_wave_elapsed = 0.0
 	_enemy_shot_elapsed = 0.0
 	_enemy_shot_index = 0
+	_apply_city_for_wave()
 	wave_label.text = "WAVE %s" % str(_wave_number)
 
 	for projectile in enemy_projectiles_layer.get_children():
@@ -381,6 +399,12 @@ func _process_wave_lifecycle(delta: float) -> void:
 
 	_wave_transition_remaining -= delta
 	if _wave_transition_remaining > 0.0:
+		return
+
+	if _wave_number >= _total_campaign_waves():
+		_campaign_completed = true
+		_enemy_wave_spawned = false
+		wave_label.text = "MVP COMPLETE"
 		return
 
 	_enemy_wave_spawned = false
@@ -502,6 +526,22 @@ func _wave_health_multiplier() -> float:
 
 func _wave_speed_multiplier() -> float:
 	return 1.0 + float(_wave_number - 1) * WAVE_SPEED_STEP
+
+
+func _apply_city_for_wave() -> void:
+	var city_index := int(float(_wave_number - 1) / float(WAVES_PER_CITY))
+	var city: Dictionary = CITY_LEVELS[city_index]
+	city_label.text = "LEVEL %s // %s" % [str(city_index + 1).pad_zeros(2), str(city.get("name", "UNKNOWN"))]
+	background.modulate = city.get("base", Color.WHITE)
+	scrolling_background.call("set_city_style",
+		city.get("far", Color(0.45, 0.62, 0.86, 0.24)),
+		city.get("near", Color(0.9, 0.42, 0.85, 0.14)),
+		float(city.get("scroll", 1.0))
+	)
+
+
+func _total_campaign_waves() -> int:
+	return CITY_LEVELS.size() * WAVES_PER_CITY
 
 
 func _sync_player_health(players: Array) -> void:

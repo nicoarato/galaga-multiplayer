@@ -24,12 +24,12 @@ Cada capa tendrá dos copias verticales de su textura. Al salir una por debajo d
 
 ## Criterios de aceptación
 
-- [ ] El fondo se desplaza continuamente durante la partida.
-- [ ] Las dos capas se mueven a velocidades diferentes.
-- [ ] No aparece un corte vacío al reciclar una capa.
-- [ ] El HUD y el gameplay permanecen por encima del fondo.
-- [ ] El efecto no altera posiciones, colisiones ni red.
-- [ ] Godot carga sin errores en modo headless.
+- [x] El fondo se desplaza continuamente durante la partida.
+- [x] Las dos capas se mueven a velocidades diferentes.
+- [x] No aparece un corte vacío al reciclar una capa.
+- [x] El HUD y el gameplay permanecen por encima del fondo.
+- [x] El efecto no altera posiciones, colisiones ni red.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 
