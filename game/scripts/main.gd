@@ -2,6 +2,7 @@ extends Control
 
 @onready var home_screen = %HomeScreen
 @onready var lobby_screen = %LobbyScreen
+@onready var game_screen = %GameScreen
 @onready var api_client = %ApiClient
 @onready var room_socket = %RoomSocket
 
@@ -102,11 +103,20 @@ func _show_home() -> void:
 	_flow_state = "home"
 	home_screen.visible = true
 	lobby_screen.visible = false
+	game_screen.visible = false
 
 
 func _show_lobby() -> void:
 	home_screen.visible = false
 	lobby_screen.visible = true
+	game_screen.visible = false
+
+
+func _show_game() -> void:
+	_flow_state = "game"
+	home_screen.visible = false
+	lobby_screen.visible = false
+	game_screen.visible = true
 
 
 func _on_socket_error(reason: String) -> void:
@@ -123,6 +133,8 @@ func _on_socket_error(reason: String) -> void:
 func _on_game_started(room: Dictionary) -> void:
 	lobby_screen.set_room(room, _local_player_id)
 	lobby_screen.set_connection_status("Game starting...")
+	game_screen.set_room(room)
+	_show_game()
 
 
 func _find_local_player_id(players: Array) -> String:

@@ -116,15 +116,15 @@ Objetivo: empezar la transicion desde lobby a partida y construir gameplay en co
 
 Spec: [Game Scene Placeholder Spec](game-scene-placeholder-spec.md)
 
-- [ ] Crear fondo `game_space_bg_1280x720.png`.
-- [ ] Crear `GameScreen.tscn`.
-- [ ] Crear `game_screen.gd`.
-- [ ] Mostrar fondo.
-- [ ] Mostrar `GAME STARTED`.
-- [ ] Mostrar room id.
-- [ ] Mostrar jugadores.
-- [ ] Cambiar de Lobby a GameScreen al recibir `game_started`.
-- [ ] Mantener WebSocket abierto.
+- [x] Crear fondo `game_space_bg_1280x720.png`.
+- [x] Crear `GameScreen.tscn`.
+- [x] Crear `game_screen.gd`.
+- [x] Mostrar fondo.
+- [x] Mostrar `GAME STARTED`.
+- [x] Mostrar room id.
+- [x] Mostrar jugadores.
+- [x] Cambiar de Lobby a GameScreen al recibir `game_started`.
+- [x] Mantener WebSocket abierto.
 
 Criterios de aceptacion:
 
@@ -132,4 +132,4 @@ Criterios de aceptacion:
 - [ ] Guest entra y marca `READY`.
 - [ ] Host presiona `START GAME`.
 - [ ] Ambos clientes cambian a GameScreen.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.

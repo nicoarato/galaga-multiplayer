@@ -117,32 +117,32 @@ El backend ya emite:
 
 ## Checklist
 
-- [ ] Crear fondo `game_space_bg_1280x720.png`.
-- [ ] Importar fondo en Godot.
-- [ ] Crear `GameScreen.tscn`.
-- [ ] Crear `game_screen.gd`.
-- [ ] Mostrar fondo en `GameScreen`.
-- [ ] Mostrar `GAME STARTED`.
-- [ ] Mostrar room id.
-- [ ] Mostrar jugadores.
-- [ ] Cambiar de Lobby a GameScreen al recibir `game_started`.
-- [ ] Mantener WebSocket abierto.
-- [ ] No modificar backend.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] Crear fondo `game_space_bg_1280x720.png`.
+- [x] Importar fondo en Godot.
+- [x] Crear `GameScreen.tscn`.
+- [x] Crear `game_screen.gd`.
+- [x] Mostrar fondo en `GameScreen`.
+- [x] Mostrar `GAME STARTED`.
+- [x] Mostrar room id.
+- [x] Mostrar jugadores.
+- [x] Cambiar de Lobby a GameScreen al recibir `game_started`.
+- [x] Mantener WebSocket abierto.
+- [x] No modificar backend.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
-- Host crea sala.
-- Guest entra.
-- Guest marca `READY`.
-- Host presiona `START GAME`.
-- Host cambia a `GameScreen`.
-- Guest cambia a `GameScreen`.
-- `GameScreen` muestra fondo.
-- `GameScreen` muestra room id.
-- `GameScreen` muestra jugadores.
-- `godot --headless --path game --quit` pasa.
-- `npm run lint` pasa.
-- `npm run typecheck` pasa.
-- `npm run coverage` pasa con 100%.
+- [ ] Host crea sala.
+- [ ] Guest entra.
+- [ ] Guest marca `READY`.
+- [ ] Host presiona `START GAME`.
+- [ ] Host cambia a `GameScreen`.
+- [ ] Guest cambia a `GameScreen`.
+- [x] `GameScreen` muestra fondo.
+- [x] `GameScreen` muestra room id.
+- [x] `GameScreen` muestra jugadores.
+- [x] `godot --headless --path game --quit` pasa.
+- [x] `npm run lint` pasa.
+- [x] `npm run typecheck` pasa.
+- [x] `npm run coverage` pasa con 100%.

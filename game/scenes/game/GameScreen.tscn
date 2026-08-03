@@ -1,0 +1,182 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqmsd2e774ols"]
+
+[ext_resource type="Script" path="res://scripts/game/game_screen.gd" id="1_game"]
+[ext_resource type="Texture2D" path="res://assets/backgrounds/game_space_bg_1280x720.png" id="2_bg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.00784314, 0.00392157, 0.027451, 0.84)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.0862745, 0.941176, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_status"]
+bg_color = Color(0.0196078, 0.0156863, 0.0745098, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.145098, 0.831373, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.105882, 0.921569, 0.133333, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.917647, 1, 0.945098, 1)
+
+[node name="GameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+script = ExtResource("1_game")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Vignette" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.24)
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 28
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 28
+
+[node name="Content" type="VBoxContainer" parent="RootMargin"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Header" type="HBoxContainer" parent="RootMargin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="TitleStack" type="VBoxContainer" parent="RootMargin/Content/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="RootMargin/Content/Header/TitleStack"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
+theme_override_colors/font_outline_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.145098, 0.831373, 1)
+theme_override_constants/outline_size = 5
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_font_sizes/font_size = 56
+text = "GAME STARTED"
+
+[node name="RoomIdLabel" type="Label" parent="RootMargin/Content/Header/TitleStack"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0862745, 0.941176, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "ROOM -"
+
+[node name="StatusPanel" type="PanelContainer" parent="RootMargin/Content/Header"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_status")
+
+[node name="StatusMargin" type="MarginContainer" parent="RootMargin/Content/Header/StatusPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 18
+
+[node name="StatusContent" type="VBoxContainer" parent="RootMargin/Content/Header/StatusPanel/StatusMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="StatusLabel" type="Label" parent="RootMargin/Content/Header/StatusPanel/StatusMargin/StatusContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
+theme_override_font_sizes/font_size = 22
+text = "Status: IN_GAME"
+
+[node name="PlaceholderLabel" type="Label" parent="RootMargin/Content/Header/StatusPanel/StatusMargin/StatusContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.917647, 1, 0.945098, 1)
+theme_override_font_sizes/font_size = 18
+text = "Waiting for gameplay implementation"
+autowrap_mode = 3
+
+[node name="Playfield" type="Control" parent="RootMargin/Content"]
+custom_minimum_size = Vector2(0, 360)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomRow" type="HBoxContainer" parent="RootMargin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="PlayersPanel" type="PanelContainer" parent="RootMargin/Content/BottomRow"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="PlayersMargin" type="MarginContainer" parent="RootMargin/Content/BottomRow/PlayersPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="PlayersContent" type="VBoxContainer" parent="RootMargin/Content/BottomRow/PlayersPanel/PlayersMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="PlayersTitle" type="Label" parent="RootMargin/Content/BottomRow/PlayersPanel/PlayersMargin/PlayersContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
+theme_override_font_sizes/font_size = 28
+text = "PLAYERS"
+
+[node name="PlayersList" type="VBoxContainer" parent="RootMargin/Content/BottomRow/PlayersPanel/PlayersMargin/PlayersContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Spacer" type="Control" parent="RootMargin/Content/BottomRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlaceholderButton" type="Button" parent="RootMargin/Content/BottomRow"]
+custom_minimum_size = Vector2(280, 56)
+layout_mode = 2
+disabled = true
+theme_override_colors/font_color = Color(0.00784314, 0.00392157, 0.027451, 1)
+theme_override_font_sizes/font_size = 22
+theme_override_styles/disabled = SubResource("StyleBoxFlat_button")
+text = "END PLACEHOLDER"
