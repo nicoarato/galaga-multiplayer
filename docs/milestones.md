@@ -294,3 +294,30 @@ Criterios de aceptacion:
 - [x] La oleada sigue moviendose lateralmente.
 - [x] Los disparos sincronizados siguen visibles entre clientes.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Enemy Destroy Sync
+
+Spec: [Enemy Destroy Sync Spec](enemy-destroy-sync-spec.md)
+
+- [ ] Agregar `enemyId` a `Enemy`.
+- [ ] Guardar enemigos por `enemyId` en `GameScreen`.
+- [ ] Emitir destruccion local desde `Projectile`.
+- [ ] Conectar destruccion local en `GameScreen`.
+- [ ] Agregar `enemy_destroyed` en `RoomSocket`.
+- [ ] Parsear `enemy_destroyed` en backend.
+- [ ] Validar que `enemyId` sea string no vacio.
+- [ ] Broadcast de `enemy_destroyed` desde backend.
+- [ ] Recibir `enemy_destroyed` en Godot.
+- [ ] Remover enemigo remoto por `enemyId`.
+- [ ] Ignorar eventos duplicados sin error visual.
+- [ ] Mantener coverage backend 100%.
+
+Criterios de aceptacion:
+
+- [ ] P1 destruye un OVNI y desaparece en P1.
+- [ ] P1 destruye un OVNI y desaparece en P2.
+- [ ] P2 destruye un OVNI y desaparece en P1.
+- [ ] Un `enemy_destroyed` duplicado no rompe la partida.
+- [ ] Los disparos sincronizados siguen funcionando.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [ ] Backend mantiene lint, typecheck y coverage 100%.
