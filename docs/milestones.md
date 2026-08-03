@@ -447,9 +447,9 @@ Criterios de aceptación:
 
 Design: [Enemy Variety Design](enemy-variety-design.md)
 
-- [ ] Crear catalogo inicial de 10 tipos de OVNI.
-- [ ] Agregar `enemyTypeId` estable a enemigos.
-- [ ] Preparar stats por tipo: HP, puntaje, velocidad y patron.
+- [x] Crear catalogo inicial de 10 tipos de OVNI.
+- [x] Agregar `enemyTypeId` estable a enemigos.
+- [x] Preparar stats iniciales por tipo: HP y escala visual.
 
 ### Future Backlog - Power-ups and Ship Progression
 
@@ -481,21 +481,21 @@ Criterios de aceptación:
 - [x] Los tipos se distinguen visualmente sin nuevos assets.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
-### Siguiente Corte - Enemy Visual Variants
+### Corte Completado - Enemy Visual Variants
 
 Spec: [Enemy Visual Variants Spec](enemy-visual-variants-spec.md)
 
-- [ ] Crear sprite sheet propio de 10 OVNIs.
-- [ ] Mapear sprites por `enemyTypeId`.
-- [ ] Reemplazar polígonos placeholder en `Enemy`.
-- [ ] Mantener transparencia y filtrado pixel-art.
-- [ ] Mantener colisiones y escalas de gameplay.
-- [ ] Mantener oleada y destrucción sincronizada.
-- [ ] Validar carga headless de Godot.
+- [x] Crear sprite sheet propio de 10 OVNIs.
+- [x] Mapear sprites por `enemyTypeId`.
+- [x] Reemplazar polígonos placeholder en `Enemy`.
+- [x] Mantener transparencia y filtrado pixel-art.
+- [x] Mantener colisiones y escalas de gameplay.
+- [x] Mantener oleada y destrucción sincronizada.
+- [x] Validar carga headless de Godot.
 
 Criterios de aceptación:
 
-- [ ] Los 10 tipos tienen siluetas distinguibles en partida.
-- [ ] La referencia se usa solo como inspiración.
-- [ ] Los sistemas de combate existentes siguen funcionando.
-- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+- [x] Los 10 tipos tienen siluetas distinguibles en partida.
+- [x] La referencia se usa solo como inspiración.
+- [x] Los sistemas de combate existentes siguen funcionando.
+- [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.

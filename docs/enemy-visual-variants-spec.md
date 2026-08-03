@@ -36,13 +36,13 @@ La imagen de referencia no se usará como sprite dentro del juego. Se crearán a
 
 ## Criterios de aceptación
 
-- [ ] Existe una hoja de sprites propia con 10 variantes de OVNI.
-- [ ] Cada `enemyTypeId` muestra su sprite correcto.
-- [ ] Las siluetas son distinguibles durante la partida.
-- [ ] Los sprites respetan transparencia y pixel art nítido.
-- [ ] No se usan recortes de la imagen de referencia como assets finales.
-- [ ] La oleada, colisiones y destrucción sincronizada siguen funcionando.
-- [ ] Godot carga sin errores en modo headless.
+- [x] Existe una hoja de sprites propia con 10 variantes de OVNI.
+- [x] Cada `enemyTypeId` muestra su sprite correcto.
+- [x] Las siluetas son distinguibles durante la partida.
+- [x] Los sprites respetan transparencia y pixel art nítido.
+- [x] No se usan recortes de la imagen de referencia como assets finales.
+- [x] La oleada, colisiones y destrucción sincronizada siguen funcionando.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 
