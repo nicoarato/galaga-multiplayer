@@ -10,6 +10,10 @@ const ENEMY_COLUMNS := 6
 const ENEMY_ROWS := 2
 const ENEMY_SPACING := Vector2(108, 62)
 const ENEMY_SPEED := 64.0
+const PLAY_AREA_HORIZONTAL_MARGIN := 96.0
+const PLAY_AREA_TOP_MARGIN := 32.0
+const PLAY_AREA_BOTTOM_MARGIN := 56.0
+const SHIP_BOTTOM_OFFSET := 32.0
 
 @export var player_ship_scene: PackedScene
 @export var projectile_scene: PackedScene
@@ -151,7 +155,7 @@ func _ship_start_position(index: int, player_count: int, play_area: Rect2) -> Ve
 	var lane_count: int = max(player_count, 2)
 	var spacing := play_area.size.x / float(lane_count + 1)
 	var x := play_area.position.x + spacing * float(index + 1)
-	var y := play_area.position.y + play_area.size.y - 60.0
+	var y := play_area.end.y - SHIP_BOTTOM_OFFSET
 	return Vector2(x, y)
 
 
@@ -161,8 +165,12 @@ func _play_area() -> Rect2:
 	if area_size == Vector2.ZERO:
 		area_size = get_viewport_rect().size - Vector2(96, 320)
 
-	var ship_margin := Vector2(96, 104)
-	return Rect2(ship_margin, area_size - ship_margin * 2.0)
+	var area_position := Vector2(PLAY_AREA_HORIZONTAL_MARGIN, PLAY_AREA_TOP_MARGIN)
+	var area_margin := Vector2(
+		PLAY_AREA_HORIZONTAL_MARGIN * 2.0,
+		PLAY_AREA_TOP_MARGIN + PLAY_AREA_BOTTOM_MARGIN
+	)
+	return Rect2(area_position, area_size - area_margin)
 
 
 func _schedule_sync_ships() -> void:
@@ -246,7 +254,7 @@ func _spawn_enemy_wave() -> void:
 	var play_area := _play_area()
 	var total_width := float(ENEMY_COLUMNS - 1) * ENEMY_SPACING.x
 	var start_x := play_area.position.x + (play_area.size.x - total_width) / 2.0
-	var start_y := play_area.position.y + 44.0
+	var start_y: float = play_area.position.y + max(26.0, play_area.size.y * 0.12)
 
 	for row in range(ENEMY_ROWS):
 		for column in range(ENEMY_COLUMNS):

@@ -78,18 +78,18 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 28
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 28
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 16
 
 [node name="Content" type="VBoxContainer" parent="RootMargin"]
 layout_mode = 2
-theme_override_constants/separation = 18
+theme_override_constants/separation = 10
 
 [node name="Header" type="HBoxContainer" parent="RootMargin/Content"]
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 16
 
 [node name="TitleStack" type="VBoxContainer" parent="RootMargin/Content/Header"]
 layout_mode = 2
@@ -104,28 +104,28 @@ theme_override_colors/font_shadow_color = Color(1, 0.145098, 0.831373, 1)
 theme_override_constants/outline_size = 5
 theme_override_constants/shadow_offset_x = 4
 theme_override_constants/shadow_offset_y = 4
-theme_override_font_sizes/font_size = 56
+theme_override_font_sizes/font_size = 40
 text = "GAME STARTED"
 
 [node name="RoomIdLabel" type="Label" parent="RootMargin/Content/Header/TitleStack"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0862745, 0.941176, 1, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 18
 text = "ROOM -"
 
 [node name="StatusPanel" type="PanelContainer" parent="RootMargin/Content/Header"]
-custom_minimum_size = Vector2(360, 0)
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_status")
 
 [node name="StatusMargin" type="MarginContainer" parent="RootMargin/Content/Header/StatusPanel"]
 layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 18
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 18
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 10
 
 [node name="StatusContent" type="VBoxContainer" parent="RootMargin/Content/Header/StatusPanel/StatusMargin"]
 layout_mode = 2
@@ -135,19 +135,12 @@ theme_override_constants/separation = 8
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.952941, 0.141176, 1)
-theme_override_font_sizes/font_size = 22
-text = "Status: IN_GAME"
-
-[node name="PlaceholderLabel" type="Label" parent="RootMargin/Content/Header/StatusPanel/StatusMargin/StatusContent"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.917647, 1, 0.945098, 1)
 theme_override_font_sizes/font_size = 18
-text = "Waiting for gameplay implementation"
-autowrap_mode = 3
+text = "Status: IN_GAME"
 
 [node name="Playfield" type="Control" parent="RootMargin/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 360)
+custom_minimum_size = Vector2(0, 420)
 layout_mode = 2
 size_flags_vertical = 3
 
