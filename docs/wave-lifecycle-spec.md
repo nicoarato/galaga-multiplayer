@@ -32,14 +32,14 @@ Cada cliente conoce el mismo catálogo y elimina enemigos por ID. Una oleada se 
 
 ## Criterios de aceptación
 
-- [ ] El HUD muestra la oleada actual.
-- [ ] Al destruir el último enemigo aparece un estado de transición.
-- [ ] Una nueva oleada aparece luego de 2 segundos.
-- [ ] Los IDs de enemigos no se reutilizan entre oleadas.
-- [ ] El HP y velocidad aumentan según la tabla.
-- [ ] Las oleadas siguientes conservan variantes y patrones por tipo.
-- [ ] Ambos clientes ven la misma oleada al avanzar.
-- [ ] Godot carga sin errores en modo headless.
+- [x] El HUD muestra la oleada actual.
+- [x] Al destruir el último enemigo aparece un estado de transición.
+- [x] Una nueva oleada aparece luego de 2 segundos.
+- [x] Los IDs de enemigos no se reutilizan entre oleadas.
+- [x] El HP y velocidad aumentan según la tabla.
+- [x] Las oleadas siguientes conservan variantes y patrones por tipo.
+- [x] Ambos clientes ven la misma oleada al avanzar.
+- [x] Godot carga sin errores en modo headless.
 
 ## Fuera de alcance
 

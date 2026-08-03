@@ -13,6 +13,9 @@ const ENEMY_SPACING := Vector2(108, 62)
 const ENEMY_SPEED := 64.0
 const ENEMY_SHOT_INTERVAL := 2.5
 const ENEMY_PROJECTILE_DAMAGE := 12.0
+const WAVE_TRANSITION_DURATION := 2.0
+const WAVE_HEALTH_STEP := 0.15
+const WAVE_SPEED_STEP := 0.10
 const ENEMY_TYPE_ORDER := [
 	"drone",
 	"zigzag",
@@ -77,6 +80,7 @@ const SHIP_CLASSES := [
 
 @onready var room_id_label: Label = %RoomIdLabel
 @onready var status_label: Label = %StatusLabel
+@onready var wave_label: Label = %WaveLabel
 @onready var health_hud: HBoxContainer = %HealthHud
 @onready var players_list: VBoxContainer = %PlayersList
 @onready var playfield: Control = %Playfield
@@ -100,9 +104,12 @@ var _health_hud_signature := ""
 var _enemy_shot_elapsed := 0.0
 var _enemy_shot_index := 0
 var _enemy_wave_elapsed := 0.0
+var _wave_number := 0
+var _wave_transition_remaining := -1.0
 
 
 func _process(delta: float) -> void:
+	_process_wave_lifecycle(delta)
 	_process_enemy_wave(delta)
 	_process_enemy_patterns(delta)
 	_process_enemy_attacks(delta)
@@ -326,26 +333,58 @@ func _spawn_enemy_wave() -> void:
 		return
 
 	_enemy_wave_spawned = true
+	_wave_number += 1
+	_wave_transition_remaining = -1.0
+	enemies_layer.position = Vector2.ZERO
+	_enemy_direction = 1.0
+	_enemy_wave_elapsed = 0.0
+	_enemy_shot_elapsed = 0.0
+	_enemy_shot_index = 0
+	wave_label.text = "WAVE %s" % str(_wave_number)
+
+	for projectile in enemy_projectiles_layer.get_children():
+		projectile.queue_free()
+
 	var play_area := _play_area()
 	var total_width := float(ENEMY_COLUMNS - 1) * ENEMY_SPACING.x
 	var start_x := play_area.position.x + (play_area.size.x - total_width) / 2.0
 	var start_y: float = play_area.position.y + max(26.0, play_area.size.y * 0.12)
+	var health_multiplier := _wave_health_multiplier()
 
 	for row in range(ENEMY_ROWS):
 		for column in range(ENEMY_COLUMNS):
 			var enemy := enemy_scene.instantiate() as Enemy
 			var enemy_index := row * ENEMY_COLUMNS + column
-			var enemy_id := "enemy-%s" % str(enemy_index)
-			var enemy_type_id: String = ENEMY_TYPE_ORDER[enemy_index]
+			var enemy_id := "wave-%s-enemy-%s" % [str(_wave_number), str(enemy_index)]
+			var type_index := (enemy_index + _wave_number - 1) % ENEMY_TYPE_ORDER.size()
+			var enemy_type_id: String = ENEMY_TYPE_ORDER[type_index]
 			var enemy_type: Dictionary = ENEMY_TYPES[enemy_type_id]
 			enemies_layer.add_child(enemy)
 			_enemies_by_id[enemy_id] = enemy
 			enemy.set_enemy_id(enemy_id)
 			enemy.set_enemy_type(enemy_type_id, enemy_type)
+			enemy.set_enemy_health(float(enemy_type.get("health", 48.0)) * health_multiplier)
 			enemy.set_formation_position(Vector2(
 				start_x + float(column) * ENEMY_SPACING.x,
 				start_y + float(row) * ENEMY_SPACING.y
 			))
+
+
+func _process_wave_lifecycle(delta: float) -> void:
+	if not _enemy_wave_spawned or not _enemies_by_id.is_empty():
+		return
+
+	if _wave_transition_remaining < 0.0:
+		_wave_transition_remaining = WAVE_TRANSITION_DURATION
+		wave_label.text = "WAVE %s CLEAR" % str(_wave_number)
+		return
+
+	_wave_transition_remaining -= delta
+	if _wave_transition_remaining > 0.0:
+		return
+
+	_enemy_wave_spawned = false
+	_spawn_enemy_wave()
 
 
 func _process_enemy_attacks(delta: float) -> void:
@@ -421,12 +460,12 @@ func _local_projectile_range() -> float:
 
 
 func _process_enemy_wave(delta: float) -> void:
-	if not _enemy_wave_spawned:
+	if not _enemy_wave_spawned or _enemies_by_id.is_empty():
 		return
 
 	var play_area := _play_area()
 	var wave_bounds := _enemy_wave_bounds()
-	var next_offset := ENEMY_SPEED * _enemy_direction * delta
+	var next_offset := ENEMY_SPEED * _wave_speed_multiplier() * _enemy_direction * delta
 
 	if wave_bounds.position.x + next_offset < play_area.position.x:
 		_enemy_direction = 1.0
@@ -455,6 +494,14 @@ func _enemy_wave_bounds() -> Rect2:
 		return Rect2(Vector2.ZERO, Vector2.ZERO)
 
 	return Rect2(Vector2(min_x - 34.0, 0.0), Vector2(max_x - min_x + 68.0, 1.0))
+
+
+func _wave_health_multiplier() -> float:
+	return 1.0 + float(_wave_number - 1) * WAVE_HEALTH_STEP
+
+
+func _wave_speed_multiplier() -> float:
+	return 1.0 + float(_wave_number - 1) * WAVE_SPEED_STEP
 
 
 func _sync_player_health(players: Array) -> void:
