@@ -351,6 +351,8 @@ Criterios de aceptacion:
 
 Design: [Player Health and Ship Stats Design](player-health-and-ship-stats-design.md)
 
+Spec: [Player Health UI and Regen Spec](player-health-ui-and-regen-spec.md)
+
 - [ ] Mostrar energia/vida de jugadores en la parte superior.
 - [ ] Definir tipos de nave con stats distintos.
 - [ ] Hacer que el daño de proyectiles dependa del tipo de nave.
