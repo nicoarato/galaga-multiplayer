@@ -115,36 +115,42 @@ No se esperan cambios.
 
 ## Checklist
 
-- [ ] Crear spec `docs/enemy-wave-placeholder-spec.md`.
-- [ ] Actualizar `docs/milestones.md`.
-- [ ] Crear `Enemy.tscn`.
-- [ ] Crear `enemy.gd`.
-- [ ] Crear visual de OVNI arcade.
-- [ ] Agregar `EnemiesLayer` en `GameScreen`.
-- [ ] Exportar `enemy_scene`.
-- [ ] Spawnear 12 enemigos.
-- [ ] Usar layout deterministico.
-- [ ] Mover oleada lateralmente.
-- [ ] Rebotar dentro del area visible.
-- [ ] Evitar duplicar oleada con updates de sala.
-- [ ] No modificar backend.
-- [ ] No agregar colisiones.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] Crear spec `docs/enemy-wave-placeholder-spec.md`.
+- [x] Actualizar `docs/milestones.md`.
+- [x] Crear `Enemy.tscn`.
+- [x] Crear `enemy.gd`.
+- [x] Crear visual de OVNI arcade.
+- [x] Agregar `EnemiesLayer` en `GameScreen`.
+- [x] Exportar `enemy_scene`.
+- [x] Spawnear 12 enemigos.
+- [x] Usar layout deterministico.
+- [x] Mover oleada lateralmente.
+- [x] Rebotar dentro del area visible.
+- [x] Evitar duplicar oleada con updates de sala.
+- [x] No modificar backend.
+- [x] No agregar colisiones.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] Ambos clientes ven la oleada.
-- [ ] La oleada aparece en la parte superior.
-- [ ] La oleada se mueve lateralmente.
-- [ ] La oleada rebota dentro del area visible.
-- [ ] No se duplican enemigos al recibir updates.
-- [ ] Los disparos siguen funcionando.
-- [ ] No hay colisiones ni score en este corte.
-- [ ] `godot --headless --path game --quit` pasa.
-- [ ] `npm run lint` pasa.
-- [ ] `npm run typecheck` pasa.
-- [ ] `npm run coverage` pasa con 100%.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] Ambos clientes ven la oleada.
+- [x] La oleada aparece en la parte superior.
+- [x] La oleada se mueve lateralmente.
+- [x] La oleada rebota dentro del area visible.
+- [x] No se duplican enemigos al recibir updates.
+- [x] Los disparos siguen funcionando.
+- [x] No hay colisiones ni score en este corte.
+- [x] `godot --headless --path game --quit` pasa.
+- [x] `npm run lint` pasa.
+- [x] `npm run typecheck` pasa.
+- [x] `npm run coverage` pasa con 100%.
+
+## Observaciones de Validacion
+
+- Ambos clientes muestran los 12 enemigos.
+- La oleada se mueve lateralmente como placeholder.
+- Colisiones, destruccion y score quedan para cortes posteriores.

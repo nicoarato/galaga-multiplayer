@@ -5,15 +5,21 @@ signal local_player_position_changed(position: Vector2)
 signal local_player_shot(shot_position: Vector2)
 
 const POSITION_SEND_INTERVAL := 0.05
+const ENEMY_COLUMNS := 6
+const ENEMY_ROWS := 2
+const ENEMY_SPACING := Vector2(108, 62)
+const ENEMY_SPEED := 64.0
 
 @export var player_ship_scene: PackedScene
 @export var projectile_scene: PackedScene
+@export var enemy_scene: PackedScene
 
 @onready var room_id_label: Label = %RoomIdLabel
 @onready var status_label: Label = %StatusLabel
 @onready var players_list: VBoxContainer = %PlayersList
 @onready var playfield: Control = %Playfield
 @onready var ships_layer: Node2D = %ShipsLayer
+@onready var enemies_layer: Node2D = %EnemiesLayer
 @onready var projectiles_layer: Node2D = %ProjectilesLayer
 
 var _local_player_id := ""
@@ -22,9 +28,13 @@ var _ships_by_player_id := {}
 var _pending_local_position := Vector2.ZERO
 var _has_pending_local_position := false
 var _position_send_elapsed := 0.0
+var _enemy_wave_spawned := false
+var _enemy_direction := 1.0
 
 
 func _process(delta: float) -> void:
+	_process_enemy_wave(delta)
+
 	if not _has_pending_local_position:
 		return
 
@@ -51,6 +61,7 @@ func set_room(room: Dictionary, local_player_id := "") -> void:
 	_render_players(players)
 	_current_players = players
 	_schedule_sync_ships()
+	_schedule_spawn_enemy_wave()
 
 
 func _render_players(players: Array) -> void:
@@ -202,3 +213,71 @@ func _spawn_projectile(spawn_position: Vector2) -> void:
 	projectiles_layer.add_child(projectile)
 	projectile.position = spawn_position
 	projectile.set_play_area(_play_area())
+
+
+func _schedule_spawn_enemy_wave() -> void:
+	if _enemy_wave_spawned or not is_inside_tree():
+		return
+
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_spawn_enemy_wave()
+
+
+func _spawn_enemy_wave() -> void:
+	if _enemy_wave_spawned:
+		return
+
+	_enemy_wave_spawned = true
+	var play_area := _play_area()
+	var total_width := float(ENEMY_COLUMNS - 1) * ENEMY_SPACING.x
+	var start_x := play_area.position.x + (play_area.size.x - total_width) / 2.0
+	var start_y := play_area.position.y + 44.0
+
+	for row in range(ENEMY_ROWS):
+		for column in range(ENEMY_COLUMNS):
+			var enemy := enemy_scene.instantiate() as Enemy
+			var enemy_index := row * ENEMY_COLUMNS + column
+			enemies_layer.add_child(enemy)
+			enemy.position = Vector2(
+				start_x + float(column) * ENEMY_SPACING.x,
+				start_y + float(row) * ENEMY_SPACING.y
+			)
+			enemy.set_enemy_index(enemy_index)
+
+
+func _process_enemy_wave(delta: float) -> void:
+	if not _enemy_wave_spawned:
+		return
+
+	var play_area := _play_area()
+	var wave_bounds := _enemy_wave_bounds()
+	var next_offset := ENEMY_SPEED * _enemy_direction * delta
+
+	if wave_bounds.position.x + next_offset < play_area.position.x:
+		_enemy_direction = 1.0
+		next_offset = play_area.position.x - wave_bounds.position.x
+	elif wave_bounds.end.x + next_offset > play_area.end.x:
+		_enemy_direction = -1.0
+		next_offset = play_area.end.x - wave_bounds.end.x
+
+	enemies_layer.position.x += next_offset
+
+
+func _enemy_wave_bounds() -> Rect2:
+	var has_bounds := false
+	var min_x := 0.0
+	var max_x := 0.0
+
+	for child in enemies_layer.get_children():
+		if child is Node2D:
+			var enemy := child as Node2D
+			var enemy_x := enemies_layer.position.x + enemy.position.x
+			min_x = enemy_x if not has_bounds else min(min_x, enemy_x)
+			max_x = enemy_x if not has_bounds else max(max_x, enemy_x)
+			has_bounds = true
+
+	if not has_bounds:
+		return Rect2(Vector2.ZERO, Vector2.ZERO)
+
+	return Rect2(Vector2(min_x - 34.0, 0.0), Vector2(max_x - min_x + 68.0, 1.0))

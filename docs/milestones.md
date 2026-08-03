@@ -249,24 +249,24 @@ Criterios de aceptacion:
 
 Spec: [Enemy Wave Placeholder Spec](enemy-wave-placeholder-spec.md)
 
-- [ ] Crear `Enemy.tscn`.
-- [ ] Crear `enemy.gd`.
-- [ ] Crear visual de OVNI arcade.
-- [ ] Agregar `EnemiesLayer` en `GameScreen`.
-- [ ] Exportar `enemy_scene`.
-- [ ] Spawnear 12 enemigos.
-- [ ] Usar layout deterministico.
-- [ ] Mover oleada lateralmente.
-- [ ] Rebotar dentro del area visible.
-- [ ] Evitar duplicar oleada con updates de sala.
-- [ ] No modificar backend.
-- [ ] No agregar colisiones.
+- [x] Crear `Enemy.tscn`.
+- [x] Crear `enemy.gd`.
+- [x] Crear visual de OVNI arcade.
+- [x] Agregar `EnemiesLayer` en `GameScreen`.
+- [x] Exportar `enemy_scene`.
+- [x] Spawnear 12 enemigos.
+- [x] Usar layout deterministico.
+- [x] Mover oleada lateralmente.
+- [x] Rebotar dentro del area visible.
+- [x] Evitar duplicar oleada con updates de sala.
+- [x] No modificar backend.
+- [x] No agregar colisiones.
 
 Criterios de aceptacion:
 
-- [ ] Ambos clientes ven la oleada.
-- [ ] La oleada aparece en la parte superior.
-- [ ] La oleada se mueve lateralmente.
-- [ ] La oleada rebota dentro del area visible.
-- [ ] Los disparos siguen funcionando.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Ambos clientes ven la oleada.
+- [x] La oleada aparece en la parte superior.
+- [x] La oleada se mueve lateralmente.
+- [x] La oleada rebota dentro del area visible.
+- [x] Los disparos siguen funcionando.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
