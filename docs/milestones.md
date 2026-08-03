@@ -542,3 +542,21 @@ Criterios de aceptación:
 - [x] Eventos retrasados no eliminan enemigos de una oleada nueva.
 - [x] Ambos clientes ven la misma progresión.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+
+### Siguiente Corte - Scrolling Background
+
+Spec: [Scrolling Background Spec](scrolling-background-spec.md)
+
+- [ ] Crear capas de fondo desplazables.
+- [ ] Usar velocidades distintas para parallax.
+- [ ] Duplicar y reciclar texturas verticalmente.
+- [ ] Mantener fondo detrás del gameplay.
+- [ ] Mantener efecto fuera de la red.
+- [ ] Validar carga headless de Godot.
+
+Criterios de aceptación:
+
+- [ ] El fondo comunica avance continuo.
+- [ ] No hay saltos al repetir capas.
+- [ ] El gameplay sigue funcionando sin cambios.
+- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
