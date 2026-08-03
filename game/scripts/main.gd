@@ -7,6 +7,7 @@ extends Control
 
 var _current_player_name := ""
 var _flow_state := "home"
+var _local_player_id := ""
 
 
 func _ready() -> void:
@@ -19,6 +20,7 @@ func _ready() -> void:
 	api_client.request_failed.connect(_on_request_failed)
 	room_socket.connected.connect(_on_room_socket_connected)
 	room_socket.room_state_received.connect(_on_room_state_received)
+	room_socket.game_started.connect(_on_game_started)
 	room_socket.socket_failed.connect(_on_request_failed)
 	room_socket.socket_error.connect(_on_socket_error)
 	room_socket.socket_closed.connect(_on_room_socket_closed)
@@ -27,6 +29,7 @@ func _ready() -> void:
 
 func _on_create_room_requested(player_name: String) -> void:
 	_current_player_name = player_name
+	_local_player_id = ""
 	_flow_state = "connecting"
 	home_screen.set_status("Creando sala para %s..." % player_name)
 	api_client.create_room()
@@ -34,6 +37,7 @@ func _on_create_room_requested(player_name: String) -> void:
 
 func _on_join_room_requested(player_name: String, room_id: String) -> void:
 	_current_player_name = player_name
+	_local_player_id = ""
 	_flow_state = "connecting"
 	home_screen.set_status("Conectando a sala %s..." % room_id)
 	room_socket.connect_to_room(room_id, player_name)
@@ -64,8 +68,9 @@ func _on_room_socket_connected() -> void:
 
 func _on_room_state_received(room: Dictionary) -> void:
 	var players: Array = room.get("players", [])
+	_local_player_id = _find_local_player_id(players)
 	home_screen.set_status("Lobby conectado: %s jugador(es)." % str(players.size()))
-	lobby_screen.set_room(room)
+	lobby_screen.set_room(room, _local_player_id)
 	lobby_screen.set_connection_status("Connected")
 	_flow_state = "lobby"
 	_show_lobby()
@@ -86,11 +91,11 @@ func _on_lobby_back_requested() -> void:
 
 
 func _on_lobby_ready_requested() -> void:
-	lobby_screen.set_connection_status("Ready action pending")
+	room_socket.set_ready(not lobby_screen.local_ready())
 
 
 func _on_lobby_start_game_requested() -> void:
-	lobby_screen.set_connection_status("Start game pending")
+	room_socket.start_game()
 
 
 func _show_home() -> void:
@@ -113,6 +118,22 @@ func _on_socket_error(reason: String) -> void:
 		room_socket.close()
 		_flow_state = "home"
 		home_screen.set_status(message)
+
+
+func _on_game_started(room: Dictionary) -> void:
+	lobby_screen.set_room(room, _local_player_id)
+	lobby_screen.set_connection_status("Game starting...")
+
+
+func _find_local_player_id(players: Array) -> String:
+	for player in players:
+		if typeof(player) == TYPE_DICTIONARY:
+			var player_data := player as Dictionary
+
+			if str(player_data.get("name", "")) == _current_player_name:
+				return str(player_data.get("id", ""))
+
+	return _local_player_id
 
 
 func _lobby_error_message(reason: String) -> String:

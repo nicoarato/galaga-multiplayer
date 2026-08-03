@@ -92,21 +92,21 @@ Criterios de aceptacion:
 
 Spec: [Ready / Start Spec](ready-start-spec.md)
 
-- [ ] Implementar `set_ready` desde Godot.
-- [ ] Actualizar lista con estado ready.
-- [ ] Mostrar `START GAME` solo para host.
-- [ ] Enviar `start_game`.
-- [ ] Recibir `game_started`.
-- [ ] Mostrar host en el lobby.
-- [ ] Manejar error `players_not_ready`.
-- [ ] Manejar error `not_host`.
+- [x] Implementar `set_ready` desde Godot.
+- [x] Actualizar lista con estado ready.
+- [x] Mostrar `START GAME` solo para host.
+- [x] Enviar `start_game`.
+- [x] Recibir `game_started`.
+- [x] Mostrar host en el lobby.
+- [x] Manejar error `players_not_ready`.
+- [x] Manejar error `not_host`.
 
 Criterios de aceptacion:
 
-- [ ] Invitados pueden marcar ready.
-- [ ] Host puede iniciar cuando corresponde.
-- [ ] Todos los clientes reciben `game_started`.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Invitados pueden marcar ready.
+- [x] Host puede iniciar cuando corresponde.
+- [x] Todos los clientes reciben `game_started`.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.
 
 ## Milestone 2 - Gameplay Basico Local
 

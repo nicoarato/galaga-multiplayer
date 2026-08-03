@@ -153,20 +153,20 @@ Revisar si hace falta ajustar:
 
 ## Checklist
 
-- [ ] `RoomSocket.set_ready(ready)` envia `set_ready`.
-- [ ] `RoomSocket.start_game()` envia `start_game`.
-- [ ] Godot guarda `local_player_id`.
-- [ ] Godot detecta host con `room.hostPlayerId`.
-- [ ] `LobbyScreen` muestra host.
-- [ ] `LobbyScreen` muestra ready/wait.
-- [ ] `READY` alterna estado del jugador local.
-- [ ] `START GAME` esta habilitado solo para host.
-- [ ] Host recibe error claro si faltan jugadores ready.
-- [ ] Invitado recibe error claro si intenta iniciar.
-- [ ] `game_started` se muestra en todos los clientes.
-- [ ] No se agregan endpoints HTTP nuevos.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] `RoomSocket.set_ready(ready)` envia `set_ready`.
+- [x] `RoomSocket.start_game()` envia `start_game`.
+- [x] Godot guarda `local_player_id`.
+- [x] Godot detecta host con `room.hostPlayerId`.
+- [x] `LobbyScreen` muestra host.
+- [x] `LobbyScreen` muestra ready/wait.
+- [x] `READY` alterna estado del jugador local.
+- [x] `START GAME` esta habilitado solo para host.
+- [x] Host recibe error claro si faltan jugadores ready.
+- [x] Invitado recibe error claro si intenta iniciar.
+- [x] `game_started` se muestra en todos los clientes.
+- [x] No se agregan endpoints HTTP nuevos.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
@@ -181,3 +181,9 @@ Revisar si hace falta ajustar:
 - `npm run lint` pasa.
 - `npm run typecheck` pasa.
 - `npm run coverage` pasa con 100%.
+
+## Validaciones Realizadas
+
+- Flujo backend `players_not_ready` validado con cliente WebSocket temporal de Node.
+- Flujo backend `game_started` para host e invitado validado con cliente WebSocket temporal de Node.
+- Flujo visual en Godot validado con dos clientes: invitado marca `READY`, host presiona `START GAME`, ambos ven `Game starting...`.

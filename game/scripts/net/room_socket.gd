@@ -40,6 +40,27 @@ func close(send_leave_room := false) -> void:
 	_is_connected = false
 
 
+func set_ready(ready: bool) -> void:
+	if _socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		socket_error.emit("connection_failed")
+		return
+
+	_send_json({
+		"type": "set_ready",
+		"ready": ready
+	})
+
+
+func start_game() -> void:
+	if _socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		socket_error.emit("connection_failed")
+		return
+
+	_send_json({
+		"type": "start_game"
+	})
+
+
 func _process(_delta: float) -> void:
 	_socket.poll()
 
