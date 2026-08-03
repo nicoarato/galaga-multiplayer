@@ -2,6 +2,7 @@ extends Control
 class_name GameScreen
 
 signal local_player_position_changed(position: Vector2)
+signal local_player_shot(shot_position: Vector2)
 
 const POSITION_SEND_INTERVAL := 0.05
 
@@ -185,6 +186,18 @@ func _on_local_ship_position_changed(position: Vector2) -> void:
 
 
 func _on_local_ship_shoot_requested(spawn_position: Vector2) -> void:
+	_spawn_projectile(spawn_position)
+	local_player_shot.emit(spawn_position)
+
+
+func spawn_remote_projectile(player_id: String, shot_position: Vector2) -> void:
+	if player_id == _local_player_id:
+		return
+
+	_spawn_projectile(shot_position)
+
+
+func _spawn_projectile(spawn_position: Vector2) -> void:
 	var projectile := projectile_scene.instantiate() as Projectile
 	projectiles_layer.add_child(projectile)
 	projectile.position = spawn_position

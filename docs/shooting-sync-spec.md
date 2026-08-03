@@ -126,35 +126,41 @@ No se requiere cambio persistente en `RoomStore`, pero puede agregarse un helper
 
 ## Checklist
 
-- [ ] Crear spec `docs/shooting-sync-spec.md`.
-- [ ] Actualizar `docs/milestones.md`.
-- [ ] Agregar mensaje `player_shot`.
-- [ ] Validar payload `player_shot`.
-- [ ] Agregar tests backend de mensaje.
-- [ ] Backend rechaza disparo sin `join_room`.
-- [ ] Backend rechaza disparo si sala no esta `in_game`.
-- [ ] Backend broadcast de disparo con `playerId`.
-- [ ] Agregar `RoomSocket.send_player_shot`.
-- [ ] Agregar senal `player_shot_received`.
-- [ ] Godot envia disparo local.
-- [ ] Godot recibe disparos remotos.
-- [ ] Godot ignora broadcast propio.
-- [ ] Godot instancia proyectil remoto.
-- [ ] No agregar colisiones.
-- [ ] Godot carga sin errores.
-- [ ] Backend mantiene lint/typecheck/coverage OK.
+- [x] Crear spec `docs/shooting-sync-spec.md`.
+- [x] Actualizar `docs/milestones.md`.
+- [x] Agregar mensaje `player_shot`.
+- [x] Validar payload `player_shot`.
+- [x] Agregar tests backend de mensaje.
+- [x] Backend rechaza disparo sin `join_room`.
+- [x] Backend rechaza disparo si sala no esta `in_game`.
+- [x] Backend broadcast de disparo con `playerId`.
+- [x] Agregar `RoomSocket.send_player_shot`.
+- [x] Agregar senal `player_shot_received`.
+- [x] Godot envia disparo local.
+- [x] Godot recibe disparos remotos.
+- [x] Godot ignora broadcast propio.
+- [x] Godot instancia proyectil remoto.
+- [x] No agregar colisiones.
+- [x] Godot carga sin errores.
+- [x] Backend mantiene lint/typecheck/coverage OK.
 
 ## Criterios de Aceptacion
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] P1 dispara y P2 ve el proyectil.
-- [ ] P2 dispara y P1 ve el proyectil.
-- [ ] El cliente local no duplica su propio proyectil.
-- [ ] Los proyectiles siguen moviendose hacia arriba.
-- [ ] No hay colisiones ni score en este corte.
-- [ ] `godot --headless --path game --quit` pasa.
-- [ ] `npm run lint` pasa.
-- [ ] `npm run typecheck` pasa.
-- [ ] `npm run coverage` pasa con 100%.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] P1 dispara y P2 ve el proyectil.
+- [x] P2 dispara y P1 ve el proyectil.
+- [x] El cliente local no duplica su propio proyectil.
+- [x] Los proyectiles siguen moviendose hacia arriba.
+- [x] No hay colisiones ni score en este corte.
+- [x] `godot --headless --path game --quit` pasa.
+- [x] `npm run lint` pasa.
+- [x] `npm run typecheck` pasa.
+- [x] `npm run coverage` pasa con 100%.
+
+## Observaciones de Validacion
+
+- Los disparos se sincronizan entre dos clientes.
+- El proyectil local no se duplica al recibir el broadcast propio.
+- Colisiones, enemigos y score quedan para cortes posteriores.

@@ -4,6 +4,7 @@ class_name RoomSocket
 signal connected()
 signal room_state_received(room: Dictionary)
 signal game_started(room: Dictionary)
+signal player_shot_received(player_id: String, shot_position: Vector2)
 signal socket_failed(message: String)
 signal socket_error(reason: String)
 signal socket_closed()
@@ -75,6 +76,20 @@ func send_player_position(position: Vector2) -> void:
 	})
 
 
+func send_player_shot(shot_position: Vector2) -> void:
+	if _socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		socket_error.emit("connection_failed")
+		return
+
+	_send_json({
+		"type": "player_shot",
+		"shot": {
+			"x": shot_position.x,
+			"y": shot_position.y
+		}
+	})
+
+
 func _process(_delta: float) -> void:
 	_socket.poll()
 
@@ -124,6 +139,8 @@ func _handle_message(body: String) -> void:
 			_emit_room_signal(message, room_state_received)
 		"game_started":
 			_emit_room_signal(message, game_started)
+		"player_shot":
+			_emit_player_shot(message)
 		"error":
 			socket_error.emit(str(message.get("reason", "unknown")))
 		"pong":
@@ -140,6 +157,33 @@ func _emit_room_signal(message: Dictionary, target_signal: Signal) -> void:
 		return
 
 	target_signal.emit(room as Dictionary)
+
+
+func _emit_player_shot(message: Dictionary) -> void:
+	var player_id := str(message.get("playerId", ""))
+	var shot: Variant = message.get("shot")
+
+	if player_id.is_empty():
+		socket_failed.emit("El disparo no incluyo jugador.")
+		return
+
+	if typeof(shot) != TYPE_DICTIONARY:
+		socket_failed.emit("El disparo no incluyo posicion.")
+		return
+
+	var shot_data := shot as Dictionary
+	var x: Variant = shot_data.get("x")
+	var y: Variant = shot_data.get("y")
+
+	if typeof(x) != TYPE_FLOAT and typeof(x) != TYPE_INT:
+		socket_failed.emit("El disparo incluyo x invalida.")
+		return
+
+	if typeof(y) != TYPE_FLOAT and typeof(y) != TYPE_INT:
+		socket_failed.emit("El disparo incluyo y invalida.")
+		return
+
+	player_shot_received.emit(player_id, Vector2(float(x), float(y)))
 
 
 func _send_json(message: Dictionary) -> void:

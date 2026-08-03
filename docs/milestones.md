@@ -227,20 +227,20 @@ Criterios de aceptacion:
 
 Spec: [Shooting Sync Spec](shooting-sync-spec.md)
 
-- [ ] Agregar mensaje `player_shot`.
-- [ ] Validar payload `player_shot`.
-- [ ] Backend broadcast de disparo con `playerId`.
-- [ ] Agregar `RoomSocket.send_player_shot`.
-- [ ] Agregar senal `player_shot_received`.
-- [ ] Godot envia disparo local.
-- [ ] Godot recibe disparos remotos.
-- [ ] Godot ignora broadcast propio.
-- [ ] Godot instancia proyectil remoto.
-- [ ] Mantener coverage backend 100%.
+- [x] Agregar mensaje `player_shot`.
+- [x] Validar payload `player_shot`.
+- [x] Backend broadcast de disparo con `playerId`.
+- [x] Agregar `RoomSocket.send_player_shot`.
+- [x] Agregar senal `player_shot_received`.
+- [x] Godot envia disparo local.
+- [x] Godot recibe disparos remotos.
+- [x] Godot ignora broadcast propio.
+- [x] Godot instancia proyectil remoto.
+- [x] Mantener coverage backend 100%.
 
 Criterios de aceptacion:
 
-- [ ] P1 dispara y P2 ve el proyectil.
-- [ ] P2 dispara y P1 ve el proyectil.
-- [ ] El cliente local no duplica su propio proyectil.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] P1 dispara y P2 ve el proyectil.
+- [x] P2 dispara y P1 ve el proyectil.
+- [x] El cliente local no duplica su propio proyectil.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.

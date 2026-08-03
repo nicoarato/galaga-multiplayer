@@ -22,10 +22,12 @@ func _ready() -> void:
 	room_socket.connected.connect(_on_room_socket_connected)
 	room_socket.room_state_received.connect(_on_room_state_received)
 	room_socket.game_started.connect(_on_game_started)
+	room_socket.player_shot_received.connect(_on_player_shot_received)
 	room_socket.socket_failed.connect(_on_request_failed)
 	room_socket.socket_error.connect(_on_socket_error)
 	room_socket.socket_closed.connect(_on_room_socket_closed)
 	game_screen.local_player_position_changed.connect(_on_local_player_position_changed)
+	game_screen.local_player_shot.connect(_on_local_player_shot)
 	_show_home()
 
 
@@ -107,6 +109,17 @@ func _on_lobby_start_game_requested() -> void:
 
 func _on_local_player_position_changed(position: Vector2) -> void:
 	room_socket.send_player_position(position)
+
+
+func _on_local_player_shot(shot_position: Vector2) -> void:
+	room_socket.send_player_shot(shot_position)
+
+
+func _on_player_shot_received(player_id: String, shot_position: Vector2) -> void:
+	if _flow_state != "game":
+		return
+
+	game_screen.spawn_remote_projectile(player_id, shot_position)
 
 
 func _show_home() -> void:

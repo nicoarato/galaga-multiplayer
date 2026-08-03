@@ -172,6 +172,30 @@ function handleSocketMessage(connection: ClientConnection, rawMessage: string): 
       broadcastRoom(connection.roomId, "room_state", { room: result.room });
       return;
     }
+    case "player_shot": {
+      if (connection.playerId === null) {
+        sendSocket(connection.socket, "error", { reason: "player_not_joined" });
+        return;
+      }
+
+      const room = roomStore.getRoom(connection.roomId);
+
+      if (room === null) {
+        sendSocket(connection.socket, "error", { reason: "room_not_found" });
+        return;
+      }
+
+      if (room.status !== "in_game") {
+        sendSocket(connection.socket, "error", { reason: "game_not_started" });
+        return;
+      }
+
+      broadcastRoom(connection.roomId, "player_shot", {
+        playerId: connection.playerId,
+        shot: parsed.message.shot
+      });
+      return;
+    }
     case "ping":
       sendSocket(connection.socket, "pong", { timestamp: parsed.message.timestamp });
       return;

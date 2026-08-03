@@ -178,6 +178,26 @@ Reglas:
 - El backend guarda la ultima posicion conocida del jugador.
 - El backend responde con `room_state`.
 
+### `player_shot`
+
+```json
+{
+  "type": "player_shot",
+  "shot": {
+    "x": 320,
+    "y": 240
+  }
+}
+```
+
+Reglas:
+
+- Solo se acepta despues de `join_room`.
+- Solo se acepta cuando la sala esta `in_game`.
+- `shot.x` y `shot.y` deben ser numeros finitos.
+- El backend no persiste proyectiles todavia.
+- El backend rebroadcast a la sala con `playerId`.
+
 ### `ping`
 
 ```json
@@ -236,6 +256,19 @@ Reglas:
 {
   "type": "pong",
   "timestamp": 1785628800000
+}
+```
+
+### `player_shot`
+
+```json
+{
+  "type": "player_shot",
+  "playerId": "player-id",
+  "shot": {
+    "x": 320,
+    "y": 240
+  }
 }
 ```
 

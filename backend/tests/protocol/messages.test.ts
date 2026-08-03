@@ -155,6 +155,42 @@ describe("parseClientMessage", () => {
     });
   });
 
+  it("parses player_shot", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "player_shot", shot: { x: 120, y: 240 } }))).toEqual({
+      ok: true,
+      message: {
+        type: "player_shot",
+        shot: {
+          x: 120,
+          y: 240
+        }
+      }
+    });
+  });
+
+  it("validates player_shot", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "player_shot" }))).toEqual({
+      ok: false,
+      error: {
+        message: "shot is required"
+      }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "player_shot", shot: { x: "0", y: 10 } }))).toEqual({
+      ok: false,
+      error: {
+        message: "shot.x must be a finite number"
+      }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "player_shot", shot: { x: 0, y: Number.NaN } }))).toEqual({
+      ok: false,
+      error: {
+        message: "shot.y must be a finite number"
+      }
+    });
+  });
+
   it("validates ping timestamp", () => {
     expect(parseClientMessage(JSON.stringify({ type: "ping", timestamp: Number.NaN }))).toEqual({
       ok: false,
