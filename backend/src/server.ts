@@ -156,6 +156,22 @@ function handleSocketMessage(connection: ClientConnection, rawMessage: string): 
       broadcastRoom(connection.roomId, "game_started", { room: result.room });
       return;
     }
+    case "player_position": {
+      if (connection.playerId === null) {
+        sendSocket(connection.socket, "error", { reason: "player_not_joined" });
+        return;
+      }
+
+      const result = roomStore.setPlayerPosition(connection.roomId, connection.playerId, parsed.message.position);
+
+      if (!result.ok) {
+        sendSocket(connection.socket, "error", { reason: result.reason });
+        return;
+      }
+
+      broadcastRoom(connection.roomId, "room_state", { room: result.room });
+      return;
+    }
     case "ping":
       sendSocket(connection.socket, "pong", { timestamp: parsed.message.timestamp });
       return;

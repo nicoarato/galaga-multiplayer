@@ -3,7 +3,9 @@ import type {
   JoinRoomResult,
   LeaveRoomResult,
   Player,
+  PlayerPosition,
   Room,
+  SetPlayerPositionResult,
   SetReadyResult,
   StartGameResult
 } from "./room.js";
@@ -214,6 +216,48 @@ export class RoomStore {
     };
   }
 
+  public setPlayerPosition(
+    roomId: string,
+    playerId: string,
+    position: PlayerPosition
+  ): SetPlayerPositionResult {
+    const room = this.rooms.get(roomId);
+
+    if (room === undefined) {
+      return {
+        ok: false,
+        reason: "room_not_found"
+      };
+    }
+
+    if (room.status !== "in_game") {
+      return {
+        ok: false,
+        reason: "game_not_started"
+      };
+    }
+
+    const player = room.players.find((roomPlayer) => roomPlayer.id === playerId);
+
+    if (player === undefined) {
+      return {
+        ok: false,
+        reason: "player_not_found"
+      };
+    }
+
+    player.position = {
+      x: position.x,
+      y: position.y
+    };
+
+    return {
+      ok: true,
+      room: cloneRoom(room),
+      player: clonePlayer(player)
+    };
+  }
+
   private createUniqueId(): string {
     let id = this.createId();
 
@@ -234,6 +278,7 @@ function cloneRoom(room: Room): Room {
 
 function clonePlayer(player: Player): Player {
   return {
-    ...player
+    ...player,
+    position: player.position === undefined ? undefined : { ...player.position }
   };
 }

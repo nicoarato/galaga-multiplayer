@@ -25,6 +25,7 @@ func _ready() -> void:
 	room_socket.socket_failed.connect(_on_request_failed)
 	room_socket.socket_error.connect(_on_socket_error)
 	room_socket.socket_closed.connect(_on_room_socket_closed)
+	game_screen.local_player_position_changed.connect(_on_local_player_position_changed)
 	_show_home()
 
 
@@ -70,6 +71,11 @@ func _on_room_socket_connected() -> void:
 func _on_room_state_received(room: Dictionary) -> void:
 	var players: Array = room.get("players", [])
 	_local_player_id = _find_local_player_id(players)
+
+	if _flow_state == "game":
+		game_screen.set_room(room, _local_player_id)
+		return
+
 	home_screen.set_status("Lobby conectado: %s jugador(es)." % str(players.size()))
 	lobby_screen.set_room(room, _local_player_id)
 	lobby_screen.set_connection_status("Connected")
@@ -97,6 +103,10 @@ func _on_lobby_ready_requested() -> void:
 
 func _on_lobby_start_game_requested() -> void:
 	room_socket.start_game()
+
+
+func _on_local_player_position_changed(position: Vector2) -> void:
+	room_socket.send_player_position(position)
 
 
 func _show_home() -> void:

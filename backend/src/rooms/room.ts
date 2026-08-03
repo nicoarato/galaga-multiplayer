@@ -1,10 +1,16 @@
 export type RoomStatus = "lobby" | "in_game";
 
+export type PlayerPosition = {
+  x: number;
+  y: number;
+};
+
 export type Player = {
   id: string;
   name: string;
   ready: boolean;
   connected: boolean;
+  position?: PlayerPosition;
 };
 
 export type Room = {
@@ -65,4 +71,15 @@ export type StartGameResult =
         | "not_host"
         | "already_started"
         | "players_not_ready";
+    };
+
+export type SetPlayerPositionResult =
+  | {
+      ok: true;
+      room: Room;
+      player: Player;
+    }
+  | {
+      ok: false;
+      reason: "room_not_found" | "player_not_found" | "game_not_started";
     };

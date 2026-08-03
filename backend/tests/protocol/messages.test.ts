@@ -119,6 +119,42 @@ describe("parseClientMessage", () => {
     });
   });
 
+  it("parses player_position", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "player_position", position: { x: 120, y: 240 } }))).toEqual({
+      ok: true,
+      message: {
+        type: "player_position",
+        position: {
+          x: 120,
+          y: 240
+        }
+      }
+    });
+  });
+
+  it("validates player_position", () => {
+    expect(parseClientMessage(JSON.stringify({ type: "player_position" }))).toEqual({
+      ok: false,
+      error: {
+        message: "position is required"
+      }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "player_position", position: { x: "0", y: 10 } }))).toEqual({
+      ok: false,
+      error: {
+        message: "position.x must be a finite number"
+      }
+    });
+
+    expect(parseClientMessage(JSON.stringify({ type: "player_position", position: { x: 0, y: Number.NaN } }))).toEqual({
+      ok: false,
+      error: {
+        message: "position.y must be a finite number"
+      }
+    });
+  });
+
   it("validates ping timestamp", () => {
     expect(parseClientMessage(JSON.stringify({ type: "ping", timestamp: Number.NaN }))).toEqual({
       ok: false,

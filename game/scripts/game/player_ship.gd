@@ -1,6 +1,8 @@
 extends Node2D
 class_name PlayerShip
 
+signal position_changed(position: Vector2)
+
 const MOVE_SPEED := 260.0
 const PLAYER_COLORS := [
 	Color(1.0, 1.0, 1.0, 1.0),
@@ -20,6 +22,7 @@ var _player_name := "Player"
 var _player_label := "P1"
 var _play_area := Rect2(Vector2.ZERO, Vector2(1280, 720))
 var _player_color := PLAYER_COLORS[0]
+var _last_reported_position := Vector2.INF
 
 
 func _ready() -> void:
@@ -35,8 +38,11 @@ func _process(delta: float) -> void:
 	if direction == Vector2.ZERO:
 		return
 
-	position += direction * MOVE_SPEED * delta
-	position = position.clamp(_play_area.position, _play_area.end)
+	position = (position + direction * MOVE_SPEED * delta).clamp(_play_area.position, _play_area.end)
+
+	if position != _last_reported_position:
+		_last_reported_position = position
+		position_changed.emit(position)
 
 
 func set_player_name(player_name: String) -> void:
@@ -63,6 +69,14 @@ func set_play_area(play_area: Rect2) -> void:
 
 func set_start_position(start_position: Vector2) -> void:
 	position = start_position.clamp(_play_area.position, _play_area.end)
+	_last_reported_position = position
+
+
+func set_remote_position(remote_position: Vector2) -> void:
+	if _is_local_player:
+		return
+
+	position = remote_position.clamp(_play_area.position, _play_area.end)
 
 
 func _input_direction() -> Vector2:

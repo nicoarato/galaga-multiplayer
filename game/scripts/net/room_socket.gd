@@ -61,6 +61,20 @@ func start_game() -> void:
 	})
 
 
+func send_player_position(position: Vector2) -> void:
+	if _socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
+		socket_error.emit("connection_failed")
+		return
+
+	_send_json({
+		"type": "player_position",
+		"position": {
+			"x": position.x,
+			"y": position.y
+		}
+	})
+
+
 func _process(_delta: float) -> void:
 	_socket.poll()
 

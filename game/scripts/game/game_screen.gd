@@ -1,6 +1,10 @@
 extends Control
 class_name GameScreen
 
+signal local_player_position_changed(position: Vector2)
+
+const POSITION_SEND_INTERVAL := 0.1
+
 @export var player_ship_scene: PackedScene
 
 @onready var room_id_label: Label = %RoomIdLabel
@@ -11,6 +15,24 @@ class_name GameScreen
 
 var _local_player_id := ""
 var _current_players: Array = []
+var _ships_by_player_id := {}
+var _pending_local_position := Vector2.ZERO
+var _has_pending_local_position := false
+var _position_send_elapsed := 0.0
+
+
+func _process(delta: float) -> void:
+	if not _has_pending_local_position:
+		return
+
+	_position_send_elapsed += delta
+
+	if _position_send_elapsed < POSITION_SEND_INTERVAL:
+		return
+
+	_position_send_elapsed = 0.0
+	_has_pending_local_position = false
+	local_player_position_changed.emit(_pending_local_position)
 
 
 func set_room(room: Dictionary, local_player_id := "") -> void:
@@ -25,7 +47,7 @@ func set_room(room: Dictionary, local_player_id := "") -> void:
 	status_label.text = "Status: %s" % status.to_upper()
 	_render_players(players)
 	_current_players = players
-	_schedule_render_ships()
+	_schedule_sync_ships()
 
 
 func _render_players(players: Array) -> void:
@@ -46,17 +68,47 @@ func _player_row(player: Dictionary) -> Label:
 	return row
 
 
-func _render_ships() -> void:
-	for child in ships_layer.get_children():
-		child.queue_free()
-
+func _sync_ships() -> void:
 	var play_area := _play_area()
+	var active_player_ids := []
 
 	for index in range(_current_players.size()):
 		var player = _current_players[index]
 
 		if typeof(player) == TYPE_DICTIONARY:
-			_player_ship(player as Dictionary, index, _current_players.size(), play_area)
+			var player_data := player as Dictionary
+			var player_id := str(player_data.get("id", ""))
+
+			if not player_id.is_empty():
+				active_player_ids.append(player_id)
+				_sync_player_ship(player_data, index, _current_players.size(), play_area)
+
+	for existing_player_id in _ships_by_player_id.keys():
+		if not active_player_ids.has(existing_player_id):
+			var ship := _ships_by_player_id[existing_player_id] as PlayerShip
+			ship.queue_free()
+			_ships_by_player_id.erase(existing_player_id)
+
+
+func _sync_player_ship(player: Dictionary, index: int, player_count: int, play_area: Rect2) -> void:
+	var player_id := str(player.get("id", ""))
+	var player_name := str(player.get("name", "Player"))
+	var ship := _ships_by_player_id.get(player_id) as PlayerShip
+
+	if ship == null:
+		ship = _player_ship(player, index, player_count, play_area)
+		_ships_by_player_id[player_id] = ship
+
+	ship.set_play_area(play_area)
+	ship.set_player_name(player_name)
+	ship.set_player_index(index)
+	ship.set_local_player(player_id == _local_player_id)
+
+	if player_id != _local_player_id:
+		var position: Variant = _player_position(player)
+
+		if position != null:
+			ship.set_remote_position(position)
 
 
 func _player_ship(player: Dictionary, index: int, player_count: int, play_area: Rect2) -> PlayerShip:
@@ -71,6 +123,10 @@ func _player_ship(player: Dictionary, index: int, player_count: int, play_area: 
 	ship.set_player_name(player_name)
 	ship.set_player_index(index)
 	ship.set_local_player(player_id == _local_player_id)
+
+	if player_id == _local_player_id:
+		ship.position_changed.connect(_on_local_ship_position_changed)
+
 	return ship
 
 
@@ -92,10 +148,34 @@ func _play_area() -> Rect2:
 	return Rect2(ship_margin, area_size - ship_margin * 2.0)
 
 
-func _schedule_render_ships() -> void:
+func _schedule_sync_ships() -> void:
 	if not is_inside_tree():
 		return
 
 	await get_tree().process_frame
 	await get_tree().process_frame
-	_render_ships()
+	_sync_ships()
+
+
+func _player_position(player: Dictionary) -> Variant:
+	var raw_position: Variant = player.get("position")
+
+	if typeof(raw_position) != TYPE_DICTIONARY:
+		return null
+
+	var position_data := raw_position as Dictionary
+	var x: Variant = position_data.get("x")
+	var y: Variant = position_data.get("y")
+
+	if typeof(x) != TYPE_FLOAT and typeof(x) != TYPE_INT:
+		return null
+
+	if typeof(y) != TYPE_FLOAT and typeof(y) != TYPE_INT:
+		return null
+
+	return Vector2(float(x), float(y))
+
+
+func _on_local_ship_position_changed(position: Vector2) -> void:
+	_pending_local_position = position
+	_has_pending_local_position = true

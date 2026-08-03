@@ -3,6 +3,7 @@ export const CLIENT_MESSAGE_TYPES = [
   "leave_room",
   "set_ready",
   "start_game",
+  "player_position",
   "ping"
 ] as const;
 
@@ -26,6 +27,16 @@ export type StartGameMessage = {
   type: "start_game";
 };
 
+export type PlayerPosition = {
+  x: number;
+  y: number;
+};
+
+export type PlayerPositionMessage = {
+  type: "player_position";
+  position: PlayerPosition;
+};
+
 export type PingMessage = {
   type: "ping";
   timestamp: number;
@@ -36,6 +47,7 @@ export type ClientMessage =
   | LeaveRoomMessage
   | SetReadyMessage
   | StartGameMessage
+  | PlayerPositionMessage
   | PingMessage;
 
 export type ProtocolError = {
@@ -78,6 +90,8 @@ export function parseClientMessage(raw: string): ParseClientMessageResult {
       return parseSetReadyMessage(parsed);
     case "start_game":
       return { ok: true, message: { type: "start_game" } };
+    case "player_position":
+      return parsePlayerPositionMessage(parsed);
     case "ping":
       return parsePingMessage(parsed);
     default:
@@ -119,6 +133,33 @@ function parseSetReadyMessage(value: Record<string, unknown>): ParseClientMessag
     message: {
       type: "set_ready",
       ready: value.ready
+    }
+  };
+}
+
+function parsePlayerPositionMessage(value: Record<string, unknown>): ParseClientMessageResult {
+  if (!isRecord(value.position)) {
+    return invalid("position is required");
+  }
+
+  const { x, y } = value.position;
+
+  if (typeof x !== "number" || !Number.isFinite(x)) {
+    return invalid("position.x must be a finite number");
+  }
+
+  if (typeof y !== "number" || !Number.isFinite(y)) {
+    return invalid("position.y must be a finite number");
+  }
+
+  return {
+    ok: true,
+    message: {
+      type: "player_position",
+      position: {
+        x,
+        y
+      }
     }
   };
 }

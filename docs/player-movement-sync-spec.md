@@ -153,35 +153,41 @@ Reglas:
 
 ## Checklist
 
-- [ ] Crear spec `docs/player-movement-sync-spec.md`.
-- [ ] Actualizar `docs/milestones.md`.
-- [ ] Agregar tipo/mensaje `player_position`.
-- [ ] Validar payload `player_position`.
-- [ ] Guardar posicion en backend por jugador.
-- [ ] Incluir posicion en `room_state`.
-- [ ] Agregar tests backend de mensaje.
-- [ ] Agregar tests backend de store.
-- [ ] Mantener coverage 100%.
-- [ ] Agregar `RoomSocket.send_player_position`.
-- [ ] Emitir posicion local desde `PlayerShip`.
-- [ ] Limitar envio a 10 updates por segundo.
-- [ ] Mantener naves por `player_id` en `GameScreen`.
-- [ ] Actualizar naves remotas al recibir `room_state`.
-- [ ] Evitar recrear naves en cada update de posicion.
-- [ ] Mantener movimiento local inmediato.
-- [ ] Godot carga sin errores.
+- [x] Crear spec `docs/player-movement-sync-spec.md`.
+- [x] Actualizar `docs/milestones.md`.
+- [x] Agregar tipo/mensaje `player_position`.
+- [x] Validar payload `player_position`.
+- [x] Guardar posicion en backend por jugador.
+- [x] Incluir posicion en `room_state`.
+- [x] Agregar tests backend de mensaje.
+- [x] Agregar tests backend de store.
+- [x] Mantener coverage 100%.
+- [x] Agregar `RoomSocket.send_player_position`.
+- [x] Emitir posicion local desde `PlayerShip`.
+- [x] Limitar envio a 10 updates por segundo.
+- [x] Mantener naves por `player_id` en `GameScreen`.
+- [x] Actualizar naves remotas al recibir `room_state`.
+- [x] Evitar recrear naves en cada update de posicion.
+- [x] Mantener movimiento local inmediato.
+- [x] Godot carga sin errores.
 
 ## Criterios de Aceptacion
 
-- [ ] Host crea sala.
-- [ ] Guest entra y marca `READY`.
-- [ ] Host presiona `START GAME`.
-- [ ] Ambos clientes ven dos naves.
-- [ ] Al mover P1, P2 ve moverse la nave de P1.
-- [ ] Al mover P2, P1 ve moverse la nave de P2.
-- [ ] La nave local sigue respondiendo inmediatamente.
-- [ ] No se duplican naves al recibir updates.
-- [ ] `godot --headless --path game --quit` pasa.
-- [ ] `npm run lint` pasa.
-- [ ] `npm run typecheck` pasa.
-- [ ] `npm run coverage` pasa con 100%.
+- [x] Host crea sala.
+- [x] Guest entra y marca `READY`.
+- [x] Host presiona `START GAME`.
+- [x] Ambos clientes ven dos naves.
+- [x] Al mover P1, P2 ve moverse la nave de P1.
+- [x] Al mover P2, P1 ve moverse la nave de P2.
+- [x] La nave local sigue respondiendo inmediatamente.
+- [x] No se duplican naves al recibir updates.
+- [x] `godot --headless --path game --quit` pasa.
+- [x] `npm run lint` pasa.
+- [x] `npm run typecheck` pasa.
+- [x] `npm run coverage` pasa con 100%.
+
+## Observaciones de Validacion
+
+- El movimiento remoto sincroniza correctamente entre dos clientes.
+- Hay delay visible esperado por el limite inicial de `10 updates por segundo`.
+- Suavizado visual/interpolacion queda fuera de este corte.

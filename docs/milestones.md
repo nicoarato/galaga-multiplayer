@@ -162,19 +162,19 @@ Criterios de aceptacion:
 
 Spec: [Player Movement Sync Spec](player-movement-sync-spec.md)
 
-- [ ] Agregar mensaje `player_position`.
-- [ ] Validar payload de posicion.
-- [ ] Guardar posicion por jugador en backend.
-- [ ] Incluir posicion en `room_state`.
-- [ ] Enviar posicion local desde Godot.
-- [ ] Limitar envio a 10 updates por segundo.
-- [ ] Actualizar naves remotas al recibir estado.
-- [ ] Evitar duplicar naves en cada update.
-- [ ] Mantener coverage backend 100%.
+- [x] Agregar mensaje `player_position`.
+- [x] Validar payload de posicion.
+- [x] Guardar posicion por jugador en backend.
+- [x] Incluir posicion en `room_state`.
+- [x] Enviar posicion local desde Godot.
+- [x] Limitar envio a 10 updates por segundo.
+- [x] Actualizar naves remotas al recibir estado.
+- [x] Evitar duplicar naves en cada update.
+- [x] Mantener coverage backend 100%.
 
 Criterios de aceptacion:
 
-- [ ] Al mover P1, P2 ve moverse la nave de P1.
-- [ ] Al mover P2, P1 ve moverse la nave de P2.
-- [ ] La nave local sigue respondiendo inmediatamente.
-- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+- [x] Al mover P1, P2 ve moverse la nave de P1.
+- [x] Al mover P2, P1 ve moverse la nave de P2.
+- [x] La nave local sigue respondiendo inmediatamente.
+- [x] Godot carga sin errores con `godot --headless --path game --quit`.

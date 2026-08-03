@@ -57,7 +57,11 @@ Respuesta `200`:
         "id": "player-id",
         "name": "Nico",
         "ready": false,
-        "connected": true
+        "connected": true,
+        "position": {
+          "x": 320,
+          "y": 240
+        }
       }
     ],
     "createdAt": "2026-08-02T00:00:00.000Z"
@@ -154,6 +158,26 @@ Reglas:
 - Si un invitado no esta ready, el backend responde `players_not_ready`.
 - Si inicia correctamente, el backend emite `game_started`.
 
+### `player_position`
+
+```json
+{
+  "type": "player_position",
+  "position": {
+    "x": 320,
+    "y": 240
+  }
+}
+```
+
+Reglas:
+
+- Solo se acepta despues de `join_room`.
+- Solo se acepta cuando la sala esta `in_game`.
+- `position.x` y `position.y` deben ser numeros finitos.
+- El backend guarda la ultima posicion conocida del jugador.
+- El backend responde con `room_state`.
+
 ### `ping`
 
 ```json
@@ -174,7 +198,18 @@ Reglas:
     "id": "room-id",
     "status": "lobby",
     "hostPlayerId": "player-id",
-    "players": [],
+    "players": [
+      {
+        "id": "player-id",
+        "name": "Nico",
+        "ready": true,
+        "connected": true,
+        "position": {
+          "x": 320,
+          "y": 240
+        }
+      }
+    ],
     "createdAt": "2026-08-02T00:00:00.000Z"
   }
 }

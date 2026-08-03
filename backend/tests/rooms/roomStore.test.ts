@@ -237,6 +237,77 @@ describe("RoomStore", () => {
     });
   });
 
+  it("stores player positions only after game start", () => {
+    const store = createStore(["room-1", "host", "guest"]);
+    store.createRoom();
+    store.joinRoom("room-1", "Host");
+    store.joinRoom("room-1", "Guest");
+
+    expect(store.setPlayerPosition("room-1", "host", { x: 10, y: 20 })).toEqual({
+      ok: false,
+      reason: "game_not_started"
+    });
+
+    store.setReady("room-1", "guest", true);
+    store.startGame("room-1", "host");
+
+    expect(store.setPlayerPosition("room-1", "host", { x: 10, y: 20 })).toEqual({
+      ok: true,
+      player: {
+        id: "host",
+        name: "Host",
+        ready: false,
+        connected: true,
+        position: {
+          x: 10,
+          y: 20
+        }
+      },
+      room: {
+        id: "room-1",
+        status: "in_game",
+        hostPlayerId: "host",
+        players: [
+          {
+            id: "host",
+            name: "Host",
+            ready: false,
+            connected: true,
+            position: {
+              x: 10,
+              y: 20
+            }
+          },
+          {
+            id: "guest",
+            name: "Guest",
+            ready: true,
+            connected: true
+          }
+        ],
+        createdAt: "2026-08-02T00:00:00.000Z"
+      }
+    });
+  });
+
+  it("rejects position updates for missing rooms or players", () => {
+    const store = createStore(["room-1", "host"]);
+
+    expect(store.setPlayerPosition("missing", "host", { x: 0, y: 0 })).toEqual({
+      ok: false,
+      reason: "room_not_found"
+    });
+
+    store.createRoom();
+    store.joinRoom("room-1", "Host");
+    store.startGame("room-1", "host");
+
+    expect(store.setPlayerPosition("room-1", "missing", { x: 0, y: 0 })).toEqual({
+      ok: false,
+      reason: "player_not_found"
+    });
+  });
+
   it("retries generated room ids when an id already exists", () => {
     const store = createStore(["same-id", "same-id", "room-2"]);
 
