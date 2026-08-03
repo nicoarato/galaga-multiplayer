@@ -244,3 +244,29 @@ Criterios de aceptacion:
 - [x] P2 dispara y P1 ve el proyectil.
 - [x] El cliente local no duplica su propio proyectil.
 - [x] Godot carga sin errores con `godot --headless --path game --quit`.
+
+### Siguiente Corte - Enemy Wave Placeholder
+
+Spec: [Enemy Wave Placeholder Spec](enemy-wave-placeholder-spec.md)
+
+- [ ] Crear `Enemy.tscn`.
+- [ ] Crear `enemy.gd`.
+- [ ] Crear visual de OVNI arcade.
+- [ ] Agregar `EnemiesLayer` en `GameScreen`.
+- [ ] Exportar `enemy_scene`.
+- [ ] Spawnear 12 enemigos.
+- [ ] Usar layout deterministico.
+- [ ] Mover oleada lateralmente.
+- [ ] Rebotar dentro del area visible.
+- [ ] Evitar duplicar oleada con updates de sala.
+- [ ] No modificar backend.
+- [ ] No agregar colisiones.
+
+Criterios de aceptacion:
+
+- [ ] Ambos clientes ven la oleada.
+- [ ] La oleada aparece en la parte superior.
+- [ ] La oleada se mueve lateralmente.
+- [ ] La oleada rebota dentro del area visible.
+- [ ] Los disparos siguen funcionando.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
