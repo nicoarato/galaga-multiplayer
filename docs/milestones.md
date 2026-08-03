@@ -362,6 +362,31 @@ Spec: [Player Health UI and Regen Spec](player-health-ui-and-regen-spec.md)
 - [ ] Definir si recibir daño tambien corta regeneracion.
 - [ ] Mantener backend como autoridad final para vida y daño en multiplayer.
 
+### Siguiente Corte - Player Damage and Server Health
+
+Spec: [Player Damage and Server Health Spec](player-damage-and-server-health-spec.md)
+
+- [ ] Agregar mensaje `enemy_hit_player`.
+- [ ] Validar daño y jugador objetivo en el backend.
+- [ ] Mantener vida y estado derrotado en `RoomStore`.
+- [ ] Agregar mensaje `player_health`.
+- [ ] Replicar cambios de vida a todos los clientes.
+- [ ] Generar proyectiles enemigos periódicos.
+- [ ] Detectar impactos contra naves de jugadores.
+- [ ] Aplicar daño recibido en el backend.
+- [ ] Mover regeneración y sus reglas al backend.
+- [ ] Actualizar HUD con el estado autoritativo.
+- [ ] Bloquear disparos de jugadores derrotados.
+- [ ] Mantener lint, typecheck y 100% de coverage backend.
+
+Criterios de aceptación:
+
+- [ ] Un impacto enemigo reduce la vida en ambas pantallas.
+- [ ] La regeneración respeta el retraso de 4 segundos.
+- [ ] La vida nunca sale del rango `0..maxHealth`.
+- [ ] Un jugador derrotado no puede disparar.
+- [ ] Godot carga sin errores con `godot --headless --path game --quit`.
+
 ### Corte Completado - Projectile Damage and Enemy Health
 
 Spec: [Projectile Damage and Enemy Health Spec](projectile-damage-and-enemy-health-spec.md)
