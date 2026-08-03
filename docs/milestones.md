@@ -405,6 +405,24 @@ Criterios de aceptación:
 - [x] Los impactos siguen funcionando.
 - [x] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
 
+### Siguiente Corte - Ship Projectile Stats
+
+Spec: [Ship Projectile Stats Spec](ship-projectile-stats-spec.md)
+
+- [ ] Agregar `projectile_range` a cada clase de nave.
+- [ ] Mostrar `PWR` en el HUD.
+- [ ] Agregar `range` a `player_shot`.
+- [ ] Validar y retransmitir `range` en backend.
+- [ ] Aplicar rango local y remoto a proyectiles de jugador.
+- [ ] Mantener alcance de proyectiles enemigos.
+- [ ] Mantener lint, typecheck y 100% de coverage backend.
+
+Criterios de aceptación:
+
+- [ ] Cada modelo de nave tiene power y alcance distintos.
+- [ ] Ambos clientes ven el mismo alcance por disparo.
+- [ ] Godot carga sin errores con `godot --headless --path game --rendering-method gl_compatibility --quit`.
+
 ### Corte Completado - Projectile Damage and Enemy Health
 
 Spec: [Projectile Damage and Enemy Health Spec](projectile-damage-and-enemy-health-spec.md)
